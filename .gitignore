@@ -75,3 +75,4 @@ crashlytics-build.properties
 # shiloh's gitignore
 .vscode/
 *.slnx
+mono_crash.*
