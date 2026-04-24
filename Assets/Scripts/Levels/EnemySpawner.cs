@@ -7,7 +7,6 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Linq;
 
-
 public class EnemySpawner : MonoBehaviour
 {
     public Image level_selector;
@@ -70,11 +69,18 @@ public class EnemySpawner : MonoBehaviour
         Vector3 initial_position = spawn_point.transform.position + new Vector3(offset.x, offset.y, 0);
         GameObject new_enemy = Instantiate(enemy, initial_position, Quaternion.identity);
 
-        new_enemy.GetComponent<SpriteRenderer>().sprite = GameManager.Instance.enemySpriteManager.Get(0);
-        EnemyController en = new_enemy.GetComponent<EnemyController>();
-        en.hp = new Hittable(50, Hittable.Team.MONSTERS, new_enemy);
-        en.speed = 10;
+        new_enemy.GetComponent<SpriteRenderer>().sprite = GameManager.Instance.enemySpriteManager.Get(0); // Takes the new_enemy and sets the sprite to the correct sprite
+        EnemyController en = new_enemy.GetComponent<EnemyController>(); // puts the enemy contoller on "en" the enemy
+        en.hp = new Hittable(50, Hittable.Team.MONSTERS, new_enemy); // sets the health of the enemy
+        en.speed = 10; // sets the speed
         GameManager.Instance.AddEnemy(new_enemy);
         yield return new WaitForSeconds(0.5f);
     }
+
+    IEnumerator SpawnEnemy()
+    {
+        
+    }
+    
+    
 }
