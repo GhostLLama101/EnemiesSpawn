@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 
-    [Serializable]
-    public class Enemy
+[Serializable]
+public class Enemy
     {
         public string name;
         public int sprite;

@@ -6,13 +6,16 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Collections;
 using System.Linq;
+using Unity.Collections;
 
 public class EnemySpawner : MonoBehaviour
 {
     public Image level_selector;
     public GameObject button;
     public GameObject enemy;
-    public SpawnPoint[] SpawnPoints;    
+    public SpawnPoint[] SpawnPoints; 
+    Dictionary<string, Enemy> enemy_types = new Dictionary<string, Enemy>(); 
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,6 +24,7 @@ public class EnemySpawner : MonoBehaviour
         selector.transform.localPosition = new Vector3(0, 130);
         selector.GetComponent<MenuSelectorController>().spawner = this;
         selector.GetComponent<MenuSelectorController>().SetLevel("Start");
+        
     }
 
     // Update is called once per frame
@@ -34,6 +38,7 @@ public class EnemySpawner : MonoBehaviour
         level_selector.gameObject.SetActive(false);
         // this is not nice: we should not have to be required to tell the player directly that the level is starting
         GameManager.Instance.player.GetComponent<PlayerController>().StartLevel();
+        LoadEnemyType();
         StartCoroutine(SpawnWave());
     }
 
@@ -45,7 +50,7 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnWave()
     {
-        GameManager.Instance.state = GameManager.GameState.COUNTDOWN;
+        GameManager.Instance.state = GameManager.GameState.COUNTDOWN; // This is for countdown till the next wave
         GameManager.Instance.countdown = 3;
         for (int i = 3; i > 0; i--)
         {
@@ -53,7 +58,9 @@ public class EnemySpawner : MonoBehaviour
             GameManager.Instance.countdown--;
         }
         GameManager.Instance.state = GameManager.GameState.INWAVE;
-        for (int i = 0; i < 10; ++i)
+                                        // make all the enemies in memory and put in dictionary
+                                        // this is where you check the diction and get   
+        for (int i = 0; i < 10; ++i)    // this spawns the 
         {
             yield return SpawnZombie();
         }
@@ -79,8 +86,34 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnEnemy()
     {
+        // get the spawn point
+        SpawnPoint spawn_point = SpawnPoints[Random.Range(0, SpawnPoints.Length)];
+        Vector2 offset = Random.insideUnitCircle * 1.8f;
+                
+        Vector3 initial_position = spawn_point.transform.position + new Vector3(offset.x, offset.y, 0);
+        GameObject new_enemy = Instantiate(enemy, initial_position, Quaternion.identity);
         
+        
+        // get the name of the enemy to are makeing
+        
+        // assign the sprite of the name
+        // assign the contoller to the name
+        // assign the health of the name
+        
+        // assign the speed of the name
+        yield return new WaitForSeconds(1); // this probably where the delay is going to go;
     }
-    
+
+    public void LoadEnemyType()
+    {
+        
+        var enemytext = Resources.Load<TextAsset>("enemies");   // this loads the enemies files
+        JToken jo = JToken.Parse(enemytext.text);
+        foreach (var enemy in jo)
+        {
+            Enemy en = enemy.ToObject<Enemy>();
+            enemy_types[en.name] = en;
+        }
+    }
     
 }
