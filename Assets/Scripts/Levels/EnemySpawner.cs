@@ -66,11 +66,26 @@ public class EnemySpawner : MonoBehaviour
         foreach (string name in enemy_types.Keys)    // this spawns the 
         {
             yield return SpawnEnemy(name);
+            
         }
         yield return new WaitWhile(() => GameManager.Instance.enemy_count > 0);
         GameManager.Instance.state = GameManager.GameState.WAVEEND;
     }
-    
+    /*IEnumerator SpawnZombie()
+    {
+        SpawnPoint spawn_point = SpawnPoints[Random.Range(0, SpawnPoints.Length)];
+        Vector2 offset = Random.insideUnitCircle * 1.8f;
+                
+        Vector3 initial_position = spawn_point.transform.position + new Vector3(offset.x, offset.y, 0);
+        GameObject new_enemy = Instantiate(enemy, initial_position, Quaternion.identity);
+
+        new_enemy.GetComponent<SpriteRenderer>().sprite = GameManager.Instance.enemySpriteManager.Get(0);
+        EnemyController en = new_enemy.GetComponent<EnemyController>();
+        en.hp = new Hittable(50, Hittable.Team.MONSTERS, new_enemy);
+        en.speed = 10;
+        GameManager.Instance.AddEnemy(new_enemy);
+        yield return new WaitForSeconds(0.5f);
+    }*/
 
     IEnumerator SpawnEnemy(string Enemy_name) // going to need to add the other perameters like 
     {
@@ -89,9 +104,13 @@ public class EnemySpawner : MonoBehaviour
         // assign the contoller to the name
         EnemyController en = new_enemy.GetComponent<EnemyController>();
         // assign the health of the name
-        en.hp = new Hittable(data.health, Hittable.Team.MONSTERS, new_enemy);
+        en.hp = new Hittable(data.hp, Hittable.Team.MONSTERS, new_enemy);
         // assign the speed of the name
         en.speed = data.speed;
+        
+        
+        en.damage = data.damage;
+        
         // creat the enemy in the game
         GameManager.Instance.AddEnemy(new_enemy);
         yield return new WaitForSeconds(0.5f); // this probably where the delay is going to go;
@@ -107,6 +126,12 @@ public class EnemySpawner : MonoBehaviour
         {
             Enemy en = enemy.ToObject<Enemy>();
             enemy_types[en.name] = en;
+        }
+        
+        // Debug print
+        foreach (var kvp in enemy_types)
+        {
+            Debug.Log($"Enemy: {kvp.Key} | Health: {kvp.Value.hp} | Speed: {kvp.Value.speed} | Sprite: {kvp.Value.sprite} | Damage: {kvp.Value.damage}");
         }
     }
     
