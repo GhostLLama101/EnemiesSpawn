@@ -24,6 +24,7 @@ public class EnemySpawner : MonoBehaviour
         selector.transform.localPosition = new Vector3(0, 130);
         selector.GetComponent<MenuSelectorController>().spawner = this;
         selector.GetComponent<MenuSelectorController>().SetLevel("Start");
+        LoadEnemyType();
         
     }
 
@@ -38,7 +39,9 @@ public class EnemySpawner : MonoBehaviour
         level_selector.gameObject.SetActive(false);
         // this is not nice: we should not have to be required to tell the player directly that the level is starting
         GameManager.Instance.player.GetComponent<PlayerController>().StartLevel();
-        LoadEnemyType();
+        
+        LoadEnemyType(); // load the different types of enemies in the game
+        
         StartCoroutine(SpawnWave());
     }
 
@@ -60,31 +63,16 @@ public class EnemySpawner : MonoBehaviour
         GameManager.Instance.state = GameManager.GameState.INWAVE;
                                         // make all the enemies in memory and put in dictionary
                                         // this is where you check the diction and get   
-        for (int i = 0; i < 10; ++i)    // this spawns the 
+        foreach (string name in enemy_types.Keys)    // this spawns the 
         {
-            yield return SpawnZombie();
+            yield return SpawnEnemy(name);
         }
         yield return new WaitWhile(() => GameManager.Instance.enemy_count > 0);
         GameManager.Instance.state = GameManager.GameState.WAVEEND;
     }
+    
 
-    IEnumerator SpawnZombie()
-    {
-        SpawnPoint spawn_point = SpawnPoints[Random.Range(0, SpawnPoints.Length)];
-        Vector2 offset = Random.insideUnitCircle * 1.8f;
-                
-        Vector3 initial_position = spawn_point.transform.position + new Vector3(offset.x, offset.y, 0);
-        GameObject new_enemy = Instantiate(enemy, initial_position, Quaternion.identity);
-
-        new_enemy.GetComponent<SpriteRenderer>().sprite = GameManager.Instance.enemySpriteManager.Get(0); // Takes the new_enemy and sets the sprite to the correct sprite
-        EnemyController en = new_enemy.GetComponent<EnemyController>(); // puts the enemy contoller on "en" the enemy
-        en.hp = new Hittable(50, Hittable.Team.MONSTERS, new_enemy); // sets the health of the enemy
-        en.speed = 10; // sets the speed
-        GameManager.Instance.AddEnemy(new_enemy);
-        yield return new WaitForSeconds(0.5f);
-    }
-
-    IEnumerator SpawnEnemy()
+    IEnumerator SpawnEnemy(string Enemy_name) // going to need to add the other perameters like 
     {
         // get the spawn point
         SpawnPoint spawn_point = SpawnPoints[Random.Range(0, SpawnPoints.Length)];
@@ -95,15 +83,21 @@ public class EnemySpawner : MonoBehaviour
         
         
         // get the name of the enemy to are makeing
-        
+        Enemy data = enemy_types[Enemy_name];
         // assign the sprite of the name
+        new_enemy.GetComponent<SpriteRenderer>().sprite = GameManager.Instance.enemySpriteManager.Get(data.sprite);
         // assign the contoller to the name
+        EnemyController en = new_enemy.GetComponent<EnemyController>();
         // assign the health of the name
-        
+        en.hp = new Hittable(data.health, Hittable.Team.MONSTERS, new_enemy);
         // assign the speed of the name
-        yield return new WaitForSeconds(1); // this probably where the delay is going to go;
+        en.speed = data.speed;
+        // creat the enemy in the game
+        GameManager.Instance.AddEnemy(new_enemy);
+        yield return new WaitForSeconds(0.5f); // this probably where the delay is going to go;
     }
-
+    
+    
     public void LoadEnemyType()
     {
         
