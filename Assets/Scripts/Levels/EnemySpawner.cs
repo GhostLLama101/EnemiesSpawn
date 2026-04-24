@@ -79,7 +79,7 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnEnemy()
     {
-        
+        yield return new WaitForSeconds(1);
     }
     
     
