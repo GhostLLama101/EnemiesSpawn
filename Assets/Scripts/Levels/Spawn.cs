@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 [Serializable]
-class Spawn
+public class Spawn
 {
     public string enemy;
     public string count;
