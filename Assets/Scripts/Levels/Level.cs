@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 
 [Serializable]
-public class Levels
+public class Level
 {
-    public string names;
+    public string name;
     public int waves;
-    public List<string> spawns;
+    public List<Spawn> spawns;
 }
