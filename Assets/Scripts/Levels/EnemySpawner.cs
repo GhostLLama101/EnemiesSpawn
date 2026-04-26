@@ -73,21 +73,6 @@ public class EnemySpawner : MonoBehaviour
         yield return new WaitWhile(() => GameManager.Instance.enemy_count > 0);
         GameManager.Instance.state = GameManager.GameState.WAVEEND;
     }
-    /*IEnumerator SpawnZombie()
-    {
-        SpawnPoint spawn_point = SpawnPoints[Random.Range(0, SpawnPoints.Length)];
-        Vector2 offset = Random.insideUnitCircle * 1.8f;
-                
-        Vector3 initial_position = spawn_point.transform.position + new Vector3(offset.x, offset.y, 0);
-        GameObject new_enemy = Instantiate(enemy, initial_position, Quaternion.identity);
-
-        new_enemy.GetComponent<SpriteRenderer>().sprite = GameManager.Instance.enemySpriteManager.Get(0);
-        EnemyController en = new_enemy.GetComponent<EnemyController>();
-        en.hp = new Hittable(50, Hittable.Team.MONSTERS, new_enemy);
-        en.speed = 10;
-        GameManager.Instance.AddEnemy(new_enemy);
-        yield return new WaitForSeconds(0.5f);
-    }*/
 
     IEnumerator SpawnEnemy(string Enemy_name) // going to need to add the other perameters like 
     {
@@ -145,6 +130,11 @@ public class EnemySpawner : MonoBehaviour
         {
             Level level = levelIterator.ToObject<Level>();
             level_types[level.name] = level;
+        }
+        
+        foreach (var kvp in level_types)
+        {
+            Debug.Log($"name: {kvp.Value.name} | waves: {kvp.Value.waves} | spawns: {kvp.Value.spawns}");
         }
     }
 }
