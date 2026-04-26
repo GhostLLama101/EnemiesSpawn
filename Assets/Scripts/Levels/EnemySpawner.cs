@@ -7,6 +7,8 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Linq;
 using Unity.Collections;
+using System.Runtime.CompilerServices;
+using System.Diagnostics;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -22,12 +24,19 @@ public class EnemySpawner : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        GameObject selector = Instantiate(button, level_selector.transform);
-        selector.transform.localPosition = new Vector3(0, 130);
-        selector.GetComponent<MenuSelectorController>().spawner = this;
-        selector.GetComponent<MenuSelectorController>().SetLevel("Start");
         LoadEnemyType();
-        LoadLevelType();
+        LoadLevelType(); // load enemy type used to also be in StartLevel()
+        // loop through levels and add a button for each difficulty
+        int buttonUIOffset = 0;
+        foreach (var kvp in level_types)
+        {
+            GameObject selector = Instantiate(button, level_selector.transform);
+            selector.transform.localPosition = new Vector3(0, 030 + buttonUIOffset);
+            selector.GetComponent<MenuSelectorController>().spawner = this;
+            selector.GetComponent<MenuSelectorController>().SetLevel(kvp.Key);
+            buttonUIOffset -= 50;
+        }
+        // the class MenuSelecterController.cs calls StartLevel with the selected levelname button
         
     }
 
@@ -44,9 +53,7 @@ public class EnemySpawner : MonoBehaviour
         // this is not nice: we should not have to be required to tell the player directly that the level is starting
         GameManager.Instance.player.GetComponent<PlayerController>().StartLevel();
         
-        LoadEnemyType(); // load the different types of enemies in the game
-        
-        StartCoroutine(SpawnWave());
+        StartCoroutine(SpawnWave()); // I feel like we should pass the levelname to SpawnWave()
     }
 
     public void NextWave()
