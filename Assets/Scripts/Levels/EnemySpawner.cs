@@ -78,7 +78,6 @@ public class EnemySpawner : MonoBehaviour
         yield return new WaitWhile(() => GameManager.Instance.enemy_count > 0);
         GameManager.Instance.state = GameManager.GameState.WAVEEND;
     }
-    
 
     IEnumerator SpawnEnemy(Spawn Enemy_name) // going to need to add the other perameters like 
     {
@@ -136,6 +135,11 @@ public class EnemySpawner : MonoBehaviour
         {
             Level level = levelIterator.ToObject<Level>();
             level_types[level.name] = level;
+        }
+        
+        foreach (var kvp in level_types)
+        {
+            Debug.Log($"name: {kvp.Value.name} | waves: {kvp.Value.waves} | spawns: {kvp.Value.spawns}");
         }
     }
 }
