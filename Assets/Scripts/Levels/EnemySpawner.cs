@@ -18,6 +18,7 @@ public class EnemySpawner : MonoBehaviour
     public SpawnPoint[] SpawnPoints; 
     Dictionary<string, Enemy> enemy_types = new Dictionary<string, Enemy>(); 
     Dictionary<string, Level> level_types = new Dictionary<string, Level>(); 
+    public string currentLevelname;
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -47,6 +48,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void StartLevel(string levelname)
     {
+        currentLevelname = levelname;
         level_selector.gameObject.SetActive(false);
         // this is not nice: we should not have to be required to tell the player directly that the level is starting
         GameManager.Instance.player.GetComponent<PlayerController>().StartLevel();
@@ -71,32 +73,20 @@ public class EnemySpawner : MonoBehaviour
         }
         GameManager.Instance.state = GameManager.GameState.INWAVE;
                                         // make all the enemies in memory and put in dictionary
-                                        // this is where you check the diction and get   
-        foreach (string name in enemy_types.Keys)    // this spawns the 
+                                        // this is where you check the diction and get  
+                                        
+        Level currentLevel = level_types["Easy"];
+        
+        foreach (Spawn spawn in currentLevel.spawns)    // this spawns the 
         {
-            yield return SpawnEnemy(name);
+            yield return SpawnEnemy(spawn);
             
         }
         yield return new WaitWhile(() => GameManager.Instance.enemy_count > 0);
         GameManager.Instance.state = GameManager.GameState.WAVEEND;
     }
-    /*IEnumerator SpawnZombie()
-    {
-        SpawnPoint spawn_point = SpawnPoints[Random.Range(0, SpawnPoints.Length)];
-        Vector2 offset = Random.insideUnitCircle * 1.8f;
-                
-        Vector3 initial_position = spawn_point.transform.position + new Vector3(offset.x, offset.y, 0);
-        GameObject new_enemy = Instantiate(enemy, initial_position, Quaternion.identity);
 
-        new_enemy.GetComponent<SpriteRenderer>().sprite = GameManager.Instance.enemySpriteManager.Get(0);
-        EnemyController en = new_enemy.GetComponent<EnemyController>();
-        en.hp = new Hittable(50, Hittable.Team.MONSTERS, new_enemy);
-        en.speed = 10;
-        GameManager.Instance.AddEnemy(new_enemy);
-        yield return new WaitForSeconds(0.5f);
-    }*/
-
-    IEnumerator SpawnEnemy(string Enemy_name) // going to need to add the other perameters like 
+    IEnumerator SpawnEnemy(Spawn Enemy_name) // going to need to add the other perameters like 
     {
         // get the spawn point
         SpawnPoint spawn_point = SpawnPoints[Random.Range(0, SpawnPoints.Length)];
@@ -107,7 +97,7 @@ public class EnemySpawner : MonoBehaviour
         
         
         // get the name of the enemy to are makeing
-        Enemy data = enemy_types[Enemy_name];
+        Enemy data = enemy_types[Enemy_name.enemy];
         // assign the sprite of the name
         new_enemy.GetComponent<SpriteRenderer>().sprite = GameManager.Instance.enemySpriteManager.Get(data.sprite);
         // assign the contoller to the name
@@ -122,7 +112,7 @@ public class EnemySpawner : MonoBehaviour
         
         // creat the enemy in the game
         GameManager.Instance.AddEnemy(new_enemy);
-        yield return new WaitForSeconds(0.5f); // this probably where the delay is going to go;
+        yield return new WaitForSeconds(Enemy_name.delay); // this probably where the delay is going to go;
     }
     
     
@@ -152,6 +142,11 @@ public class EnemySpawner : MonoBehaviour
         {
             Level level = levelIterator.ToObject<Level>();
             level_types[level.name] = level;
+        }
+        
+        foreach (var kvp in level_types)
+        {
+            Debug.Log($"name: {kvp.Value.name} | waves: {kvp.Value.waves} | spawns: {kvp.Value.spawns}");
         }
     }
 }
