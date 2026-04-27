@@ -4,17 +4,17 @@
        "waves": 10,
        "spawns": [
             {
-                "enemy": "zombie",
+                "enemy": "zombie", 
                 "count": "5 wave +",
                 "hp": "base 5 wave * +",
-                "delay": "5",
+                "delay": "1",
                 "sequence": [1,2,3],
                 "location": "random"
             },
             {
                 "enemy": "skeleton",
                 "count": "wave 3 /",
-                "hp": "30 wave *",
+                "hp": "200 wave *",
                 "sequence": [2, 2],
                 "location": "random red"
             },

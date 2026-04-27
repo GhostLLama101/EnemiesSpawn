@@ -8,6 +8,7 @@ public class Spawn
     public string count;
     public string hp;
     public int delay;
-    public List<int> intsequence;
+    public string damage; // added this because some of the enemies have damage attribute
+    public List<int> intSequence;
     public string location;
 }

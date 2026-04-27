@@ -52,4 +52,13 @@ public class EnemyController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void SetParameters(SetPerameters parameters)
+    {
+        
+        hp     = new Hittable(parameters.hp, Hittable.Team.MONSTERS, gameObject);
+        damage = parameters.damage;
+        speed  = parameters.speed;
+
+    }
 }
