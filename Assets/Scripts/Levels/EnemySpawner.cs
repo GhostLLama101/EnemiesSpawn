@@ -23,6 +23,7 @@ public class EnemySpawner : MonoBehaviour
     Dictionary<string, Level> level_types = new Dictionary<string, Level>(); 
     public string currentLevelname;
     private int wave_count;
+    public int delay = 2;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -105,7 +106,7 @@ public class EnemySpawner : MonoBehaviour
         GameManager.Instance.state = GameManager.GameState.WAVEEND;
     }
 
-    IEnumerator SpawnEnemy(SetPerameters parameters) // going to need to add the other perimeters like 
+    IEnumerator SpawnEnemy(SetPerameters parameters)                                // going to need to add the other perimeters like 
     {
         // get the spawn point
         SpawnPoint spawn_point = SpawnPoints[Random.Range(0, SpawnPoints.Length)];
@@ -120,8 +121,7 @@ public class EnemySpawner : MonoBehaviour
         new_enemy.GetComponent<EnemyController>().SetParameters(parameters);         // assign the contoller to the name and parameters
                                                 // function in enemycontroller
         GameManager.Instance.AddEnemy(new_enemy);                                    // creat the enemy in the game
-        yield return new WaitForSeconds(parameters.delay);                           // this probably where the delay is going to go;
-        
+        yield return new WaitForSeconds(parameters.delay == 0 ? 2 : parameters.delay);// this probably where the delay is going to go
     }
     
     
