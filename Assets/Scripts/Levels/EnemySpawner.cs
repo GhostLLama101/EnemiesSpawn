@@ -8,7 +8,10 @@ using System.Collections;
 using System.Linq;
 using Unity.Collections;
 using System.Runtime.CompilerServices;
-using System.Diagnostics;
+using UnityEngine.VFX;
+using static RPNEvaluator.RPNEvaluator;
+
+
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -19,13 +22,13 @@ public class EnemySpawner : MonoBehaviour
     Dictionary<string, Enemy> enemy_types = new Dictionary<string, Enemy>(); 
     Dictionary<string, Level> level_types = new Dictionary<string, Level>(); 
     public string currentLevelname;
-    
+    private int wave_count;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         LoadEnemyType();
-        LoadLevelType(); // load enemy type used to also be in StartLevel()
+        LoadLevelType(); 
         // loop through levels and add a button for each difficulty
         int buttonUIOffset = 0;
         foreach (var kvp in level_types)
@@ -36,8 +39,6 @@ public class EnemySpawner : MonoBehaviour
             selector.GetComponent<MenuSelectorController>().SetLevel(kvp.Key);
             buttonUIOffset -= 50;
         }
-        // the class MenuSelecterController.cs calls StartLevel with the selected levelname button
-        
     }
 
     // Update is called once per frame
@@ -48,20 +49,22 @@ public class EnemySpawner : MonoBehaviour
 
     public void StartLevel(string levelname)
     {
+        wave_count = 1;
         currentLevelname = levelname;
+        //TODO do we need this Shiloh
         level_selector.gameObject.SetActive(false);
         // this is not nice: we should not have to be required to tell the player directly that the level is starting
         GameManager.Instance.player.GetComponent<PlayerController>().StartLevel();
-        
+        Debug.Log($"Starting level: {currentLevelname}");
         StartCoroutine(SpawnWave()); // I feel like we should pass the levelname to SpawnWave()
     }
 
     public void NextWave()
     {
+        wave_count++;
         StartCoroutine(SpawnWave());
     }
-
-
+    
     IEnumerator SpawnWave()
     {
         GameManager.Instance.state = GameManager.GameState.COUNTDOWN; // This is for countdown till the next wave
@@ -72,21 +75,37 @@ public class EnemySpawner : MonoBehaviour
             GameManager.Instance.countdown--;
         }
         GameManager.Instance.state = GameManager.GameState.INWAVE;
-                                        // make all the enemies in memory and put in dictionary
-                                        // this is where you check the diction and get  
-                                        
-        Level currentLevel = level_types["Easy"];
         
-        foreach (Spawn spawn in currentLevel.spawns)    // this spawns the 
+        Level currentLevel = level_types[currentLevelname];         // sets the current level type
+        for (int i = 0; i < currentLevel.spawns.Count; i++)                // this spawns the stuff 
         {
-            yield return SpawnEnemy(spawn);
             
+            Spawn spawn = currentLevel.spawns[i];
+            Enemy enemy_data = enemy_types[spawn.enemy];
+            
+            SetPerameters parameters =  new SetPerameters // saves the parameters to the builder class to get later.
+            {
+                type = spawn.enemy,
+                hp = Evaluate(spawn.hp, new Dictionary<string, int> {{ "base", enemy_data.hp }, { "wave", wave_count }}),
+                damage = Evaluate(spawn.damage ?? "base" , new Dictionary<string, int> {{ "base", enemy_data.damage }, { "wave", wave_count }}),
+                speed = Evaluate(enemy_data.speed.ToString(), new Dictionary<string, int>{{ "base", enemy_data.speed }, { "wave", wave_count }}),
+                delay = currentLevel.spawns[i].delay,
+                //location = currentLevel.spawns[i].location,
+                
+            };
+            int count = Evaluate(spawn.count, new Dictionary<string, int> { { "wave", wave_count } });
+            if (count <= 0) count = 1;
+            for (int index = 0; index < count; index++)
+            {
+                Debug.unityLogger.Log(spawn.enemy);
+                yield return SpawnEnemy(parameters);
+            }
         }
         yield return new WaitWhile(() => GameManager.Instance.enemy_count > 0);
         GameManager.Instance.state = GameManager.GameState.WAVEEND;
     }
 
-    IEnumerator SpawnEnemy(Spawn Enemy_name) // going to need to add the other perameters like 
+    IEnumerator SpawnEnemy(SetPerameters parameters) // going to need to add the other perimeters like 
     {
         // get the spawn point
         SpawnPoint spawn_point = SpawnPoints[Random.Range(0, SpawnPoints.Length)];
@@ -95,24 +114,14 @@ public class EnemySpawner : MonoBehaviour
         Vector3 initial_position = spawn_point.transform.position + new Vector3(offset.x, offset.y, 0);
         GameObject new_enemy = Instantiate(enemy, initial_position, Quaternion.identity);
         
+        Enemy data = enemy_types[parameters.type];                                   // get the name of the enemy to are makeing
+        new_enemy.GetComponent<SpriteRenderer>().sprite = GameManager.Instance
+                                     .enemySpriteManager.Get(data.sprite);           // assign the sprite of the name
+        new_enemy.GetComponent<EnemyController>().SetParameters(parameters);         // assign the contoller to the name and parameters
+                                                // function in enemycontroller
+        GameManager.Instance.AddEnemy(new_enemy);                                    // creat the enemy in the game
+        yield return new WaitForSeconds(parameters.delay);                           // this probably where the delay is going to go;
         
-        // get the name of the enemy to are makeing
-        Enemy data = enemy_types[Enemy_name.enemy];
-        // assign the sprite of the name
-        new_enemy.GetComponent<SpriteRenderer>().sprite = GameManager.Instance.enemySpriteManager.Get(data.sprite);
-        // assign the contoller to the name
-        EnemyController en = new_enemy.GetComponent<EnemyController>();
-        // assign the health of the name
-        en.hp = new Hittable(data.hp, Hittable.Team.MONSTERS, new_enemy);
-        // assign the speed of the name
-        en.speed = data.speed;
-        
-        
-        en.damage = data.damage;
-        
-        // creat the enemy in the game
-        GameManager.Instance.AddEnemy(new_enemy);
-        yield return new WaitForSeconds(Enemy_name.delay); // this probably where the delay is going to go;
     }
     
     
@@ -130,7 +139,9 @@ public class EnemySpawner : MonoBehaviour
         // Debug print
         foreach (var kvp in enemy_types)
         {
-            Debug.Log($"Enemy: {kvp.Key} | Health: {kvp.Value.hp} | Speed: {kvp.Value.speed} | Sprite: {kvp.Value.sprite} | Damage: {kvp.Value.damage}");
+            //Debug.Log($"Enemy: {kvp.Key} | Health: {kvp.Value.hp} | Speed: {kvp.Value.speed} | Sprite: {kvp.Value.sprite} | Damage: {kvp.Value.damage}");
+            //variables.Add("base", kvp.Value.hp);
+            
         }
     }
 
@@ -146,7 +157,9 @@ public class EnemySpawner : MonoBehaviour
         
         foreach (var kvp in level_types)
         {
-            Debug.Log($"name: {kvp.Value.name} | waves: {kvp.Value.waves} | spawns: {kvp.Value.spawns}");
+            Level level = kvp.Value;
+            Debug.Log($"=== LEVEL: {level.name} | Waves: {level.waves} | Total Spawns: {level.spawns.Count} ===");
+            
         }
     }
 }
