@@ -16,6 +16,7 @@ public class Hittable
     {
         EventBus.Instance.DoDamage(owner.transform.position, damage, this);
         hp -= damage.amount;
+        GameManager.Instance.RegisterDamage(damage.amount);
         if (hp <= 0)
         {
             hp = 0;
