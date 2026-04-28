@@ -32,7 +32,9 @@ public class GameManager
     public EnemySpriteManager enemySpriteManager;
     public PlayerSpriteManager playerSpriteManager;
     public RelicIconManager relicIconManager;
-
+    
+    public int total_damage_dealt = 0;
+    
     private List<GameObject> enemies;
     public int enemy_count { get { return enemies.Count; } }
 
@@ -51,9 +53,17 @@ public class GameManager
         if (enemies.Count == 1) return enemies[0];
         return enemies.Aggregate((a,b) => (a.transform.position - point).sqrMagnitude < (b.transform.position - point).sqrMagnitude ? a : b);
     }
+    
+    
+
+    public void RegisterDamage(int amount)
+    {
+        total_damage_dealt += amount;
+    }
 
     private GameManager()
     {
         enemies = new List<GameObject>();
     }
+    
 }
