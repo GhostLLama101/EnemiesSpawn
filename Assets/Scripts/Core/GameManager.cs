@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class GameManager 
 {
@@ -45,6 +46,11 @@ public class GameManager
     public void RemoveEnemy(GameObject enemy)
     {
         enemies.Remove(enemy);
+    }
+
+    public void ResetEnemyCount()
+    {
+        enemies.Clear();
     }
 
     public GameObject GetClosestEnemy(Vector3 point)
