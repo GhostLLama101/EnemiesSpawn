@@ -10,7 +10,7 @@ using Unity.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine.VFX;
 using static RPNEvaluator.RPNEvaluator;
-
+using UnityEngine.SceneManagement;
 
 
 public class EnemySpawner : MonoBehaviour
@@ -31,6 +31,7 @@ public class EnemySpawner : MonoBehaviour
         LoadEnemyType();
         LoadLevelType(); 
         // loop through levels and add a button for each difficulty
+        
         int buttonUIOffset = 0;
         foreach (var kvp in level_types)
         {
@@ -57,6 +58,7 @@ public class EnemySpawner : MonoBehaviour
         // this is not nice: we should not have to be required to tell the player directly that the level is starting
         GameManager.Instance.player.GetComponent<PlayerController>().StartLevel();
         Debug.Log($"Starting level: {currentLevelname}");
+        
         StartCoroutine(SpawnWave()); // I feel like we should pass the levelname to SpawnWave()
     }
 
@@ -184,13 +186,6 @@ public class EnemySpawner : MonoBehaviour
             enemy_types[en.name] = en;
         }
         
-        // Debug print
-        foreach (var kvp in enemy_types)
-        {
-            //Debug.Log($"Enemy: {kvp.Key} | Health: {kvp.Value.hp} | Speed: {kvp.Value.speed} | Sprite: {kvp.Value.sprite} | Damage: {kvp.Value.damage}");
-            //variables.Add("base", kvp.Value.hp);
-            
-        }
     }
 
     public void LoadLevelType()
@@ -209,5 +204,13 @@ public class EnemySpawner : MonoBehaviour
             Debug.Log($"=== LEVEL: {level.name} | Waves: {level.waves} | Total Spawns: {level.spawns.Count} ===");
             
         }
+    }
+    
+    public void RestartLevel()
+    {
+        GameManager.Instance.state = GameManager.GameState.PREGAME;
+        StopAllCoroutines(); // stop SpawnWave from finishing
+        GameManager.Instance.ResetEnemyCount();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

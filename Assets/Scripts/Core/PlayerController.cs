@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.IO;
@@ -17,6 +18,8 @@ public class PlayerController : MonoBehaviour
     public int speed;
 
     public Unit unit;
+    
+    public bool dead = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -43,7 +46,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //if (dead) Die();
     }
 
     void OnAttack(InputValue value)
@@ -64,6 +67,7 @@ public class PlayerController : MonoBehaviour
     void Die()
     {
         Debug.Log("You Lost");
+        GameManager.Instance.state = GameManager.GameState.GAMEOVER;
     }
 
 }
