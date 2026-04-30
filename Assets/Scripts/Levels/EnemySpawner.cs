@@ -32,14 +32,17 @@ public class EnemySpawner : MonoBehaviour
         LoadLevelType(); 
         // loop through levels and add a button for each difficulty
         
-        int buttonUIOffset = 0;
+        int totalLevels = level_types.Count;
+        float spacing = 50f;
+        float startY = ((totalLevels - 1) * spacing) / 2f;
+        float currentY = startY;
         foreach (var kvp in level_types)
         {
             GameObject selector = Instantiate(button, level_selector.transform);
-            selector.transform.localPosition = new Vector3(0, 030 + buttonUIOffset);
+            selector.transform.localPosition = new Vector3(0, currentY, 0);
             selector.GetComponent<MenuSelectorController>().spawner = this;
             selector.GetComponent<MenuSelectorController>().SetLevel(kvp.Key);
-            buttonUIOffset -= 50;
+            currentY -= spacing;
         }
     }
 
