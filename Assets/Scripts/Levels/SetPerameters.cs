@@ -7,6 +7,6 @@ public class SetPerameters
     public int damage;
     public int speed;
     public int delay;
-    //public string location;
+    public string location;
     //public int count;
 }

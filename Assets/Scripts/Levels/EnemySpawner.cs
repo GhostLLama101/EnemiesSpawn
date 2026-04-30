@@ -96,17 +96,42 @@ public class EnemySpawner : MonoBehaviour
             };
             int count = Evaluate(spawn.count, new Dictionary<string, int> { { "wave", wave_count } });
             if (count <= 0) count = 1;
-            for (int index = 0; index < count; index++)
+
+            // fallback to spawning 1 at a time
+            int[] sequence = (spawn.sequence != null && spawn.sequence.Length > 0) ? spawn.sequence : new int[] { 1 };
+            
+            int sequenceIndex = 0;
+            int spawnedSoFar = 0;
+
+            while (spawnedSoFar < count)
             {
-                Debug.unityLogger.Log(spawn.enemy);
-                yield return SpawnEnemy(parameters);
+                int batchSize = sequence[sequenceIndex % sequence.Length];
+                
+                batchSize = Mathf.Min(batchSize, count - spawnedSoFar);
+
+                for (int index = 0; index < batchSize; index++)
+                {
+                    Debug.unityLogger.Log(spawn.enemy);
+                    SpawnEnemy(parameters); 
+                }
+
+                spawnedSoFar += batchSize;
+                sequenceIndex++;
+
+                // wait before triggering the next batch 
+                if (spawnedSoFar < count)
+                {
+                    float waitTime = parameters.delay == 0 ? 2f : parameters.delay;
+                    yield return new WaitForSeconds(waitTime);
+                }
             }
+
         }
         yield return new WaitWhile(() => GameManager.Instance.enemy_count > 0);
         GameManager.Instance.state = GameManager.GameState.WAVEEND;
     }
 
-    IEnumerator SpawnEnemy(SetPerameters parameters)                                // going to need to add the other perimeters like 
+    void SpawnEnemy(SetPerameters parameters)                                // going to need to add the other perimeters like 
     {
         // get the spawn point offset
         Vector2 offset = Random.insideUnitCircle * 1.8f;
@@ -145,7 +170,6 @@ public class EnemySpawner : MonoBehaviour
         new_enemy.GetComponent<EnemyController>().SetParameters(parameters);         // assign the contoller to the name and parameters
                                                         // function in enemycontroller
         GameManager.Instance.AddEnemy(new_enemy);                                    // creat the enemy in the game
-        yield return new WaitForSeconds(parameters.delay == 0 ? 2 : parameters.delay);// this probably where the delay is going to go
     }
     
     
