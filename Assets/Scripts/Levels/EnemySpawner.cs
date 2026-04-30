@@ -138,16 +138,13 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemy(SetPerameters parameters)                                // going to need to add the other perimeters like 
     {
-        // get the spawn point offset
-        Vector2 offset = Random.insideUnitCircle * 1.8f;
 
-        // get actual spawn point from parameters
         SpawnPoint spawn_point = null;
         if (!string.IsNullOrEmpty(parameters.location))
         {
-            // try to find ALL spawn points where the 'kind' enum matches the JSON string
-            SpawnPoint[] matchingSpawns = System.Array.FindAll(SpawnPoints, sp => sp.kind.ToString().ToUpper() == parameters.location.ToUpper());
-            
+            SpawnPoint[] matchingSpawns = System.Array.FindAll(SpawnPoints, sp => 
+                parameters.location.ToUpper().Contains(sp.kind.ToString().ToUpper())
+            );
             if (matchingSpawns.Length > 0)
             {
                 spawn_point = matchingSpawns[Random.Range(0, matchingSpawns.Length)];
@@ -166,7 +163,8 @@ public class EnemySpawner : MonoBehaviour
 
         Debug.Log($"Spawning {parameters.type} at {spawn_point.name} | position: {spawn_point.transform.position}");
 
-        Vector3 initial_position = spawn_point.transform.position + new Vector3(offset.x, offset.y, 0);
+        Vector3 initial_position = spawn_point.GetRandomPosition();
+
         GameObject new_enemy = Instantiate(enemy, initial_position, Quaternion.identity);
         
         Enemy data = enemy_types[parameters.type];                                   // get the name of the enemy to are makeing

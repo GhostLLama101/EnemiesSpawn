@@ -20,4 +20,11 @@ public class SpawnPoint : MonoBehaviour
     {
         
     }
+    public float spawnRadius = 1.8f; 
+
+    public Vector3 GetRandomPosition()
+    {
+        Vector2 offset = Random.insideUnitCircle * spawnRadius;
+        return transform.position + new Vector3(offset.x, offset.y, 0);
+    }
 }
