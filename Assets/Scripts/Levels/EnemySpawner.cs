@@ -91,7 +91,7 @@ public class EnemySpawner : MonoBehaviour
                 damage = Evaluate(spawn.damage ?? "base" , new Dictionary<string, int> {{ "base", enemy_data.damage }, { "wave", wave_count }}),
                 speed = Evaluate(enemy_data.speed.ToString(), new Dictionary<string, int>{{ "base", enemy_data.speed }, { "wave", wave_count }}),
                 delay = currentLevel.spawns[i].delay,
-                //location = currentLevel.spawns[i].location,
+                location = currentLevel.spawns[i].location,
                 
             };
             int count = Evaluate(spawn.count, new Dictionary<string, int> { { "wave", wave_count } });
@@ -108,10 +108,34 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnEnemy(SetPerameters parameters)                                // going to need to add the other perimeters like 
     {
-        // get the spawn point
-        SpawnPoint spawn_point = SpawnPoints[Random.Range(0, SpawnPoints.Length)];
+        // get the spawn point offset
         Vector2 offset = Random.insideUnitCircle * 1.8f;
-                
+
+        // get actual spawn point from parameters
+        SpawnPoint spawn_point = null;
+        if (!string.IsNullOrEmpty(parameters.location))
+        {
+            // try to find ALL spawn points where the 'kind' enum matches the JSON string
+            SpawnPoint[] matchingSpawns = System.Array.FindAll(SpawnPoints, sp => sp.kind.ToString().ToUpper() == parameters.location.ToUpper());
+            
+            if (matchingSpawns.Length > 0)
+            {
+                spawn_point = matchingSpawns[Random.Range(0, matchingSpawns.Length)];
+            }
+            else
+            {
+                // fallback: Check if the JSON used the exact GameObject name instead (e.g., "RedSpawnSouthWing")
+                spawn_point = System.Array.Find(SpawnPoints, sp => sp.name == parameters.location);
+            }
+        }
+        
+        if (spawn_point == null)
+        {
+            spawn_point = SpawnPoints[Random.Range(0, SpawnPoints.Length)];
+        }
+
+        Debug.Log($"Spawning {parameters.type} at {spawn_point.name} | position: {spawn_point.transform.position}");
+
         Vector3 initial_position = spawn_point.transform.position + new Vector3(offset.x, offset.y, 0);
         GameObject new_enemy = Instantiate(enemy, initial_position, Quaternion.identity);
         
@@ -119,7 +143,7 @@ public class EnemySpawner : MonoBehaviour
         new_enemy.GetComponent<SpriteRenderer>().sprite = GameManager.Instance
                                      .enemySpriteManager.Get(data.sprite);           // assign the sprite of the name
         new_enemy.GetComponent<EnemyController>().SetParameters(parameters);         // assign the contoller to the name and parameters
-                                                // function in enemycontroller
+                                                        // function in enemycontroller
         GameManager.Instance.AddEnemy(new_enemy);                                    // creat the enemy in the game
         yield return new WaitForSeconds(parameters.delay == 0 ? 2 : parameters.delay);// this probably where the delay is going to go
     }

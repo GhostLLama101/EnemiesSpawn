@@ -9,20 +9,20 @@
                 "hp": "base 5 wave * +",
                 "delay": "1",
                 "sequence": [1,2,3],
-                "location": "random"
+                "location": "RED"
             },
             {
                 "enemy": "skeleton",
                 "count": "wave 3 /",
                 "hp": "200 wave *",
                 "sequence": [2, 2],
-                "location": "random red"
+                "location": "BONE"
             },
             {
                 "enemy": "warlock",
                 "count": "wave 5 / 1 wave 5 % - *",
                 "hp": "100 25 wave * +",
-                "location": "random bone"
+                "location": "BONE"
             }
         ]
    },
