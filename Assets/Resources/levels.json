@@ -7,22 +7,30 @@
                 "enemy": "zombie", 
                 "count": "5 wave +",
                 "hp": "base 5 wave * +",
-                "delay": "1",
+                "delay": "5",
                 "sequence": [1,2,3],
-                "location": "RED"
+                "location": "random"
             },
             {
                 "enemy": "skeleton",
                 "count": "wave 3 /",
                 "hp": "200 wave *",
                 "sequence": [2, 2],
-                "location": "BONE"
+                "location": "random bone"
             },
             {
                 "enemy": "warlock",
                 "count": "wave 5 / 1 wave 5 % - *",
                 "hp": "100 25 wave * +",
-                "location": "BONE"
+                "location": "random red"
+            }, 
+            {
+                "enemy": "knight",
+                "count": "1 wave +",
+                "hp": "100 70 wave * +",
+                "delay": "10",
+                "damage": "base 50 +",
+                "location": "random bone"
             }
         ]
    },
@@ -51,6 +59,14 @@
                 "hp": "75 50 wave * +",
                 "damage": "base 10 +",
                 "location": "random bone"
+            },
+            {
+                "enemy": "knight",
+                "count": "1 wave +",
+                "hp": "100 70 wave * +",
+                "delay": "10",
+                "damage": "base 50 +",
+                "location": "random bone"
             }
         ]
    },
@@ -78,6 +94,14 @@
                 "hp": "75 15 wave * +",
                 "damage": "base 5 -",
                 "location": "random bone"
+            },
+            {
+               "enemy": "knight",
+               "count": "1 wave +",
+               "hp": "100 70 wave * +",
+               "delay": "10",
+               "damage": "base 50 +",
+               "location": "random bone"
             }
         ]
    }

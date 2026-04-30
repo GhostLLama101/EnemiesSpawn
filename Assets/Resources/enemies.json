@@ -19,6 +19,13 @@
        "hp": 30,
        "speed": 7,
        "damage": 10
+   },
+   {
+       "name": "knight",
+       "sprite": 17,
+       "hp": 200,
+       "speed": 5,
+       "damage": 40
    }
  
 ]
