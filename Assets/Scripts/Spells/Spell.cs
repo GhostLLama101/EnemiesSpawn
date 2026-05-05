@@ -50,6 +50,13 @@ public class Spell
         GameManager.Instance.projectileManager.CreateProjectile(0, "straight", where, target - where, 15f, OnHit);
         yield return new WaitForEndOfFrame();
     }
+    // need to take in stuff from the ValueModifier
+    public virtual IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team, ValueModifier mods)
+    {
+        this.team = team;
+        GameManager.Instance.projectileManager.CreateProjectile(0, "straight", where, target - where, 15f, OnHit);
+        yield return new WaitForEndOfFrame();
+    }
 
     void OnHit(Hittable other, Vector3 impact)
     {
