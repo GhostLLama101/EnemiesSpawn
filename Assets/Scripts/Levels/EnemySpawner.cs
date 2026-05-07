@@ -199,12 +199,12 @@ public class EnemySpawner : MonoBehaviour
             level_types[level.name] = level;
         }
         
-        foreach (var kvp in level_types)
+        /*foreach (var kvp in level_types)
         {
             Level level = kvp.Value;
             Debug.Log($"=== LEVEL: {level.name} | Waves: {level.waves} | Total Spawns: {level.spawns.Count} ===");
             
-        }
+        }*/
     }
     
     public void RestartLevel()
