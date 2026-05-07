@@ -9,6 +9,7 @@ public class SpellCaster
     public int mana_reg;
     public Hittable.Team team;
     public Spell spell;
+    public int power = 10;
 
     public IEnumerator ManaRegeneration()
     {
@@ -19,14 +20,14 @@ public class SpellCaster
             yield return new WaitForSeconds(1);
         }
     }
-
+    
     public SpellCaster(int mana, int mana_reg, Hittable.Team team)
     {
         this.mana = mana;
         this.max_mana = mana;
         this.mana_reg = mana_reg;
         this.team = team;
-        spell = new SpellBuilder().Build(this);
+        spell = new Spell(this, GameManager.Instance.SpellsDict["arcane_bolt"]);
     }
 
     public IEnumerator Cast(Vector3 where, Vector3 target)

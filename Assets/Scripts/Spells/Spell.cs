@@ -3,56 +3,55 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using static RPNEvaluator.RPNEvaluator;
+using Unity.Mathematics;
 
-[Serializable] 
+[System.Serializable] 
 public class Spell 
 {
-    // add the spell shit 
-    public string name;
-    public string description;
-    public int icon;
-    public string damage;
-    public string mana_cost;
-    public string cooldown;
-    
+    Dictionary<string, int> dictForRPN = new Dictionary<string, int>();
     
     public float last_cast;
     public SpellCaster owner;
     public Hittable.Team team;
-
-    public Spell(SpellCaster owner)
+    public SpellInfo spellInfo;
+    
+    public Spell(SpellCaster owner, SpellInfo spell)
     {
         this.owner = owner;
+        this.spellInfo = spell;
+        this.dictForRPN["power"] = owner.power;
     }
 
     public string GetName()
     {
-        return this.name;
+        return this.spellInfo.name;
     }
 
     public int GetManaCost()
     {
-        return 10;
+        return Evaluate(this.spellInfo.mana_cost, this.dictForRPN);
     }
 
     public int GetDamage()
     {
-        return 100;
+        return Evaluate(this.spellInfo.damage.amount, this.dictForRPN);
+    }
+
+    public Damage.Type GetDamageType()
+    {
+        return Damage.TypeFromString(this.spellInfo.damage.type);
     }
 
     public float GetCooldown()
     {
-        return 0.75f;
+        //Debug.LogError($"this is spell: {this.spellInfo}");
+        return Evaluatef(this.spellInfo.cooldown, this.dictForRPN);
     }
 
     public virtual int GetIcon()
     {
-        return icon;
-    }
-
-    public virtual string GetDescription()
-    {
-        return description;
+        return this.spellInfo.icon;
     }
 
     public bool IsReady()
@@ -73,7 +72,7 @@ public class Spell
     {
         if (other.team != team)
         {
-            other.Damage(new Damage(GetDamage(), Damage.Type.ARCANE));
+            other.Damage(new Damage(this.GetDamage(), this.GetDamageType()));
         }
 
     }

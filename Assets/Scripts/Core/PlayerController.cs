@@ -24,8 +24,6 @@ public class PlayerController : MonoBehaviour
 
     public bool scaling = false;
 
-    public int power = 10;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -41,6 +39,10 @@ public class PlayerController : MonoBehaviour
         hp = new Hittable(100, Hittable.Team.PLAYER, gameObject);
         hp.OnDeath += Die;
         hp.team = Hittable.Team.PLAYER;
+
+        //if ()
+        //SpellInfo mySpell = GameManager.Instance.SpellsDict["arcane_bolt"];
+        //Debug.Log($"Damage: {mySpell.damage.amount}");
 
         // tell UI elements what to show
         healthui.SetHealth(hp);
@@ -95,7 +97,7 @@ public class PlayerController : MonoBehaviour
         float ratio = (float)cur_hp/max_hp;
 
         Dictionary<string, int> dictForRPN = new Dictionary<string, int>();
-        dictForRPN["wave"] = currentWave;
+        dictForRPN["wave"] = GameManager.Instance.wave_count;
         //hp
         hp.max_hp = Evaluate("95 wave 5 * +", dictForRPN);
         hp.hp = (int)(hp.max_hp*ratio);
@@ -103,7 +105,7 @@ public class PlayerController : MonoBehaviour
         spellcaster.max_mana = Evaluate("90 wave 10 * +", dictForRPN);
         spellcaster.mana_reg = Evaluate("10 wave +", dictForRPN);
         //player power
-        power = Evaluate("wave 10 *", dictForRPN);
+        spellcaster.power = Evaluate("wave 10 *", dictForRPN);
     }
 
 }
