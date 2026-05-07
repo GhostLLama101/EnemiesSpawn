@@ -9,6 +9,7 @@ public class SpellCaster
     public int mana_reg;
     public Hittable.Team team;
     public Spell spell;
+    public int power = 10;
 
     public IEnumerator ManaRegeneration()
     {

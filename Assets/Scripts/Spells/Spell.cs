@@ -11,7 +11,7 @@ public class Spell
     public string name;
     public string description;
     public int icon;
-    public Damage damage;
+    public SpellDamage damage;
     public string mana_cost;
     public string cooldown;
 
@@ -74,7 +74,11 @@ public class Spell
     {
         if (other.team != team)
         {
-            other.Damage(new Damage(100, damage.TypeFromString("physical")));//make a wrapper for damage here
+            Dictionary<string, int> dictForRPN = new Dictionary<string, int>();
+            dictForRPN["power"] = owner.power;
+            int a = Evaluate(damage.amount, dictForRPN);
+            Type t = Damage.TypeFromString(damage.type);
+            other.Damage(new Damage(a, t));
         }
 
     }

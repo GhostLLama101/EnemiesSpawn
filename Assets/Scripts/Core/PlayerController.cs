@@ -24,8 +24,6 @@ public class PlayerController : MonoBehaviour
 
     public bool scaling = false;
 
-    public int power = 10;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -103,7 +101,7 @@ public class PlayerController : MonoBehaviour
         spellcaster.max_mana = Evaluate("90 wave 10 * +", dictForRPN);
         spellcaster.mana_reg = Evaluate("10 wave +", dictForRPN);
         //player power
-        power = Evaluate("wave 10 *", dictForRPN);
+        spellcaster.power = Evaluate("wave 10 *", dictForRPN);
     }
 
 }
