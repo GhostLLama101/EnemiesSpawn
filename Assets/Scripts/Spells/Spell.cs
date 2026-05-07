@@ -1,10 +1,25 @@
+using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 
+[Serializable] 
 public class Spell 
 {
+    // add the spell shit 
+    public string name;
+    public string description;
+    public int icon;
+    public string damage;
+    public string mana_cost;
+    public string cooldown;
+
+    /*public class projectile
+    {
+        // the stuff
+    }*/
+    
     public float last_cast;
     public SpellCaster owner;
     public Hittable.Team team;
@@ -16,7 +31,7 @@ public class Spell
 
     public string GetName()
     {
-        return "Bolt";
+        return this.name;
     }
 
     public int GetManaCost()
@@ -36,7 +51,7 @@ public class Spell
 
     public virtual int GetIcon()
     {
-        return 0;
+        return this.icon;
     }
 
     public bool IsReady()

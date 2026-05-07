@@ -20,8 +20,10 @@ public class GameManager
     private static GameManager theInstance;
     public static GameManager Instance {  get
         {
-            if (theInstance == null)
+            if (theInstance == null) 
                 theInstance = new GameManager();
+            
+            theInstance.InitalizeDictionaries();
             return theInstance;
         }
     }
@@ -34,9 +36,18 @@ public class GameManager
     public PlayerSpriteManager playerSpriteManager;
     public RelicIconManager relicIconManager;
     
+    
+    
     public int total_damage_dealt = 0;
     
     private List<GameObject> enemies;
+    
+    public List<Spell> SpellDef = JSONReader.Load<Spell>("spells.json");
+    
+    public List<Modifier> ModDef = JSONReader.Load<Modifier>("modifier.json");
+    
+    Dictionary<string, Spell> SpellsDict = new Dictionary<string, Spell>();
+    Dictionary<string, Modifier> ModDict = new Dictionary<string, Modifier>();
     public int enemy_count { get { return enemies.Count; } }
 
     public void AddEnemy(GameObject enemy)
@@ -70,6 +81,19 @@ public class GameManager
     private GameManager()
     {
         enemies = new List<GameObject>();
+    }
+
+    private void InitalizeDictionaries()
+    {
+        foreach (Spell spell in SpellDef) // Spell json reading
+        {
+            SpellsDict[spell.name] = spell;
+        }
+
+        foreach ( Modifier mod in ModDef) // modifier json reading
+        {
+            ModDict[mod.name] = mod;
+        }
     }
     
 }
