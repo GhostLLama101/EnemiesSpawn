@@ -10,12 +10,9 @@ public class Damage
         PHYSICAL, ARCANE, NATURE, FIRE, ICE, DARK, LIGHT
     }
     public Type type;
-    public Damage(string amount, Type type)
+    public Damage(int amount, Type type)
     {
-        Dictionary<string, int> dictForRPN = new Dictionary<string, int>();
-        dictForRPN["power"] = GameManager.Instance.player.power;
-
-        this.amount = Evaluate(amount, dictForRPN);
+        this.amount = amount;
         this.type = type;
     }
 
@@ -30,17 +27,4 @@ public class Damage
         if (t == "light") return Type.LIGHT;
         return Type.PHYSICAL;
     }
-
-    public static string TypeToString(Type type)
-    {
-        //string t = type.ToLower();
-        if (type == Type.ARCANE) return "arcane";
-        if (type == Type.NATURE) return "nature";
-        if (type == Type.FIRE) return "fire";
-        if (type == Type.ICE) return "ice";
-        if (type == Type.DARK) return "dark";
-        if (type == Type.LIGHT) return "light";
-        return "physical";
-    }
-    
 }

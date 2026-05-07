@@ -46,10 +46,6 @@ public class Spell
         return 100;
     }
 
-    public string GetType()
-    {
-        return damage.TypeToString(damage.type);
-    }
 
 
     public float GetCooldown()
@@ -78,7 +74,7 @@ public class Spell
     {
         if (other.team != team)
         {
-            other.Damage(damage);
+            other.Damage(new Damage(100, damage.TypeFromString("physical")));//make a wrapper for damage here
         }
 
     }
