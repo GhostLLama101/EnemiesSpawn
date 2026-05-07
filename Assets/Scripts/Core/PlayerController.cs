@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
 
     public bool scaling = false;
 
+    public int power = 10;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -51,11 +53,11 @@ public class PlayerController : MonoBehaviour
     {
         //if (dead) Die();
         //condition for scaling the player
-        if (GameManager.Instance.GameState == INWAVE)
+        if (GameManager.Instance.state == GameManager.GameState.INWAVE)
         {
             scaling = false;
         }
-        if (GameManager.Instance.GameState == WAVEEND && !scaling)
+        if (GameManager.Instance.state == GameManager.GameState.WAVEEND && !scaling)
         {
             ScalePlayer();
         }
@@ -91,13 +93,17 @@ public class PlayerController : MonoBehaviour
         int cur_hp = hp.hp;
         int max_hp = hp.max_hp;
         float ratio = (float)cur_hp/max_hp;
-        //Dictionary
 
-        Evaluate("95 wave 5 * +");
-        
-        hp = 0;
-
-        //mana, mana regen, power
+        Dictionary<string, int> dictForRPN = new Dictionary<string, int>();
+        dictForRPN["wave"] = currentWave;
+        //hp
+        hp.max_hp = Evaluate("95 wave 5 * +", dictForRPN);
+        hp.hp = hp.max_hp*ratio;
+        //mana and mana regen
+        spellcaster.max_mana = Evaluate("90 wave 10 * +", dictForRPN);
+        spellcaster.mana_reg = Evaluate("10 wave +", dictForRPN);
+        //player power
+        power = Evaluate("wave 10 *", dictForRPN);
     }
 
 }
