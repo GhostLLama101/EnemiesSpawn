@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using Newtonsoft.Json;
 
 public class GameManager 
 {
@@ -41,14 +42,16 @@ public class GameManager
     public int total_damage_dealt = 0;
     
     private List<GameObject> enemies;
+
+    public List<Spell> SpellDef = JSONReader.Load<Spell>("spells");
+    public List<Modifier> ModDef = JSONReader.Load<Modifier>("modifier");
     
-    public List<Spell> SpellDef = JSONReader.Load<Spell>("spells.json");
-    
-    public List<Modifier> ModDef = JSONReader.Load<Modifier>("modifier.json");
-    
-    Dictionary<string, Spell> SpellsDict = new Dictionary<string, Spell>();
-    Dictionary<string, Modifier> ModDict = new Dictionary<string, Modifier>();
+    public Dictionary<string, Spell> SpellsDict = new Dictionary<string, Spell>();
+    public Dictionary<string, Modifier> ModDict = new Dictionary<string, Modifier>();
+
     public int enemy_count { get { return enemies.Count; } }
+
+    public int wave_count = 0;
 
     public void AddEnemy(GameObject enemy)
     {

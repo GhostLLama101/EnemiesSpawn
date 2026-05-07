@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[Serializable]
+[System.Serializable]
 public class Projectile 
 {
     public string trajectory;

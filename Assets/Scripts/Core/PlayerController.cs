@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
         float ratio = (float)cur_hp/max_hp;
 
         Dictionary<string, int> dictForRPN = new Dictionary<string, int>();
-        dictForRPN["wave"] = currentWave;
+        dictForRPN["wave"] = GameManager.Instance.wave_count;
         //hp
         hp.max_hp = Evaluate("95 wave 5 * +", dictForRPN);
         hp.hp = (int)(hp.max_hp*ratio);

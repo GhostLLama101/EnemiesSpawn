@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 
-[Serializable] 
+[System.Serializable] 
 public class Spell 
 {
     // add the spell shit 
@@ -14,6 +14,8 @@ public class Spell
     public string damage;
     public string mana_cost;
     public string cooldown;
+
+    public Projectile projectile;
 
     /*public class projectile
     {
