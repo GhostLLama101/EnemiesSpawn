@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
         dictForRPN["wave"] = currentWave;
         //hp
         hp.max_hp = Evaluate("95 wave 5 * +", dictForRPN);
-        hp.hp = hp.max_hp*ratio;
+        hp.hp = (int)(hp.max_hp*ratio);
         //mana and mana regen
         spellcaster.max_mana = Evaluate("90 wave 10 * +", dictForRPN);
         spellcaster.mana_reg = Evaluate("10 wave +", dictForRPN);
