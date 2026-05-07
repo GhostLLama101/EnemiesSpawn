@@ -5,6 +5,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.IO;
 using System.Collections.Generic;
+using static RPNEvaluator.RPNEvaluator;
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class PlayerController : MonoBehaviour
     public Unit unit;
     
     public bool dead = false;
+
+    public bool scaling = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -47,6 +50,15 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //if (dead) Die();
+        //condition for scaling the player
+        if (GameManager.Instance.GameState == INWAVE)
+        {
+            scaling = false;
+        }
+        if (GameManager.Instance.GameState == WAVEEND && !scaling)
+        {
+            ScalePlayer();
+        }
     }
 
     void OnAttack(InputValue value)
@@ -68,6 +80,24 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("You Lost");
         GameManager.Instance.state = GameManager.GameState.GAMEOVER;
+    }
+
+    void ScalePlayer()
+    {   
+        scaling = true;
+        //on WaveEnd; call this function
+        //Will be upgrading player max hp (scale current hp value to fit new max)
+        //Ex: 80/100 = 80%, new max is 120, new hp is 80% of 120
+        int cur_hp = hp.hp;
+        int max_hp = hp.max_hp;
+        float ratio = (float)cur_hp/max_hp;
+        Dictionary
+
+        Evaluate("95 wave 5 * +");
+        
+        hp =  
+
+        //mana, mana regen, power
     }
 
 }
