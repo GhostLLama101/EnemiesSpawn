@@ -51,10 +51,10 @@ public class GameManager
     public Dictionary<string, Modifier> ModDict = new Dictionary<string, Modifier>();
     */
 
-    public Dictionary<string, SpellInfo> SpellsDict = JSONReader.LoadDictionary<Spell>("spells");
+    public Dictionary<string, SpellInfo> SpellsDict = JSONReader.LoadDictionary<SpellInfo>("spells");
     public Dictionary<string, Modifier> ModDict = JSONReader.LoadDictionary<Modifier>("modifier");
     
-
+    
     public int enemy_count { get { return enemies.Count; } }
 
     public int wave_count = 0;

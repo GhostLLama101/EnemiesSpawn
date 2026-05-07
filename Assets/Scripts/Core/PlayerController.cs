@@ -40,6 +40,10 @@ public class PlayerController : MonoBehaviour
         hp.OnDeath += Die;
         hp.team = Hittable.Team.PLAYER;
 
+        //if ()
+        //SpellInfo mySpell = GameManager.Instance.SpellsDict["arcane_bolt"];
+        //Debug.Log($"Damage: {mySpell.damage.amount}");
+
         // tell UI elements what to show
         healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);
