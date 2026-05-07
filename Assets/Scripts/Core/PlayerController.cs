@@ -91,11 +91,11 @@ public class PlayerController : MonoBehaviour
         int cur_hp = hp.hp;
         int max_hp = hp.max_hp;
         float ratio = (float)cur_hp/max_hp;
-        Dictionary
+        //Dictionary
 
         Evaluate("95 wave 5 * +");
         
-        hp =  
+        hp = 0;
 
         //mana, mana regen, power
     }
