@@ -3,12 +3,14 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using static RPNEvaluator.RPNEvaluator;
 
 [System.Serializable] 
 public class Spell 
 {
     // add the spell shit 
-    public string name;
+    Dictionary<string, int> dictForRPN = new Dictionary<string, int>();
+    /*public string name;
     public string description;
     public int icon;
     public SpellDamage damage;
@@ -16,6 +18,7 @@ public class Spell
     public string cooldown;
 
     public Projectile projectile;
+    */
 
     /*public class projectile
     {
@@ -25,37 +28,43 @@ public class Spell
     public float last_cast;
     public SpellCaster owner;
     public Hittable.Team team;
-
-    public Spell(SpellCaster owner)
+    public SpellInfo spellInfo;
+    
+    public Spell(SpellCaster owner, SpellInfo spell)
     {
         this.owner = owner;
+        this.spellInfo = spell;
+        this.dictForRPN["power"] = owner.power;
     }
 
     public string GetName()
     {
-        return this.name;
+        return this.spellInfo.name;
     }
 
     public int GetManaCost()
     {
-        return 10;
+        return Evaluate(this.spellInfo.mana_cost, this.dictForRPN);
     }
 
     public int GetDamage()
     {
-        return 100;
+        return Evaluate(this.spellInfo.damage.amount, this.dictForRPN);
     }
 
-
+    public Damage.Type GetDamageType()
+    {
+        return Damage.TypeFromString(this.spellInfo.damage.type);
+    }
 
     public float GetCooldown()
     {
-        return 0.75f;
+        return Evaluate(this.spellInfo.cooldown, this.dictForRPN);
     }
 
     public virtual int GetIcon()
     {
-        return this.icon;
+        return this.spellInfo.icon;
     }
 
     public bool IsReady()
@@ -72,13 +81,26 @@ public class Spell
 
     void OnHit(Hittable other, Vector3 impact)
     {
+        //Debug 1
+        if (other == null)
+        {
+            Debug.LogError($"Other doesnt exist");
+            return;
+        }
+        // Debug 2
+        if (owner == null) {
+            Debug.LogError($"Spell '{name}' is missing its owner! Did you assign it after loading JSON?");
+            return;
+        }
+        //Debug 3
+        if (this.spellInfo.damage == null) {
+            Debug.LogError($"Spell '{name}' has no damage data! Check your JSON mapping.");
+            return;
+        }   
+
         if (other.team != team)
         {
-            Dictionary<string, int> dictForRPN = new Dictionary<string, int>();
-            dictForRPN["power"] = owner.power;
-            int a = Evaluate(damage.amount, dictForRPN);
-            Type t = Damage.TypeFromString(damage.type);
-            other.Damage(new Damage(a, t));
+            other.Damage(new Damage(this.GetDamage(), this.GetDamageType()));
         }
 
     }

@@ -51,7 +51,7 @@ public class GameManager
     public Dictionary<string, Modifier> ModDict = new Dictionary<string, Modifier>();
     */
 
-    public Dictionary<string, Spell> SpellsDict = JSONReader.LoadDictionary<Spell>("spells");
+    public Dictionary<string, SpellInfo> SpellsDict = JSONReader.LoadDictionary<Spell>("spells");
     public Dictionary<string, Modifier> ModDict = JSONReader.LoadDictionary<Modifier>("modifier");
     
 

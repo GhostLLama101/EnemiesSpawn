@@ -20,7 +20,7 @@ public class SpellCaster
             yield return new WaitForSeconds(1);
         }
     }
-
+    
     public SpellCaster(int mana, int mana_reg, Hittable.Team team)
     {
         this.mana = mana;
