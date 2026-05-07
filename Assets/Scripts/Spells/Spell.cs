@@ -11,7 +11,7 @@ public class Spell
     public string name;
     public string description;
     public int icon;
-    public string damage;
+    public Damage damage;
     public string mana_cost;
     public string cooldown;
 
@@ -46,6 +46,12 @@ public class Spell
         return 100;
     }
 
+    public string GetType()
+    {
+        return damage.TypeToString(damage.type);
+    }
+
+
     public float GetCooldown()
     {
         return 0.75f;
@@ -72,7 +78,7 @@ public class Spell
     {
         if (other.team != team)
         {
-            other.Damage(new Damage(GetDamage(), Damage.Type.ARCANE));
+            other.Damage(damage);
         }
 
     }
