@@ -14,11 +14,7 @@ public class Spell
     public string damage;
     public string mana_cost;
     public string cooldown;
-
-    /*public class projectile
-    {
-        // the stuff
-    }*/
+    
     
     public float last_cast;
     public SpellCaster owner;
@@ -51,7 +47,12 @@ public class Spell
 
     public virtual int GetIcon()
     {
-        return this.icon;
+        return icon;
+    }
+
+    public virtual string GetDescription()
+    {
+        return description;
     }
 
     public bool IsReady()
@@ -65,6 +66,8 @@ public class Spell
         GameManager.Instance.projectileManager.CreateProjectile(0, "straight", where, target - where, 15f, OnHit);
         yield return new WaitForEndOfFrame();
     }
+    
+    
 
     void OnHit(Hittable other, Vector3 impact)
     {
