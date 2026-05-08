@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour
         if (GameManager.Instance.state == GameManager.GameState.WAVEEND && !scaling)
         {
             ScalePlayer();
+            healthui.SetHealth(hp);
         }
     }
 
@@ -89,23 +90,20 @@ public class PlayerController : MonoBehaviour
     void ScalePlayer()
     {   
         scaling = true;
-        //on WaveEnd; call this function
-        //Will be upgrading player max hp (scale current hp value to fit new max)
-        //Ex: 80/100 = 80%, new max is 120, new hp is 80% of 120
-        int cur_hp = hp.hp;
-        int max_hp = hp.max_hp;
-        float ratio = (float)cur_hp/max_hp;
-
         Dictionary<string, int> dictForRPN = new Dictionary<string, int>();
         dictForRPN["wave"] = GameManager.Instance.wave_count;
-        //hp
-        hp.max_hp = Evaluate("95 wave 5 * +", dictForRPN);
-        hp.hp = (int)(hp.max_hp*ratio);
+        //hp; changed it because I can read instructions nowXD
+        hp.SetMaxHP(Evaluate("95 wave 5 * +", dictForRPN));
         //mana and mana regen
         spellcaster.max_mana = Evaluate("90 wave 10 * +", dictForRPN);
         spellcaster.mana_reg = Evaluate("10 wave +", dictForRPN);
         //player power
         spellcaster.power = Evaluate("wave 10 *", dictForRPN);
+        //overwrite the old spell with a new one based on new power
+        spellcaster.spell = new Spell(spellcaster, spellcaster.spell.spellInfo);
+        //now update UI
+        spellui.SetSpell(spellcaster.spell);
+
     }
 
 }
