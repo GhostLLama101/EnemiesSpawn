@@ -65,6 +65,9 @@ public class Spell
         GameManager.Instance.projectileManager.CreateProjectile(0, "straight", where, target - where, 15f, OnHit);
         yield return new WaitForEndOfFrame();
     }
+    // need to make a cast that takes in a 
+    
+    
 
     void OnHit(Hittable other, Vector3 impact)
     {
