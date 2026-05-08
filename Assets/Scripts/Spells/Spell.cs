@@ -71,6 +71,9 @@ public class Spell
             OnHit);
         yield return new WaitForEndOfFrame();
     }
+    // need to make a cast that takes in a 
+    
+    
 
     void OnHit(Hittable other, Vector3 impact)
     {
