@@ -13,6 +13,7 @@ public class Spell
     
     public Modifier modifier = null; // point to the outer modifiers
     
+    public List<Modifier> modifiers = new List<Modifier>(); // this might be the solution for the stuff
     public float last_cast;
     public SpellCaster owner;
     public Hittable.Team team;
@@ -61,6 +62,11 @@ public class Spell
     public bool IsReady()
     {
         return (last_cast + GetCooldown() < Time.time);
+    }
+
+    public List<Modifier> GetModifiers()
+    {
+        return this.modifiers;
     }
 
     public virtual IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
