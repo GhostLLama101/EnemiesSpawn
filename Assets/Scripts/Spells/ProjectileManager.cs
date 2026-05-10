@@ -31,6 +31,7 @@ public class ProjectileManager : MonoBehaviour
         new_projectile.GetComponent<ProjectileController>().OnHit += onHit;
         new_projectile.GetComponent<ProjectileController>().SetLifetime(lifetime);
     }
+    // this will be used for the shot gun one probably
 
     public ProjectileMovement MakeMovement(string name, float speed)
     {

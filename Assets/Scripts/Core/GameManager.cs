@@ -52,7 +52,7 @@ public class GameManager
     */
 
     public Dictionary<string, SpellInfo> SpellsDict = JSONReader.LoadDictionary<SpellInfo>("spells");
-    public Dictionary<string, Modifier> ModDict = JSONReader.LoadDictionary<Modifier>("modifier");
+    public Dictionary<string, ModifierInfo> ModDict = JSONReader.LoadDictionary<ModifierInfo>("modifier");
     
     
     public int enemy_count { get { return enemies.Count; } }
