@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+[Serializable]
 public class SpellInfo
 {
     public string name = "Arcane Bolt";

@@ -2,7 +2,7 @@ using UnityEngine;
 using Newtonsoft.Json.Linq;
 public class damageAmp : Modifier
 {
-    public damageAmp(SpellCaster owner, SpellInfo spell) : base(owner, spell)
+    public damageAmp(SpellCaster owner, ModifierInfo spell, Spell inner) : base(owner, spell, inner)
     {
         
     }

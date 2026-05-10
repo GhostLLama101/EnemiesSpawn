@@ -8,12 +8,12 @@ public class doubler : Modifier
 {
     
     
-    public doubler(SpellCaster owner, SpellInfo spell) : base(owner, spell)
+    public doubler(SpellCaster owner, ModifierInfo spell, Spell inner) : base(owner, spell, inner)
     {
         
     }
     
-    Dictionary<string, int> dictForRPN = new Dictionary<string, int>();
+    
     public override void SetAttributes(JObject mod)
     {
         base.SetAttributes(mod);
@@ -21,14 +21,12 @@ public class doubler : Modifier
         
     }
 
-    public virtual IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
+    public override IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
     {
         this.team = team;
-        GameManager.Instance.projectileManager.CreateProjectile(0, spellInfo.projectile.trajectory, where, 
-            target - where, Evaluatef(spellInfo.projectile.speed, dictForRPN), OnHit);
-        yield return new WaitForSeconds(ModifierInfo.delay); // this is where the delay goes
-        //create the projectile
-        GameManager.Instance.projectileManager.CreateProjectile(0, spellInfo.projectile.trajectory, where, 
-            target - where, Evaluatef(spellInfo.projectile.speed, dictForRPN), OnHit);
+        yield return inner.Cast(where, target, team);
+        yield return new WaitForSeconds(ModifierInfo.delay);
+        yield return inner.Cast(where, target, team);
+        yield return new WaitForEndOfFrame();
     }
 }

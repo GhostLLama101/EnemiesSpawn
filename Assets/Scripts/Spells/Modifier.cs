@@ -10,34 +10,20 @@ using Unity.Mathematics;
 public class Modifier : Spell
 {
     public ModifierInfo ModifierInfo;
-    Dictionary<string, int> dictForRPN = new Dictionary<string, int>();
-    public Modifier (SpellCaster owner, SpellInfo spell) : base(owner, spell) {
-
+    public Spell inner; // whatever is wrapped inside this modifier
+    public Modifier (SpellCaster owner, ModifierInfo mod, Spell inner) : base(owner, inner.spellInfo) {
+        this.owner = owner;
+        this.inner = inner;
+        this.ModifierInfo = mod;
     }
     
     // add the getters
     
-    public virtual IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
+    public override IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
     {
-        this.team = team;
-        GameManager.Instance.projectileManager.CreateProjectile(
-            0,//spellInfo.icon, 
-            spellInfo.projectile.trajectory, 
-            where, 
-            target - where, 
-            Evaluatef(spellInfo.projectile.speed, dictForRPN), 
-            OnHit);
-        yield return new WaitForEndOfFrame();
+        yield return inner.Cast(where, target, team); // pass down the chain
     }
     
-    public void OnHit(Hittable other, Vector3 impact)
-    {
-        if (other.team != team)
-        {
-            other.Damage(new Damage(this.GetDamage(), this.GetDamageType()));
-        }
-
-    }
     public override void SetAttributes(JObject mod)
     {
         this.ModifierInfo.name = mod["name"].ToString();

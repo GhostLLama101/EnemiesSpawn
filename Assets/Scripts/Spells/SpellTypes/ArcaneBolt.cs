@@ -4,8 +4,5 @@ using System.Collections;
 
 public class ArcaneBolt : Spell
 {
-    public ArcaneBolt(SpellCaster owner, SpellInfo spell) : base(owner, spell)
-    {
-        // i need help understanding how this works?
-    }
+    public ArcaneBolt(SpellCaster owner) : base(owner, GameManager.Instance.SpellsDict["arcane_bolt"]) { }
 }
