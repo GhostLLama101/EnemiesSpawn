@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
         // tell UI elements what to show
         healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);
-        spellui.SetSpell(spellcaster.spell);
+        spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
     }
 
     // Update is called once per frame
@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
         //player power
         spellcaster.power = Evaluate("wave 10 *", dictForRPN);
         //overwrite the old spell with a new one based on new power
-        spellcaster.spell = new Spell(spellcaster, spellcaster.spell.spellInfo);
+        spellcaster.spells[spellcaster.current_spell] = SpellBuilder.Build(spellcaster, spellcaster.spells[spellcaster.current_spell]);
         //now update UI(s)
         spellui.SetSpell(spellcaster.spell);
         healthui.SetHealth(hp);

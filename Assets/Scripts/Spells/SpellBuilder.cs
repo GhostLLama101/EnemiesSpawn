@@ -6,17 +6,18 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 
 
-public class SpellBuilder 
+public static class SpellBuilder 
 {
-
-    public Spell Build(SpellCaster owner, SpellInfo spell)
+    //building the player's spells?
+    public static Spell Build(SpellCaster owner, Spell spell)
     {
-        
-        return new Spell(owner, spell);
+        //add the modifiers here or something?
+        return new Spell(owner, spell.spellInfo);
     }
 
    // generic 
-   public Spell Build(Spell coreSpell, List<Modifier> modifiers)
+   // For making random spells?
+   public static Spell Build(Spell coreSpell, List<Modifier> modifiers)
    {
        Spell current = coreSpell;
        foreach (var modifier in modifiers)
