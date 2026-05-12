@@ -1,5 +1,5 @@
-using UnityEngine;
 using Newtonsoft.Json.Linq;
+using static RPNEvaluator.RPNEvaluator;
 public class damageAmp : Modifier
 {
     public damageAmp(SpellCaster owner, ModifierInfo spell, Spell inner) : base(owner, spell, inner)
@@ -14,5 +14,16 @@ public class damageAmp : Modifier
         this.ModifierInfo.mana_multiplier = mod["mana_multiplier"].ToString();
     }
     
-    // need to add an edit values for when the player gets stronger
+    public override int GetDamage()
+    {
+        return (int)(inner.GetDamage() * EvaluateStat(ModifierInfo.damage_multiplier));
+        
+    }
+
+    public override int GetManaCost()
+    {
+        return (int)(inner.GetManaCost() * EvaluateStat(ModifierInfo.mana_multiplier));
+    }
+    
+    
 }

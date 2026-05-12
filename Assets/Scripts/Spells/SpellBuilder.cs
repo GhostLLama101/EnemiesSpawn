@@ -9,10 +9,10 @@ public static class SpellBuilder
         return info.name switch
         {
             "doubler" => new doubler(owner, info, inner),
-            "splitter" => new splitter(owner, info, inner),
-            "damage-amplified" => new damageAmp(owner, info, inner)
-            // need speed
-            // need chaotic
+            "split" => new splitter(owner, info, inner),
+            "damage-amplified" => new damageAmp(owner, info, inner),
+            "speed-amplified" => new speedAmp(owner, info, inner),
+            //"chaotic" => new chaotic(owner, info, inner),
             // need homing
         };
     }
