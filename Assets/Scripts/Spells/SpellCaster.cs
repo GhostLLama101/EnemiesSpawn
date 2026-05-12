@@ -8,6 +8,7 @@ public class SpellCaster
     public int max_mana;
     public int mana_reg;
     public Hittable.Team team;
+    public int maxSpellCount = 4;
     public List<Spell> spells; //[spell, spell, spell, spell]
     public int current_spell = 0;
     public int power = 10; //starting power
@@ -32,7 +33,7 @@ public class SpellCaster
 
         //SpellBuilder builder = new SpellBuilder();
         core = new Spell(this, GameManager.Instance.SpellsDict["arcane_bolt"]);
-        spells[0] = SpellBuilder.Build(core, modsOfSpells[0]);
+        spells[0] = SpellBuilder.Build(this, core);
     }
     
     public void AddSpell(Spell spell) // just call addSpell and it should replace if 4 max
