@@ -110,7 +110,7 @@
        "spawns": [
             {
                 "enemy": "zombie",
-                "count": "1",
+                "count": "0",
                 "hp": "15 wave *",
                 "delay": "5",
                 "sequence": [1,2,3],

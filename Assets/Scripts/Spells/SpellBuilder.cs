@@ -18,7 +18,7 @@ public static class SpellBuilder
     }
     public static Spell Build(SpellCaster owner, Spell spell)
     {
-        Spell freshCore = new ArcaneBolt(owner);
+        Spell freshCore = new Spell(owner, spell.spellInfo);
         return Build(freshCore, spell.GetModifiers());
     }
     
