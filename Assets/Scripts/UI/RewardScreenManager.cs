@@ -6,6 +6,7 @@ public class RewardScreenManager : MonoBehaviour
     public GameObject rewardUI;
     public SpellUI spellRewardUI;
     public TextMeshProUGUI damageText;
+    Spell spellReward;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -21,7 +22,8 @@ public class RewardScreenManager : MonoBehaviour
             rewardUI.SetActive(true);
             
             //TODO: Finish this
-            //spellRewardUI.SetSpell(SpellBuilder.RandomSpell(placeholder, ));
+            spellReward = SpellBuilder.RandomSpell();
+            spellRewardUI.SetSpell(spellReward);
         }
         else
         {

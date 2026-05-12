@@ -32,11 +32,16 @@ public static class SpellBuilder
        }
        return current;
    }
-   // dont need to take in dictionary because in gamemanager
-    public static Spell RandomSpell(SpellCaster owner, Spell coreSpell, Dictionary<string, ModifierInfo> availableModifiers) // takes in the game manager modifiers list
+    public static Spell RandomSpell()
     {
         SpellCaster placeholder = new SpellCaster(-1, -1, Hittable.Team.PLAYER);
         Random rng = new Random();
+
+        int index = rng.Next(1, GameManager.Instance.spellKeys.Count);
+        string spellName = GameManager.Instance.spellKeys[index];
+        SpellInfo spinf = GameManager.Instance.SpellsDict[spellName];
+
+        Dictionary<string, ModifierInfo> availableModifiers = GameManager.Instance.ModDict;
         
         if (availableModifiers == null || availableModifiers.Count == 0)
             throw new ArgumentException("availableModifiers must not be null or empty.");
@@ -46,11 +51,11 @@ public static class SpellBuilder
         var keys = new List<string>(availableModifiers.Keys); // copy, don't mutate original
         List<Modifier> spellModifiers = new List<Modifier>();
         
-        Spell current = coreSpell;
+        Spell current = new Spell(placeholder, spinf);
         for (int i = 0; i < numberOfModifiers; i++)
         {
             ModifierInfo info = availableModifiers[keys[rng.Next(0, keys.Count)]];
-            Modifier mod = CreateModifier(owner, info, current);
+            Modifier mod = CreateModifier(placeholder, info, current);
             spellModifiers.Add(mod);
             current = mod;
         }
