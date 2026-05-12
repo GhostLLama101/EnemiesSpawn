@@ -55,6 +55,10 @@ public class Spell
         this.dictForRPN["power"] = owner.power;
         return Evaluatef(this.spellInfo.cooldown, this.dictForRPN);
     }
+    public virtual float GetSpeed()
+    {
+        return Evaluatef(this.spellInfo.projectile.speed, this.dictForRPN);
+    }
 
     public virtual int GetIcon()
     {
@@ -98,7 +102,7 @@ public class Spell
             spellInfo.projectile.trajectory, 
             where, 
             target - where, 
-            Evaluatef(spellInfo.projectile.speed, dictForRPN), 
+            GetSpeed(), //Evaluatef(spellInfo.projectile.speed, dictForRPN), 
             OnHit);
         yield return new WaitForEndOfFrame();
     }
@@ -128,6 +132,11 @@ public class Spell
         this.spellInfo.projectile.trajectory = spell["trajectory"].ToString();
         this.spellInfo.projectile.sprite = spell["sprite"].ToObject<int>();
 
+    }
+    protected float EvaluateStat(string expression)
+    {
+        this.dictForRPN["power"] = owner.power;
+        return Evaluatef(expression, dictForRPN);
     }
     
 
