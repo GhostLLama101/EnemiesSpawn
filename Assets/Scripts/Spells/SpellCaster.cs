@@ -8,10 +8,9 @@ public class SpellCaster
     public int max_mana;
     public int mana_reg;
     public Hittable.Team team;
-    public List<Spell> spells;
-    public List<List<Modifier>> modsOfSpells;
+    public List<Spell> spells; //[spell, spell, spell, spell]
     public int current_spell = 0;
-    public int power = 10;
+    public int power = 10; //starting power
     public Spell core;
     
     public IEnumerator ManaRegeneration()
@@ -31,9 +30,9 @@ public class SpellCaster
         this.mana_reg = mana_reg;
         this.team = team;
 
-        SpellBuilder builder = new SpellBuilder();
+        //SpellBuilder builder = new SpellBuilder();
         core = new Spell(this, GameManager.Instance.SpellsDict["arcane_bolt"]);
-        spells[0] = builder.Build(core, modsOfSpells[0]);
+        spells[0] = SpellBuilder.Build(core, modsOfSpells[0]);
     }
 
     public void AddModifier(Modifier mod)
@@ -57,7 +56,7 @@ public class SpellCaster
 
     public IEnumerator Cast(Vector3 where, Vector3 target)
     {        
-        Spell spell = new Spell(this, spells[current_spell]);
+        Spell spell = new Spell(this, spells[current_spell].spellInfo);
         if (mana >= spell.GetManaCost() && spell.IsReady())
         {
             mana -= spells[current_spell].GetManaCost();
