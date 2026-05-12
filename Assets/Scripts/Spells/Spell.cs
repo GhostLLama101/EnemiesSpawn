@@ -17,15 +17,14 @@ public class Spell
     public float last_cast;
     public SpellCaster owner;
     public Hittable.Team team;
-    public SpellInfo spellInfo;
-    
+    public SpellInfo spellInfo;    
     public Spell() { }
     //TODO: change the get methods to dynamically pull the player's info, not just on creation
     public Spell(SpellCaster owner, SpellInfo spell)
     {
         this.owner = owner;
-        this.spellInfo = spell;
-        this.dictForRPN["power"] = owner.power;
+        this.spellInfo = spell.Duplicate(); //makes a deep copy of the old spellinfo
+        //this.dictForRPN["power"] = owner.power; //need to put this everwhere unfortunately, makes it more dynamic
     }
     
 
@@ -36,22 +35,25 @@ public class Spell
 
     public virtual int GetManaCost()
     {
+        this.dictForRPN["power"] = owner.power;
         return Evaluate(this.spellInfo.mana_cost, this.dictForRPN);
     }
 
     public virtual int GetDamage()
     {
+        this.dictForRPN["power"] = owner.power;
         return Evaluate(this.spellInfo.damage.amount, this.dictForRPN);
     }
 
     public Damage.Type GetDamageType()
     {
+        this.dictForRPN["power"] = owner.power;
         return Damage.TypeFromString(this.spellInfo.damage.type);
     }
 
     public virtual float GetCooldown()
     {
-        //Debug.LogError($"this is spell: {this.spellInfo}");
+        this.dictForRPN["power"] = owner.power;
         return Evaluatef(this.spellInfo.cooldown, this.dictForRPN);
     }
 
@@ -73,6 +75,7 @@ public class Spell
     public virtual IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
     {
         this.team = team;
+        this.dictForRPN["power"] = owner.power;
         GameManager.Instance.projectileManager.CreateProjectile(
             spellInfo.projectile.sprite,
             spellInfo.projectile.trajectory, 

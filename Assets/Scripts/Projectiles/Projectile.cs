@@ -7,4 +7,13 @@ public class Projectile
     public string trajectory = "straight";
     public string speed = "8 power 5 / +";
     public int sprite = 0;
+
+    public Projectile Duplicate()
+    {
+        Projectile newProj = new Projectile();
+        newProj.trajectory = this.trajectory;
+        newProj.speed = this.speed;
+        newProj.sprite = this.sprite;
+        return newProj;
+    }
 }
