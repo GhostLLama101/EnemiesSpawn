@@ -17,6 +17,6 @@ public class speedAmp : Modifier
     
     public override float GetSpeed()
     {
-        return inner.GetSpeed() * Evaluatef(ModifierInfo.speed_multiplier, dictForRPN);
+        return inner.GetSpeed() * EvaluateStat(ModifierInfo.speed_multiplier);
     }
 }

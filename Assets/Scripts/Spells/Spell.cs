@@ -133,6 +133,11 @@ public class Spell
         this.spellInfo.projectile.sprite = spell["sprite"].ToObject<int>();
 
     }
+    protected float EvaluateStat(string expression)
+    {
+        this.dictForRPN["power"] = owner.power;
+        return Evaluatef(expression, dictForRPN);
+    }
     
 
 

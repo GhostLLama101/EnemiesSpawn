@@ -16,12 +16,13 @@ public class damageAmp : Modifier
     
     public override int GetDamage()
     {
-        return (int)(inner.GetDamage() * Evaluatef(ModifierInfo.damage_multiplier, dictForRPN));
+        return (int)(inner.GetDamage() * EvaluateStat(ModifierInfo.damage_multiplier));
+        
     }
 
     public override int GetManaCost()
     {
-        return (int)(inner.GetManaCost() * Evaluatef(ModifierInfo.mana_multiplier, dictForRPN));
+        return (int)(inner.GetManaCost() * EvaluateStat(ModifierInfo.mana_multiplier));
     }
     
     
