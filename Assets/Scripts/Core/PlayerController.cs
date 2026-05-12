@@ -100,9 +100,10 @@ public class PlayerController : MonoBehaviour
         //player power
         spellcaster.power = Evaluate("wave 10 *", dictForRPN);
         //overwrite the old spell with a new one based on new power
-        spellcaster.spells[spellcaster.current_spell] = SpellBuilder.Build(spellcaster, spellcaster.spells[spellcaster.current_spell]);
+        spellcaster.spells[spellcaster.current_spell] = 
+            SpellBuilder.Build(spellcaster, spellcaster.spells[spellcaster.current_spell]);
         //now update UI(s)
-        spellui.SetSpell(spellcaster.spell);
+        spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
         healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);
 

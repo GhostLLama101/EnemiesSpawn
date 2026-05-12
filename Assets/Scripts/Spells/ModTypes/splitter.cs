@@ -1,16 +1,15 @@
+using System.Collections;
 using UnityEngine;
 
-public class splitter : MonoBehaviour
+public class splitter : Modifier
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public splitter(SpellCaster owner, ModifierInfo spell, Spell inner) : base(owner, spell, inner)
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public override IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
     {
-        
+        return base.Cast(where, target, team);
     }
 }

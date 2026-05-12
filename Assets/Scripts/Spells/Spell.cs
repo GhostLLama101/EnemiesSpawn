@@ -11,9 +11,8 @@ public class Spell
 {
     Dictionary<string, int> dictForRPN = new Dictionary<string, int>();
     
-    public Modifier modifier = null; // point to the outer modifiers
-    
     public List<Modifier> modifiers = new List<Modifier>(); // this might be the solution for the stuff
+    
     public float last_cast;
     public SpellCaster owner;
     public Hittable.Team team;
@@ -65,6 +64,24 @@ public class Spell
     public bool IsReady()
     {
         return (last_cast + GetCooldown() < Time.time);
+    }
+    
+    public void AddModifier(Modifier mod)
+    {
+        modifiers.Add(mod);
+        Rebuild();
+    }
+
+    public void RemoveModifier(Modifier mod)
+    {
+        modifiers.Remove(mod);
+        Rebuild();
+    }
+
+    private void Rebuild()
+    {
+        // tell the owner to rebuild this spell
+        owner.RebuildSpell(this);
     }
 
     public List<Modifier> GetModifiers()
