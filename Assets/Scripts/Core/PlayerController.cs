@@ -64,6 +64,8 @@ public class PlayerController : MonoBehaviour
             ScalePlayer();
             healthui.SetHealth(hp);
         }
+        //TODO: if player switches spells, change what spell the UI has, also switch the spells
+        //spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
     }
 
     void OnAttack(InputValue value)
@@ -92,16 +94,26 @@ public class PlayerController : MonoBehaviour
         scaling = true;
         Dictionary<string, int> dictForRPN = new Dictionary<string, int>();
         dictForRPN["wave"] = GameManager.Instance.wave_count;
+
         //hp; changed it because I can read instructions nowXD
         hp.SetMaxHP(Evaluate("95 wave 5 * +", dictForRPN));
+
         //mana and mana regen
         spellcaster.max_mana = Evaluate("90 wave 10 * +", dictForRPN);
         spellcaster.mana_reg = Evaluate("10 wave +", dictForRPN);
+
         //player power
         spellcaster.power = Evaluate("wave 10 *", dictForRPN);
-        //overwrite the old spell with a new one based on new power
-        spellcaster.spells[spellcaster.current_spell] = 
-            SpellBuilder.Build(spellcaster, spellcaster.spells[spellcaster.current_spell]);
+
+        //overwrite the old spells with new ones based on new power
+        for (int i = 0; i < spellcaster.spells.Count; i++)
+        {
+            Spell old = spellcaster.spells[i];
+            Spell newSpell = new Spell(spellcaster, old.spellInfo);
+            SpellBuilder.Build(newSpell, old.modifiers);
+
+            spellcaster.spells[i] = newSpell;
+        }
         //now update UI(s)
         spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
         healthui.SetHealth(hp);

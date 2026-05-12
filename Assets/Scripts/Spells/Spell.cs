@@ -9,7 +9,8 @@ using Unity.Mathematics;
 
 public class Spell 
 {
-    Dictionary<string, int> dictForRPN = new Dictionary<string, int>();
+    Dictionary<string, int> dictForRPN = new Dictionary<string, int>(); //used for RPN; 
+    // overwriting power from owner whenever we need it in our get Methods
     
     public List<Modifier> modifiers = new List<Modifier>(); // this might be the solution for the stuff
     
@@ -18,12 +19,11 @@ public class Spell
     public Hittable.Team team;
     public SpellInfo spellInfo;    
     public Spell() { }
-    //TODO: change the get methods to dynamically pull the player's info, not just on creation
-    public Spell(SpellCaster owner, SpellInfo spell)
+
+    public Spell(SpellCaster owner, SpellInfo spellInfo)
     {
         this.owner = owner;
-        this.spellInfo = spell.Duplicate(); //makes a deep copy of the old spellinfo
-        //this.dictForRPN["power"] = owner.power; //need to put this everwhere unfortunately, makes it more dynamic
+        this.spellInfo = spellInfo.Duplicate(); //makes a deep copy of the old spellinfo
     }
     
 
