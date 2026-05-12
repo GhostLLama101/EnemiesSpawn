@@ -19,6 +19,7 @@ public class Spell
     public SpellInfo spellInfo;
     
     public Spell() { }
+    //TODO: change the get methods to dynamically pull the player's info, not just on creation
     public Spell(SpellCaster owner, SpellInfo spell)
     {
         this.owner = owner;
