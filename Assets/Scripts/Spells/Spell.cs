@@ -9,7 +9,7 @@ using Unity.Mathematics;
 
 public class Spell 
 {
-    Dictionary<string, int> dictForRPN = new Dictionary<string, int>();
+    protected Dictionary<string, int> dictForRPN = new Dictionary<string, int>();
     
     public List<Modifier> modifiers = new List<Modifier>(); // this might be the solution for the stuff
     
@@ -55,6 +55,10 @@ public class Spell
         this.dictForRPN["power"] = owner.power;
         return Evaluatef(this.spellInfo.cooldown, this.dictForRPN);
     }
+    public virtual float GetSpeed()
+    {
+        return Evaluatef(this.spellInfo.projectile.speed, this.dictForRPN);
+    }
 
     public virtual int GetIcon()
     {
@@ -98,7 +102,7 @@ public class Spell
             spellInfo.projectile.trajectory, 
             where, 
             target - where, 
-            Evaluatef(spellInfo.projectile.speed, dictForRPN), 
+            GetSpeed(), //Evaluatef(spellInfo.projectile.speed, dictForRPN), 
             OnHit);
         yield return new WaitForEndOfFrame();
     }
