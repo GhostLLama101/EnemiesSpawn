@@ -9,8 +9,9 @@ public class SpellCaster
     public int mana_reg;
     public Hittable.Team team;
     public int maxSpellCount = 4;
-    public List<Spell> spells; //[spell, spell, spell, spell]
+    public List<Spell> spells;
     public int current_spell = 0;
+    
     public int power = 10; //starting power
     public Spell core;
     

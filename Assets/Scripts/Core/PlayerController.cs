@@ -40,10 +40,6 @@ public class PlayerController : MonoBehaviour
         hp.OnDeath += Die;
         hp.team = Hittable.Team.PLAYER;
 
-        //if ()
-        //SpellInfo mySpell = GameManager.Instance.SpellsDict["arcane_bolt"];
-        //Debug.Log($"Damage: {mySpell.damage.amount}");
-
         // tell UI elements what to show
         healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);
@@ -53,8 +49,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (dead) Die();
-        //condition for scaling the player
+        //Scaling the player
         if (GameManager.Instance.state == GameManager.GameState.INWAVE)
         {
             scaling = false;
@@ -64,8 +59,35 @@ public class PlayerController : MonoBehaviour
             ScalePlayer();
             healthui.SetHealth(hp);
         }
-        //TODO: if player switches spells, change what spell the UI has, also switch the spells
-        //spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
+
+        //Player spell switching
+        //Should be robust
+        if (Keyboard.current.digit1Key.wasPressedThisFrame)
+        {
+            Debug.Log("1");
+            spellcaster.current_spell = 0;
+            spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
+        }
+        else if (Keyboard.current.digit2Key.wasPressedThisFrame && spellcaster.spells.Count > 1)
+        {
+            Debug.Log("2");
+            spellcaster.current_spell = 1;
+            spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
+        }
+        else if (Keyboard.current.digit3Key.wasPressedThisFrame && spellcaster.spells.Count > 2)
+        {
+            Debug.Log("3");
+            spellcaster.current_spell = 2;
+            spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
+        }
+        else if (Keyboard.current.digit4Key.wasPressedThisFrame && spellcaster.spells.Count > 3)
+        {
+            Debug.Log("4");
+            spellcaster.current_spell = 3;
+            spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
+        }
+        
+        
     }
 
     void OnAttack(InputValue value)
