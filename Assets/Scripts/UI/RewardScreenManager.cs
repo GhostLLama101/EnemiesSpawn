@@ -19,7 +19,7 @@ public class RewardScreenManager : MonoBehaviour
         {
             damageText.text = $"Damage Dealt: {GameManager.Instance.total_damage_dealt}";
             rewardUI.SetActive(true);
-            SpellCaster placeholder = new SpellCaster(-1, -1, Hittable.Team.PLAYER);
+            
             //TODO: Finish this
             //spellRewardUI.SetSpell(SpellBuilder.RandomSpell(placeholder, ));
         }

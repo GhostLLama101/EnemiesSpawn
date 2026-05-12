@@ -33,26 +33,27 @@ public static class SpellBuilder
        return current;
    }
    // dont need to take in dictionary because in gamemanager
-   public static Spell RandomSpell(SpellCaster owner, Spell coreSpell, Dictionary<string, ModifierInfo> availableModifiers) // takes in the game manager modifiers list
-   {
-       Random rng = new Random();
-       
-       if (availableModifiers == null || availableModifiers.Count == 0)
-           throw new ArgumentException("availableModifiers must not be null or empty.");
-       
-       int numberOfModifiers = 3;
-       
-       var keys = new List<string>(availableModifiers.Keys); // copy, don't mutate original
-       List<Modifier> spellModifiers = new List<Modifier>();
-       
-       Spell current = coreSpell;
-       for (int i = 0; i < numberOfModifiers; i++)
-       {
-           ModifierInfo info = availableModifiers[keys[rng.Next(0, keys.Count)]];
-           Modifier mod = CreateModifier(owner, info, current);
-           spellModifiers.Add(mod);
-           current = mod;
-       }
-       return current;
-   }
+    public static Spell RandomSpell(SpellCaster owner, Spell coreSpell, Dictionary<string, ModifierInfo> availableModifiers) // takes in the game manager modifiers list
+    {
+        SpellCaster placeholder = new SpellCaster(-1, -1, Hittable.Team.PLAYER);
+        Random rng = new Random();
+        
+        if (availableModifiers == null || availableModifiers.Count == 0)
+            throw new ArgumentException("availableModifiers must not be null or empty.");
+        
+        int numberOfModifiers = 3;
+        
+        var keys = new List<string>(availableModifiers.Keys); // copy, don't mutate original
+        List<Modifier> spellModifiers = new List<Modifier>();
+        
+        Spell current = coreSpell;
+        for (int i = 0; i < numberOfModifiers; i++)
+        {
+            ModifierInfo info = availableModifiers[keys[rng.Next(0, keys.Count)]];
+            Modifier mod = CreateModifier(owner, info, current);
+            spellModifiers.Add(mod);
+            current = mod;
+        }
+        return current;
+    }
 }

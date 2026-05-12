@@ -24,8 +24,7 @@ public class GameManager
             if (theInstance == null) 
                 theInstance = new GameManager();
             
-            //Might not be needed anymore
-            //theInstance.InitalizeDictionaries();
+            theInstance.InitalizeHelpers();
             return theInstance;
         }
     }
@@ -52,6 +51,7 @@ public class GameManager
     */
 
     public Dictionary<string, SpellInfo> SpellsDict = JSONReader.LoadDictionary<SpellInfo>("spells");
+    public List<string> spellKeys;
     public Dictionary<string, ModifierInfo> ModDict = JSONReader.LoadDictionary<ModifierInfo>("modifier");
     
     
@@ -92,18 +92,9 @@ public class GameManager
         enemies = new List<GameObject>();
     }
 
-    //Might not be needed anymore
-    /*private void InitalizeDictionaries()
+    private void InitalizeHelpers()
     {
-        foreach (Spell spell in SpellDef) // Spell json reading
-        {
-            SpellsDict[spell.name] = spell;
-        }
-
-        foreach ( Modifier mod in ModDef) // modifier json reading
-        {
-            ModDict[mod.name] = mod;
-        }
-    }*/
+        spellKeys = new List<string>(SpellsDict.Keys);
+    }
     
 }
