@@ -34,24 +34,21 @@ public class SpellCaster
         core = new Spell(this, GameManager.Instance.SpellsDict["arcane_bolt"]);
         spells[0] = SpellBuilder.Build(core, modsOfSpells[0]);
     }
-
-    public void AddModifier(Modifier mod)
+    
+    public void AddSpell(Spell spell) // just call addSpell and it should replace if 4 max
     {
-        spells[current_spell].modifiers.Add(mod);
-        RebuildSpell();
+        if (spells.Count < maxSpellCount)
+            spells.Add(spell);
+        else
+            spells[current_spell] = spell;
     }
-
-    public void RemoveModifier(Modifier mod)
+    
+    public void RebuildSpell(Spell spell)
     {
-        spells[current_spell].modifiers.Remove(mod);
-        RebuildSpell();
-    }
-
-    public void RebuildSpell()
-    {
-        //SpellBuilder builder = new SpellBuilder();
-        core = new ArcaneBolt(this); // TODO need to change?
-        spells[current_spell] = SpellBuilder.Build(core, core.GetModifiers());
+        int index = spells.IndexOf(spell);
+        Spell freshCore = new ArcaneBolt(this);
+        freshCore.modifiers = spell.modifiers;
+        spells[index] = SpellBuilder.Build(freshCore, freshCore.GetModifiers());
     }
 
     public IEnumerator Cast(Vector3 where, Vector3 target)

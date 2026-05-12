@@ -1,33 +1,58 @@
-using System.Buffers;
-using UnityEngine;
-using System.IO;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-
 
 public static class SpellBuilder 
 {
     //building the player's spells?
+    private static Modifier CreateModifier(SpellCaster owner,ModifierInfo info, Spell inner)
+    {
+        return info.name switch
+        {
+            "doubler" => new doubler(owner, info, inner),
+            "splitter" => new splitter(owner, info, inner),
+            "damage-amplified" => new damageAmp(owner, info, inner)
+            // need speed
+            // need chaotic
+            // need homing
+        };
+    }
     public static Spell Build(SpellCaster owner, Spell spell)
     {
-        //add the modifiers here or something?
-        return new Spell(owner, spell.spellInfo);
+        Spell freshCore = new ArcaneBolt(owner);
+        return Build(freshCore, spell.GetModifiers());
     }
-
-   // generic 
-   // For making random spells?
-   public static Spell Build(Spell coreSpell, List<Modifier> modifiers)
+    
+   public static Spell Build(Spell coreSpell, List<Modifier> spellModifiers)
    {
        Spell current = coreSpell;
-       foreach (var modifier in modifiers)
+       foreach (var modifier in spellModifiers)
        {
            modifier.inner = current;
            current = modifier;
        }
        return current;
    }
-    
-    // randomSpell() function goes here
-
+   // dont need to take in dictionary because in gamemanager
+   public static Spell RandomSpell(SpellCaster owner, Spell coreSpell, Dictionary<string, ModifierInfo> availableModifiers) // takes in the game manager modifiers list
+   {
+       Random rng = new Random();
+       
+       if (availableModifiers == null || availableModifiers.Count == 0)
+           throw new ArgumentException("availableModifiers must not be null or empty.");
+       
+       int numberOfModifiers = 3;
+       
+       var keys = new List<string>(availableModifiers.Keys); // copy, don't mutate original
+       List<Modifier> spellModifiers = new List<Modifier>();
+       
+       Spell current = coreSpell;
+       for (int i = 0; i < numberOfModifiers; i++)
+       {
+           ModifierInfo info = availableModifiers[keys[rng.Next(0, keys.Count)]];
+           Modifier mod = CreateModifier(owner, info, current);
+           spellModifiers.Add(mod);
+           current = mod;
+       }
+       return current;
+   }
 }
