@@ -49,9 +49,9 @@ public class SpellCaster
 
     public void RebuildSpell()
     {
-        SpellBuilder builder = new SpellBuilder();
-        core = new ArcaneBolt(this); // TODO need to change
-        spells[current_spell] = builder.Build(core, core.GetModifiers());
+        //SpellBuilder builder = new SpellBuilder();
+        core = new ArcaneBolt(this); // TODO need to change?
+        spells[current_spell] = SpellBuilder.Build(core, core.GetModifiers());
     }
 
     public IEnumerator Cast(Vector3 where, Vector3 target)
