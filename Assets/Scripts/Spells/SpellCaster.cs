@@ -9,8 +9,10 @@ public class SpellCaster
     public int mana_reg;
     public Hittable.Team team;
     public List<Spell> spells;
-    public List<List<Modifier>> modsOfSpells;
+    //public List<List<Modifier>> modsOfSpells;
+    
     public int current_spell = 0;
+    public int maxSpellCount = 4;
     public int power = 10;
     public Spell core;
     
@@ -31,33 +33,31 @@ public class SpellCaster
         this.mana_reg = mana_reg;
         this.team = team;
 
-        SpellBuilder builder = new SpellBuilder();
-        core = new Spell(this, GameManager.Instance.SpellsDict["arcane_bolt"]);
-        spells[0] = builder.Build(core, modsOfSpells[0]);
+        
+        core = new ArcaneBolt(this);
+        
+        spells = new List<Spell> { SpellBuilder.Build(core, core.GetModifiers()) }; // getMod return dictionary
     }
-
-    public void AddModifier(Modifier mod)
+    
+    public void AddSpell(Spell spell) // just call addSpell and it should replace if 4 max
     {
-        spells[current_spell].modifiers.Add(mod);
-        RebuildSpell();
+        if (spells.Count < maxSpellCount)
+            spells.Add(spell);
+        else
+            spells[current_spell] = spell;
     }
-
-    public void RemoveModifier(Modifier mod)
+    
+    public void RebuildSpell(Spell spell)
     {
-        spells[current_spell].modifiers.Remove(mod);
-        RebuildSpell();
-    }
-
-    public void RebuildSpell()
-    {
-        SpellBuilder builder = new SpellBuilder();
-        core = new ArcaneBolt(this); // TODO need to change
-        spells[current_spell] = builder.Build(core, core.GetModifiers());
+        int index = spells.IndexOf(spell);
+        Spell freshCore = new ArcaneBolt(this);
+        freshCore.modifiers = spell.modifiers;
+        spells[index] = SpellBuilder.Build(freshCore, freshCore.GetModifiers());
     }
 
     public IEnumerator Cast(Vector3 where, Vector3 target)
-    {        
-        Spell spell = new Spell(this, spells[current_spell]);
+    {
+        Spell spell = spells[current_spell];
         if (mana >= spell.GetManaCost() && spell.IsReady())
         {
             mana -= spells[current_spell].GetManaCost();
