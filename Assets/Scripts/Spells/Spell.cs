@@ -103,7 +103,7 @@ public class Spell
             spellInfo.projectile.trajectory, 
             where, 
             target - where, 
-            GetSpeed(), //Evaluatef(spellInfo.projectile.speed, dictForRPN), 
+            GetSpeed(),
             OnHit);
         yield return new WaitForEndOfFrame();
     }

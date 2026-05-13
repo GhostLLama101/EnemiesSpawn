@@ -47,9 +47,6 @@ public class SpellCaster
         //mod.SetAttributes(jsonObject);
         spells.Add(SpellBuilder.Build(this, core));
         
-        //testing
-        
-        //testing
     }
     
     public bool IsFull() => spells.Count >= maxSpellCount;
