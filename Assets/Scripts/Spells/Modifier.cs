@@ -18,6 +18,14 @@ public class Modifier : Spell
     }
     
     // add the getters
+    public override string GetName()
+    {
+        return inner.GetName() + " " + this.ModifierInfo.name;
+    }
+    public override string GetDescription()
+    {
+        return inner.GetDescription() + " " + this.ModifierInfo.description;
+    }
     
     public override IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
     {

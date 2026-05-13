@@ -27,9 +27,13 @@ public class Spell
     }
     
 
-    public string GetName()
+    public virtual string GetName()
     {
         return this.spellInfo.name;
+    }
+    public virtual string GetDescription()
+    {
+        return this.spellInfo.description;
     }
 
     public virtual int GetManaCost()
@@ -70,6 +74,7 @@ public class Spell
     {
         return (last_cast + GetCooldown() < Time.time);
     }
+    
     
     public void AddModifier(Modifier mod)
     {
