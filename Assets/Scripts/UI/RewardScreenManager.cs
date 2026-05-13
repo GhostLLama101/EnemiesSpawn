@@ -7,6 +7,7 @@ public class RewardScreenManager : MonoBehaviour
     public SpellUI spellRewardUI;
     public TextMeshProUGUI damageText;
     Spell spellReward;
+    private bool rewarded = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,16 +19,20 @@ public class RewardScreenManager : MonoBehaviour
     {
         if (GameManager.Instance.state == GameManager.GameState.WAVEEND)
         {
-            damageText.text = $"Damage Dealt: {GameManager.Instance.total_damage_dealt}";
-            rewardUI.SetActive(true);
+            if (!rewarded)
+            {
+                damageText.text = $"Damage Dealt: {GameManager.Instance.total_damage_dealt}";
+                rewardUI.SetActive(true);
             
-            //TODO: Finish this
-            spellReward = SpellBuilder.RandomSpell();
-            spellRewardUI.SetSpell(spellReward);
+                spellReward = SpellBuilder.RandomSpell();
+                spellRewardUI.SetSpell(spellReward);
+                rewarded = true;
+            }
         }
         else
         {
             rewardUI.SetActive(false);
+            rewarded = false;
         }
     }
 }

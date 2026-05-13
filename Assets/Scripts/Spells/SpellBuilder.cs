@@ -13,7 +13,8 @@ public static class SpellBuilder
             "damage-amplified" => new damageAmp(owner, info, inner),
             "speed-amplified" => new speedAmp(owner, info, inner),
             //"chaotic" => new chaotic(owner, info, inner),
-            // need homing
+            "homing" => new homing(owner, info, inner),
+            _ => null
         };
     }
     public static Spell Build(SpellCaster owner, Spell spell)
