@@ -113,11 +113,11 @@ public class PlayerController : MonoBehaviour
 
     void ScalePlayer()
     {   
-        scaling = true;
+        scaling = true; //scale only once please
         Dictionary<string, int> dictForRPN = new Dictionary<string, int>();
         dictForRPN["wave"] = GameManager.Instance.wave_count;
 
-        //hp; changed it because I can read instructions nowXD
+        //hp
         hp.SetMaxHP(Evaluate("95 wave 5 * +", dictForRPN));
 
         //mana and mana regen
@@ -131,13 +131,13 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < spellcaster.spells.Count; i++)
         {
             Spell old = spellcaster.spells[i];
-            Spell newSpell = new Spell(spellcaster, old.spellInfo);
-            SpellBuilder.Build(newSpell, old.modifiers);
-
+            Spell newSpell = SpellBuilder.Build(spellcaster, old);
             spellcaster.spells[i] = newSpell;
         }
         //now update UI(s)
-        spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
+        //TODO:
+        spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);// use this for all spells when we have the UI set up
+        //or find a way to do it in the loop
         healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);
 
