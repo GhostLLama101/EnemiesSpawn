@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     public ManaBar manaui;
 
     public SpellCaster spellcaster;
-    public SpellUI spellui;
+    public SpellUI spellui; // this is the spell
 
     public int speed;
 
@@ -66,25 +66,29 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("1");
             spellcaster.current_spell = 0;
-            spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
+            Debug.Log("Selected spell: " + spellcaster.spells[0].GetName());
+           // spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
         }
         else if (Keyboard.current.digit2Key.wasPressedThisFrame && spellcaster.spells.Count > 1)
         {
             Debug.Log("2");
             spellcaster.current_spell = 1;
-            spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
+            Debug.Log("Selected spell: " + spellcaster.spells[1].GetName());
+            //spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
         }
         else if (Keyboard.current.digit3Key.wasPressedThisFrame && spellcaster.spells.Count > 2)
         {
             Debug.Log("3");
             spellcaster.current_spell = 2;
-            spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
+            Debug.Log("Selected spell: " + spellcaster.spells[2].GetName());
+            //spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
         }
         else if (Keyboard.current.digit4Key.wasPressedThisFrame && spellcaster.spells.Count > 3)
         {
             Debug.Log("4");
             spellcaster.current_spell = 3;
-            spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
+            Debug.Log("Selected spell: " + spellcaster.spells[3].GetName());
+           // spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
         }
         
         
@@ -128,12 +132,19 @@ public class PlayerController : MonoBehaviour
         spellcaster.power = Evaluate("wave 10 *", dictForRPN);
 
         //overwrite the old spells with new ones based on new power
-        for (int i = 0; i < spellcaster.spells.Count; i++)
+        /*for (int i = 0; i < spellcaster.spells.Count; i++)
         {
             Spell old = spellcaster.spells[i];
             Spell newSpell = SpellBuilder.Build(spellcaster, old);
             spellcaster.spells[i] = newSpell;
+        }*/
+        List<Spell> newSpells = new List<Spell>();
+        for (int i = 0; i < spellcaster.spells.Count; i++)
+        {
+            Spell old = spellcaster.spells[i];
+            newSpells.Add(SpellBuilder.Build(spellcaster, old));
         }
+        spellcaster.spells = newSpells;
         //now update UI(s)
         //TODO:
         spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);// use this for all spells when we have the UI set up
