@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
+using Random = System.Random;
 
 public static class SpellBuilder 
 {
@@ -38,9 +40,14 @@ public static class SpellBuilder
         SpellCaster placeholder = new SpellCaster(-1, -1, Hittable.Team.PLAYER);
         Random rng = new Random();
 
-        int index = rng.Next(1, GameManager.Instance.spellKeys.Count);
+        int index = rng.Next(0, GameManager.Instance.spellKeys.Count);
         string spellName = GameManager.Instance.spellKeys[index];
         SpellInfo spinf = GameManager.Instance.SpellsDict[spellName];
+        if (spinf == null)
+        {
+            Debug.LogError($"SpellInfo is null for key: {spellName}");
+            return null;
+        }
 
         Dictionary<string, ModifierInfo> availableModifiers = GameManager.Instance.ModDict;
         
@@ -57,6 +64,7 @@ public static class SpellBuilder
         {
             ModifierInfo info = availableModifiers[keys[rng.Next(0, keys.Count)]];
             Modifier mod = CreateModifier(placeholder, info, current);
+            if (mod == null) continue; 
             spellModifiers.Add(mod);
             current = mod;
         }
