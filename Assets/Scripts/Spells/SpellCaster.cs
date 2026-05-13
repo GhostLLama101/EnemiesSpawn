@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 public class SpellCaster 
 {
@@ -33,8 +35,21 @@ public class SpellCaster
         this.team = team;
 
         //SpellBuilder builder = new SpellBuilder();
-        core = new Spell(this, GameManager.Instance.SpellsDict["magic_missile"]);
+        core = new Spell(this, GameManager.Instance.SpellsDict["arcane_bolt"]);
+        ModifierInfo test = new ModifierInfo();
+        test.name = "homing";
+        Modifier mod = SpellBuilder.CreateModifier(this, test, core);
+        core.modifiers.Add(mod);
+
+        string jsonString = JsonConvert.SerializeObject(mod.ModifierInfo);
+        JObject jsonObject = JObject.Parse(jsonString);
+        
+        mod.SetAttributes(jsonObject);
         spells.Add(SpellBuilder.Build(this, core));
+        
+        //testing
+        
+        //testing
     }
     
     public bool IsFull() => spells.Count >= maxSpellCount;

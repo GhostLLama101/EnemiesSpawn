@@ -6,7 +6,7 @@ using Random = System.Random;
 public static class SpellBuilder 
 {
     //building the player's spells?
-    private static Modifier CreateModifier(SpellCaster owner,ModifierInfo info, Spell inner)
+    public static Modifier CreateModifier(SpellCaster owner,ModifierInfo info, Spell inner)
     {
         return info.name switch
         {
@@ -15,7 +15,7 @@ public static class SpellBuilder
             "damage-amplified" => new damageAmp(owner, info, inner),
             "speed-amplified" => new speedAmp(owner, info, inner),
             //"chaotic" => new chaotic(owner, info, inner),
-            "homing" => new homing(owner, info, inner),
+            "homing" => new homing(owner, inner),
             _ => null
         };
     }

@@ -6,26 +6,25 @@ using static RPNEvaluator.RPNEvaluator;
 public class homing : Modifier
 {
 
-    
-    
-
-    public homing(SpellCaster owner, ModifierInfo spell, Spell inner) : base(owner, spell, inner)
+    public homing(SpellCaster owner, Spell inner, ModifierInfo spell = null) : base(owner, spell, inner)
     {
+        this.owner = owner;
+        this.inner = inner;
+        this.ModifierInfo = new ModifierInfo();
         ModifierInfo.name = "homing";
         ModifierInfo.description = 
         "The spell's projectile now homes in on the nearest target. Damage is decreased. Mana cost is increased.";
-        ModifierInfo.damage_multiplier = "0.9";
-        ModifierInfo.mana_adder = "5";
+        ModifierInfo.damage_multiplier = " 9 * 10 /";
+        ModifierInfo.mana_adder = " 5 +";
         ModifierInfo.projectile_trajectory = "homing";
     }
-    public override void SetAttributes(JObject mod)
+    public override void SetAttributes(JObject mod = null)
     {
-        base.SetAttributes(mod);
-        //add 5 to mana cost
-        //decrease mana cost by 10%
-        //make tragectory of projectile homing
-        //this.ModifierInfo.damage_multiplier = mod["damage_multiplier"].ToString();
-        this.ModifierInfo.mana_multiplier = mod["mana_multiplier"].ToString();
+        inner.spellInfo.damage.amount = inner.spellInfo.damage.amount+
+        this.ModifierInfo.damage_multiplier;
+        inner.spellInfo.mana_cost = inner.spellInfo.mana_cost+
+        this.ModifierInfo.mana_adder;
+        inner.spellInfo.projectile.trajectory = this.ModifierInfo.projectile_trajectory;
     }
     
     // need to add an edit values for when the player gets stronger

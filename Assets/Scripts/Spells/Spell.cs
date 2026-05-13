@@ -57,6 +57,7 @@ public class Spell
     }
     public virtual float GetSpeed()
     {
+        this.dictForRPN["power"] = owner.power;
         return Evaluatef(this.spellInfo.projectile.speed, this.dictForRPN);
     }
 
