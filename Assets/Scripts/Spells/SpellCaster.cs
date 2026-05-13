@@ -52,12 +52,12 @@ public class SpellCaster
         //testing
     }
     
-    public void AddSpell(Spell spell) // just call addSpell and it should replace if 4 max
+    public bool IsFull() => spells.Count >= maxSpellCount;
+
+    public void AddSpell(Spell spell)
     {
-        if (spells.Count < maxSpellCount)
+        if (!IsFull())
             spells.Add(spell);
-        else
-            spells[current_spell] = spell;
     }
     
     public void RebuildSpell(Spell spell)

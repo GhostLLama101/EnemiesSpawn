@@ -9,13 +9,29 @@ public class SpellUIContainer : MonoBehaviour
     void Start()
     {
         // we only have one spell (right now)
-        spellUIs[0].SetActive(true);
-        for(int i = 1; i< spellUIs.Length; ++i)
+        foreach (GameObject spellUI in spellUIs)
         {
-            spellUIs[i].SetActive(false);
+            spellUI.SetActive(true);
         }
     }
+    public void AddSpell(int index, Spell spell)
+    {
+        if (index < 0 || index >= spellUIs.Length) return;
 
+        SpellUI ui = spellUIs[index].GetComponent<SpellUI>();
+        if (ui != null)
+            ui.SetSpell(spell);
+    }
+    
+    public void SetActiveSlot(int index)
+    {
+        for (int i = 0; i < spellUIs.Length; i++)
+        {
+            SpellUI ui = spellUIs[i].GetComponent<SpellUI>();
+            if (ui != null)
+                ui.highlight.SetActive(i == index);
+        }
+    }
     // Update is called once per frame
     void Update()
     {
