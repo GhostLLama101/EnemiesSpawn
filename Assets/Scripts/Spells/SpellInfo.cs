@@ -14,6 +14,8 @@ public class SpellInfo
     public string cooldown = "2";
     public Projectile projectile;
 
+    public Projectile secondary_projectile;
+
     public SpellInfo Duplicate()
     {
         SpellInfo newSpell = new SpellInfo();

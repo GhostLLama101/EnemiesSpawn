@@ -33,7 +33,7 @@ public class SpellCaster
         this.team = team;
 
         //SpellBuilder builder = new SpellBuilder();
-        core = new Spell(this, GameManager.Instance.SpellsDict["arcane_bolt"]);
+        core = new Spell(this, GameManager.Instance.SpellsDict["arcane_blast"]);
         spells.Add(SpellBuilder.Build(this, core));
     }
     
