@@ -41,10 +41,10 @@ public class SpellCaster
         Modifier mod = SpellBuilder.CreateModifier(this, test, core);
         core.modifiers.Add(mod);
 
-        string jsonString = JsonConvert.SerializeObject(mod.ModifierInfo);
-        JObject jsonObject = JObject.Parse(jsonString);
-        
-        mod.SetAttributes(jsonObject);
+        //string jsonString = JsonConvert.SerializeObject(mod.ModifierInfo);
+        //JObject jsonObject = JObject.Parse(jsonString);
+
+        //mod.SetAttributes(jsonObject);
         spells.Add(SpellBuilder.Build(this, core));
         
         //testing
