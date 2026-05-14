@@ -13,7 +13,8 @@ public class SpellUI : MonoBehaviour
     public Spell spell;
     float last_text_update;
     const float UPDATE_DELAY = 1;
-    public GameObject dropbutton;
+    //public GameObject dropbutton;
+    public TextMeshProUGUI spellName;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,6 +31,7 @@ public class SpellUI : MonoBehaviour
     
         manacost.text = spell.GetManaCost().ToString();
         damage.text = spell.GetDamage().ToString();
+        if (spellName != null) spellName.text = spell.GetName(); 
         last_text_update = Time.time;
     }
 
