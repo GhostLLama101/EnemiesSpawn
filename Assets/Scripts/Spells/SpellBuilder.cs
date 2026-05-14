@@ -14,6 +14,8 @@ public static class SpellBuilder
             "split" => new splitter(owner, info, inner),
             "damage-amplified" => new damageAmp(owner, info, inner),
             "speed-amplified" => new speedAmp(owner, info, inner),
+            "swifty" => new Budget(owner, info, inner),
+            //"chaotic" => new chaotic(owner, info, inner),
             "chaotic" => new chaotic(owner, info, inner),
             "homing" => new homing(owner, info, inner),
             _ => null

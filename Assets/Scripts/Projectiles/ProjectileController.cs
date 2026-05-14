@@ -7,7 +7,7 @@ public class ProjectileController : MonoBehaviour
     public float lifetime;
     public event Action<Hittable,Vector3> OnHit;
     public ProjectileMovement movement;
-    
+    public bool pierce = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -21,7 +21,7 @@ public class ProjectileController : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("projectile")) return;
         if (collision.gameObject.CompareTag("unit"))
@@ -41,7 +41,8 @@ public class ProjectileController : MonoBehaviour
             }
 
         }
-        Destroy(gameObject);
+        if(!pierce)
+            Destroy(gameObject);
     }
 
     public void SetLifetime(float lifetime)
