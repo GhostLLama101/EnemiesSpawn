@@ -131,20 +131,6 @@ public class PlayerController : MonoBehaviour
         //player power
         spellcaster.power = Evaluate("wave 10 *", dictForRPN);
 
-        //overwrite the old spells with new ones based on new power
-        /*for (int i = 0; i < spellcaster.spells.Count; i++)
-        {
-            Spell old = spellcaster.spells[i];
-            Spell newSpell = SpellBuilder.Build(spellcaster, old);
-            spellcaster.spells[i] = newSpell;
-        }*/
-        List<Spell> newSpells = new List<Spell>();
-        for (int i = 0; i < spellcaster.spells.Count; i++)
-        {
-            Spell old = spellcaster.spells[i];
-            newSpells.Add(SpellBuilder.Build(spellcaster, old));
-        }
-        spellcaster.spells = newSpells;
         //now update UI(s)
         //TODO:
         spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);// use this for all spells when we have the UI set up
