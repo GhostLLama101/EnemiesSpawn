@@ -42,7 +42,7 @@
     "mana_multiplier": "2"
   },
   "lance": {
-    "name": "spear",
+    "name": "lance",
     "description": "go through things",
     "pierce": "true"
   }

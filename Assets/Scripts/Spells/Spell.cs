@@ -93,13 +93,14 @@ public class Spell
         this.dictForRPN["power"] = owner.power;
         GameManager.Instance.projectileManager.CreateProjectile(
             spellInfo.projectile.sprite,
-            spellInfo.projectile.trajectory, 
-            where, 
-            target - where, 
+            spellInfo.projectile.trajectory,
+            where,
+            target - where,
             GetSpeed(),
             OnHit,
-            GetLifeTime());
-        //GetDamageType() == Damage.Type.PIERCE
+            GetLifeTime(),
+            GetDamageType());
+        Debug.Log($"Damage type: {GetDamageType()}");
         yield return new WaitForEndOfFrame();
     }
 
