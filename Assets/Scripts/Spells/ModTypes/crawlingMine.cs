@@ -2,9 +2,9 @@ using UnityEngine;
 using static RPNEvaluator.RPNEvaluator;
 using Newtonsoft.Json.Linq;
 
-public class mine : Modifier
+public class crawlingMine : Modifier
 {
-    public mine(SpellCaster owner, ModifierInfo spell, Spell inner) : base(owner, spell, inner)
+    public crawlingMine(SpellCaster owner, ModifierInfo spell, Spell inner) : base(owner, spell, inner)
     {
         this.owner = owner;
         this.inner = inner;
@@ -22,7 +22,7 @@ public class mine : Modifier
     
     public override void ApplyModStats()
     {
-        inner.spellInfo.projectile.lifetime = "-999";
+        inner.spellInfo.projectile.lifetime = "999";
 
         this.ModifierInfo.damage_multiplier = " 5 *";
         inner.spellInfo.damage.amount += this.ModifierInfo.damage_multiplier;

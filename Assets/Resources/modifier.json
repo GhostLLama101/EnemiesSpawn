@@ -47,7 +47,7 @@
     "pierce": "true"
   }, 
   "mine": {
-    "name": "mine",
+    "name": "crawlingMine",
     "description": "Makes the projectile stay put and massively increases damage.",
     "speed_multiplier": "  0 * 1 2 / +",
     "damage_multiplier":" 5 *"
