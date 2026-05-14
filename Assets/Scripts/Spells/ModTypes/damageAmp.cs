@@ -29,7 +29,7 @@ public class damageAmp : Modifier
     }
     public override void ApplyModStats()
     {
-        this.ModifierInfo.damage_multiplier = "3 * 2 /";
+        this.ModifierInfo.damage_multiplier = " 3 * 2 /";
         this.ModifierInfo.mana_multiplier = " 3 * 2 /";
 
         inner.spellInfo.damage.amount += this.ModifierInfo.damage_multiplier;

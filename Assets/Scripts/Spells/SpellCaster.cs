@@ -60,7 +60,16 @@ public class SpellCaster
         freshCore.modifiers = spell.modifiers;
         spells[index] = SpellBuilder.Build(freshCore, freshCore.GetModifiers());
     }*/
-
+    public void FillSpells()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            core = SpellBuilder.RandomSpell(this);
+            spells.Add(core);
+            Debug.Log(core.GetName());
+        }
+    }
+    
     public IEnumerator Cast(Vector3 where, Vector3 target)
     {        
         Spell spell = new Spell(this, spells[current_spell].spellInfo);
