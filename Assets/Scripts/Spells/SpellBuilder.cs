@@ -10,7 +10,7 @@ public static class SpellBuilder
     {
         return info.name switch
         {
-            "doubler" => new doubler(owner, info, inner),
+            "doubled" => new doubler(owner, info, inner),
             "split" => new splitter(owner, info, inner),
             "damage-amplified" => new damageAmp(owner, info, inner),
             "speed-amplified" => new speedAmp(owner, info, inner),
