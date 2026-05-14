@@ -64,8 +64,8 @@ public class SpellCaster
     {
         for (int i = 0; i < 3; i++)
         {
-            core = SpellBuilder.RandomSpell(this);
-            spells.Add(core);
+            Spell core = SpellBuilder.RandomSpell(this);
+            this.spells.Add(core);
             Debug.Log(core.GetName());
         }
     }
