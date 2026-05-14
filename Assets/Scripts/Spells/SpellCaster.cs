@@ -46,14 +46,20 @@ public class SpellCaster
         if (!IsFull())
             spells.Add(spell);
     }
+
+    public void ReplaceSpell(int index, Spell spell)
+    {
+        if (index >= 0 && index < spells.Count)
+            spells[index] = spell;
+    }
     
-    public void RebuildSpell(Spell spell)
+    /*public void RebuildSpell(Spell spell)
     {
         int index = spells.IndexOf(spell);
         Spell freshCore = new Spell(this, spell.spellInfo);
         freshCore.modifiers = spell.modifiers;
         spells[index] = SpellBuilder.Build(freshCore, freshCore.GetModifiers());
-    }
+    }*/
 
     public IEnumerator Cast(Vector3 where, Vector3 target)
     {        
