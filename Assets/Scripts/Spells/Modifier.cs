@@ -29,6 +29,7 @@ public class Modifier : Spell
     
     public override IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
     {
+        this.team = team;
         yield return inner.Cast(where, target, team); // pass down the chain
     }
     
