@@ -60,11 +60,13 @@ public static class SpellBuilder
         List<Modifier> spellModifiers = new List<Modifier>();
         
         Spell current = new Spell(placeholder, spinf);
+        SpellInfo global = current.spellInfo;
         for (int i = 0; i < numberOfModifiers; i++)
         {
             ModifierInfo info = availableModifiers[keys[rng.Next(0, keys.Count)]];
             Modifier mod = CreateModifier(placeholder, info, current);
             if (mod == null) continue; 
+            mod.spellInfo = global;
             spellModifiers.Add(mod);
             current = mod;
         }

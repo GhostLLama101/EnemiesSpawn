@@ -36,12 +36,7 @@ public class SpellCaster
 
         //SpellBuilder builder = new SpellBuilder();
         core = new Spell(this, GameManager.Instance.SpellsDict["arcane_bolt"]);
-        ModifierInfo test = new ModifierInfo();
-        
-        test.name = "homing";
-        core = SpellBuilder.CreateModifier(this, test, core);
         spells.Add(core);
-        
     }
     
     public bool IsFull() => spells.Count >= maxSpellCount;

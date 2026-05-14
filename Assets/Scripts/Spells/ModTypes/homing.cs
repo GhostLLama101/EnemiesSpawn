@@ -1,35 +1,49 @@
 using UnityEngine;
 using Newtonsoft.Json.Linq;
-using Unity.VisualScripting;
 using System.Collections;
-using static RPNEvaluator.RPNEvaluator;
+
 public class homing : Modifier
 {
-
-    public homing(SpellCaster owner,  ModifierInfo spell, Spell inner) : base(owner, spell, inner)
+    //private bool casted = false;
+    public homing(SpellCaster owner, ModifierInfo spell, Spell inner) : base(owner, spell, inner)
     {
         this.owner = owner;
         this.inner = inner;
         this.ModifierInfo = spell;
+
+        this.ModifierInfo.damage_multiplier = " 3 * 4 /";
+        this.ModifierInfo.mana_adder = " 10 +";
+        this.ModifierInfo.projectile_trajectory = "homing";
+
+        inner.spellInfo.damage.amount += this.ModifierInfo.damage_multiplier;
+        inner.spellInfo.mana_cost += this.ModifierInfo.mana_adder;
+        inner.spellInfo.projectile.trajectory = this.ModifierInfo.projectile_trajectory;
     }
+
     public override void SetAttributes(JObject attributes)
     {
         base.SetAttributes(attributes);
-        this.ModifierInfo.name = attributes["name"].ToString();
-        this.ModifierInfo.description = attributes["description"].ToString();
-        this.ModifierInfo.damage_multiplier = attributes["damage_multiplier"].ToString();
-        this.ModifierInfo.mana_adder = attributes["mana_adder"].ToString();
-        this.ModifierInfo.projectile_trajectory = attributes["projectile_trajectory"].ToString();
+
+        if (attributes == null)
+        {
+            Debug.LogError("homing: SetAttributes received a null JObject!");
+            return;
+        }
+
+        // Safe null-conditional assignment to prevent crashes if JSON keys are missing
+        if (this.ModifierInfo != null)
+        {
+            this.ModifierInfo.name = attributes["name"]?.ToString() ?? "Homing";
+            this.ModifierInfo.description = attributes["description"]?.ToString() ?? "";
+            this.ModifierInfo.damage_multiplier = attributes["damage_multiplier"]?.ToString() ?? "0";
+            this.ModifierInfo.mana_adder = attributes["mana_adder"]?.ToString() ?? "0";
+            this.ModifierInfo.projectile_trajectory = attributes["projectile_trajectory"]?.ToString() ?? "homing";
+        }
     }
 
     public override IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
     {
         this.team = team;
-
-        inner.spellInfo.damage.amount += this.ModifierInfo.damage_multiplier;
-        inner.spellInfo.mana_cost += this.ModifierInfo.mana_adder;
-        inner.spellInfo.projectile.trajectory = "homing";
-
         yield return inner.Cast(where, target, team);
     }    
 }
