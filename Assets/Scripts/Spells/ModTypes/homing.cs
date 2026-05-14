@@ -37,11 +37,11 @@ public class homing : Modifier
     public override void ApplyModStats()
     {
         this.ModifierInfo.damage_multiplier = " 3 * 4 /";
-            this.ModifierInfo.mana_adder = " 10 +";
-            this.ModifierInfo.projectile_trajectory = "homing";
+        this.ModifierInfo.mana_adder = " 10 +";
+        this.ModifierInfo.projectile_trajectory = "homing";
 
-            this.spellInfo.damage.amount += this.ModifierInfo.damage_multiplier;
-            this.spellInfo.mana_cost += this.ModifierInfo.mana_adder;
-            this.spellInfo.projectile.trajectory = this.ModifierInfo.projectile_trajectory;
+        this.spellInfo.damage.amount += this.ModifierInfo.damage_multiplier;
+        this.spellInfo.mana_cost += this.ModifierInfo.mana_adder;
+        this.spellInfo.projectile.trajectory = this.ModifierInfo.projectile_trajectory;
     }
 }

@@ -51,7 +51,6 @@ public class Spell
 
     public Damage.Type GetDamageType()
     {
-        this.dictForRPN["power"] = owner.power;
         return Damage.TypeFromString(this.spellInfo.damage.type);
     }
 
