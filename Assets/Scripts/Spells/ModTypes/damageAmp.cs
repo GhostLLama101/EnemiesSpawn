@@ -17,16 +17,7 @@ public class damageAmp : Modifier
         this.ModifierInfo.mana_multiplier = mod["mana_multiplier"].ToString();
     }
     
-    public override int GetDamage()
-    {
-        return (int)(inner.GetDamage() * EvaluateStat(ModifierInfo.damage_multiplier));
-        
-    }
-
-    public override int GetManaCost()
-    {
-        return (int)(inner.GetManaCost() * EvaluateStat(ModifierInfo.mana_multiplier));
-    }
+    
     public override void ApplyModStats()
     {
         this.ModifierInfo.damage_multiplier = " 3 * 2 /";

@@ -18,15 +18,15 @@ public class speedAmp : Modifier
         this.ModifierInfo.speed_multiplier= mod["speed_multiplier"].ToString();
     }
     
-    public override float GetSpeed()
-    {
-        return inner.GetSpeed() * EvaluateStat(ModifierInfo.speed_multiplier);
-    }
+    
     public override void ApplyModStats()
     {
         this.ModifierInfo.speed_multiplier = " 7 * 4 /";
 
         this.spellInfo.projectile.speed += this.ModifierInfo.speed_multiplier;
-        this.spellInfo.secondary_projectile.speed += this.ModifierInfo.speed_multiplier;
+        if (this.spellInfo.secondary_projectile != null) 
+        {
+            this.spellInfo.secondary_projectile.speed += this.ModifierInfo.speed_multiplier;
+        }
     }
 }
