@@ -133,7 +133,7 @@ public class PlayerController : MonoBehaviour
 
         //now update UI(s)
         //TODO:
-        spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);// use this for all spells when we have the UI set up
+        spellui.SetSpell(spellcaster.spells[0]);// use this for all spells when we have the UI set up
         //or find a way to do it in the loop
         healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);

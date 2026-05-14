@@ -37,14 +37,9 @@ public class SpellCaster
         //SpellBuilder builder = new SpellBuilder();
         core = new Spell(this, GameManager.Instance.SpellsDict["arcane_bolt"]);
         ModifierInfo test = new ModifierInfo();
+        
         test.name = "homing";
         core = SpellBuilder.CreateModifier(this, test, core);
-        //core = core.modifiers.Add(mod);
-
-        //string jsonString = JsonConvert.SerializeObject(mod.ModifierInfo);
-        //JObject jsonObject = JObject.Parse(jsonString);
-
-        //mod.SetAttributes(jsonObject);
         spells.Add(core);
         
     }
