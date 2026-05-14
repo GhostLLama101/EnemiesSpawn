@@ -26,6 +26,19 @@ public class Modifier : Spell
     {
         return inner.GetDescription() + " " + this.ModifierInfo.description;
     }
+    public override int GetDamage()
+    {
+        return inner.GetDamage();
+        
+    }
+    public override float GetSpeed()
+    {
+        return inner.GetSpeed();
+    }
+    public override int GetManaCost()
+    {
+        return inner.GetManaCost();
+    }
     
     public override IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
     {

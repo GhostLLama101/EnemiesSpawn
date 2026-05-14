@@ -131,6 +131,8 @@ public class PlayerController : MonoBehaviour
         //player power
         spellcaster.power = Evaluate("wave 10 *", dictForRPN);
 
+        //spellcaster.FillSpells();
+
         //now update UI(s)
         //TODO:
         spellui.SetSpell(spellcaster.spells[0]);// use this for all spells when we have the UI set up
