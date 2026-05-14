@@ -32,7 +32,7 @@ public class ProjectileManager : MonoBehaviour
         new_projectile.GetComponent<ProjectileController>().SetLifetime(lifetime);
         if (type == Damage.Type.PIERCE)
         {
-            new_projectile.GetComponent<ProjectileController>().pierce = true;
+            new_projectile.GetComponent<ProjectileController>().pierce = true; // this is begi wierd
         }
         Debug.Log($"Type received: {type}");
     }
