@@ -25,7 +25,6 @@ public class homing : Modifier
             return;
         }
 
-        // Safe null-conditional assignment to prevent crashes if JSON keys are missing
         if (this.ModifierInfo != null)
         {
             this.ModifierInfo.name = attributes["name"]?.ToString() ?? "Homing";
@@ -45,11 +44,4 @@ public class homing : Modifier
             this.spellInfo.mana_cost += this.ModifierInfo.mana_adder;
             this.spellInfo.projectile.trajectory = this.ModifierInfo.projectile_trajectory;
     }
-    /*Commenting this out because technically its defined in the base mod class so it should still work
-    public override IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
-    {
-        this.team = team;
-        yield return inner.Cast(where, target, team);
-    }    
-    */
 }

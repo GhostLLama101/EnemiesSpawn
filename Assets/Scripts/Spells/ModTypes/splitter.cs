@@ -25,7 +25,9 @@ public class splitter : Modifier
         Vector3 target1 = where + (Quaternion.Euler(0, 0, angle) * direction);
         Vector3 target2 = where + (Quaternion.Euler(0, 0, -angle) * direction);
         
-        yield return inner.Cast(where, target1, team);
-        yield return inner.Cast(where, target2, team);
+        GameManager.Instance.projectileManager.StartCoroutine(inner.Cast(where, target1, team));
+        GameManager.Instance.projectileManager.StartCoroutine(inner.Cast(where, target2, team));
+
+        yield break;
     }
 }

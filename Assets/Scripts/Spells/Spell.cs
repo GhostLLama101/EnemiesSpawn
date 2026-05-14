@@ -45,6 +45,7 @@ public class Spell
     public virtual int GetDamage()
     {
         this.dictForRPN["power"] = owner.power;
+        this.dictForRPN["wave"] = GameManager.Instance.wave_count;
         return Evaluate(this.spellInfo.damage.amount, this.dictForRPN);
     }
 
@@ -103,8 +104,6 @@ public class Spell
         }
 
     }
-    
-
     public virtual void SetAttributes(JObject spell)
     {
         this.spellInfo.name = spell["name"].ToString();

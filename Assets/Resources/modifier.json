@@ -26,7 +26,7 @@
   "chaos": {
     "name": "chaotic",
     "description": "Significantly increased damage, but projectile is spiraling.",
-    "damage_multiplier": "1.5 wave 5 / +",
+    "damage_multiplier": " 1.5 wave 5 / + *",
     "projectile_trajectory": "spiraling"
   },
   "homing": {
