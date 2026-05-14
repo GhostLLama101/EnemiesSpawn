@@ -38,14 +38,14 @@ public class SpellCaster
         core = new Spell(this, GameManager.Instance.SpellsDict["arcane_bolt"]);
         ModifierInfo test = new ModifierInfo();
         test.name = "homing";
-        Modifier mod = SpellBuilder.CreateModifier(this, test, core);
-        core.modifiers.Add(mod);
+        core = SpellBuilder.CreateModifier(this, test, core);
+        //core = core.modifiers.Add(mod);
 
         //string jsonString = JsonConvert.SerializeObject(mod.ModifierInfo);
         //JObject jsonObject = JObject.Parse(jsonString);
 
         //mod.SetAttributes(jsonObject);
-        spells.Add(SpellBuilder.Build(this, core));
+        spells.Add(core);
         
     }
     
@@ -60,7 +60,7 @@ public class SpellCaster
     public void RebuildSpell(Spell spell)
     {
         int index = spells.IndexOf(spell);
-        Spell freshCore = new ArcaneBolt(this);
+        Spell freshCore = new Spell(this, spell.spellInfo);
         freshCore.modifiers = spell.modifiers;
         spells[index] = SpellBuilder.Build(freshCore, freshCore.GetModifiers());
     }
