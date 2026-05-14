@@ -1,15 +1,23 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class RewardScreenManager : MonoBehaviour
 {
     public GameObject rewardUI;
     public SpellUI spellRewardUI;
-    public TextMeshProUGUI damageText;
+    //public TextMeshProUGUI damageText;
     public SpellUIContainer spellUIContainer;
+    public Button exchangeButton;
+    public Button acceptButton;
     Spell spellReward;
     private bool rewarded = false;
+    private bool accepted = false;
+
+    [Header("Swap Panel")] public GameObject swapPanel;
+    public SpellUI[] swapSlotUIs;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,6 +26,9 @@ public class RewardScreenManager : MonoBehaviour
             Debug.LogError("spellRewardUI is not assigned in the Inspector!");
             return;
         }
+        swapPanel.SetActive(false);
+        exchangeButton.gameObject.SetActive(false);
+        acceptButton.gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -28,18 +39,20 @@ public class RewardScreenManager : MonoBehaviour
             if (!rewarded)
             {
                 rewardUI.SetActive(true);
-    
-                try 
+                acceptButton.gameObject.SetActive(true);
+                exchangeButton.gameObject.SetActive(false);
+                swapPanel.SetActive(false);
+                
+                try
                 {
                     spellReward = SpellBuilder.RandomSpell();
-                    Debug.Log($"spellReward: {spellReward}");
                     spellRewardUI.SetSpell(spellReward);
                 }
                 catch (Exception e)
                 {
                     Debug.LogError($"RandomSpell failed: {e}");
                 }
-    
+
                 rewarded = true;
             }
         }
@@ -49,46 +62,69 @@ public class RewardScreenManager : MonoBehaviour
             rewarded = false;
         }
     }
-    
+
     public void AcceptReward()
     {
+        Debug.Log("AcceptReward called");
         if (spellReward == null) return;
-
+ 
+        // Hide accept immediately so it can't be clicked again
+        acceptButton.gameObject.SetActive(false);
+ 
         PlayerController player = spellUIContainer.player;
-    
+ 
         if (!player.spellcaster.IsFull())
         {
-            // add to next open slot and update that UI slot
-            int newIndex = player.spellcaster.spells.Count; // before adding
+            int newIndex = player.spellcaster.spells.Count;
             player.spellcaster.AddSpell(spellReward);
             spellUIContainer.AddSpell(newIndex, spellReward);
-        
-            rewardUI.SetActive(false);
-            rewarded = false;
             spellReward = null;
+            // Player now clicks Next to start next wave
         }
         else
         {
-            // all 4 slots full — show swap UI
-            // you'll need a separate panel with 4 buttons, one per slot
+            // Spells full — show exchange button
             ShowSwapUI();
         }
     }
-
     void ShowSwapUI()
     {
-        // TODO: show 4 buttons letting the player pick which slot to replace
-        // each button calls SwapSpell(int slotIndex)
-        Debug.Log("Spells full — show swap UI");
+        exchangeButton.gameObject.SetActive(true);
     }
-
     public void SwapSpell(int slotIndex)
     {
-        spellUIContainer.player.spellcaster.spells[slotIndex] = spellReward;
+        
+        spellUIContainer.player.spellcaster.ReplaceSpell(slotIndex, spellReward);
         spellUIContainer.AddSpell(slotIndex, spellReward);
-    
-        rewardUI.SetActive(false);
-        rewarded = false;
+ 
+        foreach (var slot in swapSlotUIs)
+            slot.SetClickable(false, null);
+ 
+        swapPanel.SetActive(false);
         spellReward = null;
+        // Player now clicks Next to start next wave
+    }
+
+    
+
+    public void OnExchangeClicked()
+    {
+        exchangeButton.gameObject.SetActive(false);
+        swapPanel.SetActive(true);
+ 
+        SpellCaster caster = spellUIContainer.player.spellcaster;
+        for (int i = 0; i < swapSlotUIs.Length; i++)
+        {
+            if (i >= caster.spells.Count)
+            {
+                swapSlotUIs[i].gameObject.SetActive(false);
+                continue;
+            }
+            swapSlotUIs[i].gameObject.SetActive(true);
+            swapSlotUIs[i].SetSpell(caster.spells[i]);
+ 
+            int slotIndex = i;
+            swapSlotUIs[i].SetClickable(true, () => SwapSpell(slotIndex));
+        }
     }
 }

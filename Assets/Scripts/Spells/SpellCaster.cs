@@ -51,6 +51,12 @@ public class SpellCaster
         if (!IsFull())
             spells.Add(spell);
     }
+
+    public void ReplaceSpell(int index, Spell spell)
+    {
+        if (index >= 0 && index < spells.Count)
+            spells[index] = spell;
+    }
     
     /*public void RebuildSpell(Spell spell)
     {

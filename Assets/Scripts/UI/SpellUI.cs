@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -57,5 +58,24 @@ public class SpellUI : MonoBehaviour
             }
             cooldown.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 48 * perc);
         }
+    }
+    public void SetClickable(bool on, Action onClick)
+    {
+        Button btn = GetComponent<Button>();
+        if (btn == null) btn = gameObject.AddComponent<Button>();
+    
+        // Button needs a raycast target to receive clicks
+        Image img = GetComponent<Image>();
+        if (img == null)
+        {
+            img = gameObject.AddComponent<Image>();
+            img.color = new Color(1, 1, 1, 0); // invisible but clickable
+        }
+        img.raycastTarget = on;
+
+        btn.onClick.RemoveAllListeners();
+        if (on && onClick != null)
+            btn.onClick.AddListener(() => onClick());
+        btn.enabled = on;
     }
 }
