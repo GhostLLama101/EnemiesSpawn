@@ -6,11 +6,7 @@ public class damageAmp : Modifier
     //private bool casted = false;
     public damageAmp(SpellCaster owner, ModifierInfo spell, Spell inner) : base(owner, spell, inner)
     {
-        this.ModifierInfo.damage_multiplier = "3 * 2 /";
-        this.ModifierInfo.mana_multiplier = " 3 * 2 /";
-
-        inner.spellInfo.damage.amount += this.ModifierInfo.damage_multiplier;
-        inner.spellInfo.mana_cost += this.ModifierInfo.mana_adder;
+        
 
     }
     public override void SetAttributes(JObject mod)
@@ -31,14 +27,19 @@ public class damageAmp : Modifier
     {
         return (int)(inner.GetManaCost() * EvaluateStat(ModifierInfo.mana_multiplier));
     }
-    
+    public override void ApplyModStats()
+    {
+        this.ModifierInfo.damage_multiplier = "3 * 2 /";
+        this.ModifierInfo.mana_multiplier = " 3 * 2 /";
+
+        inner.spellInfo.damage.amount += this.ModifierInfo.damage_multiplier;
+        inner.spellInfo.mana_cost += this.ModifierInfo.mana_adder;
+
+    }
+
     public override IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
     {
         this.team = team;
-
-        
-        
-
         yield return inner.Cast(where, target, team);
     }    
 }

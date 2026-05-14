@@ -10,14 +10,9 @@ public class homing : Modifier
         this.owner = owner;
         this.inner = inner;
         this.ModifierInfo = spell;
+        this.spellInfo = inner.spellInfo;
 
-        this.ModifierInfo.damage_multiplier = " 3 * 4 /";
-        this.ModifierInfo.mana_adder = " 10 +";
-        this.ModifierInfo.projectile_trajectory = "homing";
-
-        inner.spellInfo.damage.amount += this.ModifierInfo.damage_multiplier;
-        inner.spellInfo.mana_cost += this.ModifierInfo.mana_adder;
-        inner.spellInfo.projectile.trajectory = this.ModifierInfo.projectile_trajectory;
+        
     }
 
     public override void SetAttributes(JObject attributes)
@@ -40,7 +35,16 @@ public class homing : Modifier
             this.ModifierInfo.projectile_trajectory = attributes["projectile_trajectory"]?.ToString() ?? "homing";
         }
     }
+    public override void ApplyModStats()
+    {
+        this.ModifierInfo.damage_multiplier = " 3 * 4 /";
+            this.ModifierInfo.mana_adder = " 10 +";
+            this.ModifierInfo.projectile_trajectory = "homing";
 
+            this.spellInfo.damage.amount += this.ModifierInfo.damage_multiplier;
+            this.spellInfo.mana_cost += this.ModifierInfo.mana_adder;
+            this.spellInfo.projectile.trajectory = this.ModifierInfo.projectile_trajectory;
+    }
     public override IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
     {
         this.team = team;
