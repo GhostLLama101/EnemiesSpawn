@@ -7,6 +7,8 @@ public class ProjectileController : MonoBehaviour
     public float lifetime;
     public event Action<Hittable,Vector3> OnHit;
     public ProjectileMovement movement;
+
+    public bool pierce = false;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
