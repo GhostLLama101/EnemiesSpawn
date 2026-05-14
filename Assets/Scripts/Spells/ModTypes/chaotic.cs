@@ -2,10 +2,10 @@ using UnityEngine;
 using Newtonsoft.Json.Linq;
 using System.Collections;
 
-public class homing : Modifier
+public class chaotic : Modifier
 {
     //private bool casted = false;
-    public homing(SpellCaster owner, ModifierInfo spell, Spell inner) : base(owner, spell, inner)
+    public chaotic(SpellCaster owner, ModifierInfo spell, Spell inner) : base(owner, spell, inner)
     {
         this.owner = owner;
         this.inner = inner;
@@ -21,27 +21,24 @@ public class homing : Modifier
 
         if (attributes == null)
         {
-            Debug.LogError("homing: SetAttributes received a null JObject!");
+            Debug.LogError("chaotic: SetAttributes received a null JObject!");
             return;
         }
 
         if (this.ModifierInfo != null)
         {
-            this.ModifierInfo.name = attributes["name"]?.ToString() ?? "Homing";
+            this.ModifierInfo.name = attributes["name"]?.ToString() ?? "Chaotic";
             this.ModifierInfo.description = attributes["description"]?.ToString() ?? "";
             this.ModifierInfo.damage_multiplier = attributes["damage_multiplier"]?.ToString() ?? "0";
-            this.ModifierInfo.mana_adder = attributes["mana_adder"]?.ToString() ?? "0";
-            this.ModifierInfo.projectile_trajectory = attributes["projectile_trajectory"]?.ToString() ?? "homing";
+            this.ModifierInfo.projectile_trajectory = attributes["projectile_trajectory"]?.ToString() ?? "spiraling";
         }
     }
     public override void ApplyModStats()
     {
-        this.ModifierInfo.damage_multiplier = " 3 * 4 /";
-        this.ModifierInfo.mana_adder = " 10 +";
-        this.ModifierInfo.projectile_trajectory = "homing";
+        this.ModifierInfo.damage_multiplier = " 3 2 / wave 5 / + *";
+        this.ModifierInfo.projectile_trajectory = "spiraling";
 
         this.spellInfo.damage.amount += this.ModifierInfo.damage_multiplier;
-        this.spellInfo.mana_cost += this.ModifierInfo.mana_adder;
         this.spellInfo.projectile.trajectory = this.ModifierInfo.projectile_trajectory;
     }
 }
