@@ -42,7 +42,7 @@ public static class SpellBuilder
 
         int index = rng.Next(0, GameManager.Instance.spellKeys.Count);
         string spellName = GameManager.Instance.spellKeys[index];
-        SpellInfo spinf = GameManager.Instance.SpellsDict[spellName];
+        SpellInfo spinf = GameManager.Instance.SpellsDict[spellName].Duplicate();
         if (spinf == null)
         {
             Debug.LogError($"SpellInfo is null for key: {spellName}");
@@ -60,14 +60,21 @@ public static class SpellBuilder
         List<Modifier> spellModifiers = new List<Modifier>();
         
         Spell current = new Spell(placeholder, spinf);
+        SpellInfo global = current.spellInfo;
         for (int i = 0; i < numberOfModifiers; i++)
         {
             ModifierInfo info = availableModifiers[keys[rng.Next(0, keys.Count)]];
             Modifier mod = CreateModifier(placeholder, info, current);
             if (mod == null) continue; 
+            mod.spellInfo = global;
             spellModifiers.Add(mod);
             current = mod;
         }
+        foreach (Modifier mod in spellModifiers)
+        {
+            mod.ApplyModStats();
+        }
+
         return current;
     }
 }

@@ -16,7 +16,7 @@ public class Modifier : Spell
         this.inner = inner;
         this.ModifierInfo = mod;
     }
-    
+    public virtual void ApplyModStats() { }
     // add the getters
     public override string GetName()
     {

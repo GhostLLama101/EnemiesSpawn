@@ -100,10 +100,6 @@ public class Spell
         if (other.team != team)
         {
             other.Damage(new Damage(this.GetDamage(), this.GetDamageType()));
-            /*if ()
-            {
-                
-            }*/
         }
 
     }
