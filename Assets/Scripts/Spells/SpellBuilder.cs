@@ -18,6 +18,7 @@ public static class SpellBuilder
             "spear" => new lance(owner, info, inner),
             "chaotic" => new chaotic(owner, info, inner),
             "homing" => new homing(owner, info, inner),
+            "mine" => new mine(owner, info, inner),
             _ => null
         };
     }
