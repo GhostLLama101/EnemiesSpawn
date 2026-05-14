@@ -25,6 +25,7 @@ public class ProjectileController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("projectile")) return;
         if (collision.gameObject.CompareTag("unit"))
+            Debug.Log($"Pierce: {pierce}");
         {
             var ec = collision.gameObject.GetComponent<EnemyController>();
             if (ec != null)
