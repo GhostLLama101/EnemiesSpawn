@@ -48,7 +48,7 @@ public class Spell
         return Evaluate(this.spellInfo.damage.amount, this.dictForRPN);
     }
 
-    public Damage.Type GetDamageType()
+    public virtual Damage.Type GetDamageType()
     {
         this.dictForRPN["power"] = owner.power;
         return Damage.TypeFromString(this.spellInfo.damage.type);
@@ -63,6 +63,12 @@ public class Spell
     {
         this.dictForRPN["power"] = owner.power;
         return Evaluatef(this.spellInfo.projectile.speed, this.dictForRPN);
+    }
+
+    public virtual float GetLifeTime()
+    {
+        this.dictForRPN["power"] = owner.power;
+        return int.Parse(spellInfo.projectile.lifetime);
     }
 
     public virtual int GetIcon()
@@ -91,7 +97,9 @@ public class Spell
             where, 
             target - where, 
             GetSpeed(),
-            OnHit);
+            OnHit,
+            GetLifeTime());
+        //GetDamageType() == Damage.Type.PIERCE
         yield return new WaitForEndOfFrame();
     }
 

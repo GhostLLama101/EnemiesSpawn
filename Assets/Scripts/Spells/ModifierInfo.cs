@@ -15,4 +15,5 @@ public class ModifierInfo
     public string angle;
     public string projectile_trajectory;
     public string mana_adder;
+    public string pierce;
 }

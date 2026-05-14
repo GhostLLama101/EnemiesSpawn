@@ -40,6 +40,16 @@ public class Modifier : Spell
         return inner.GetManaCost();
     }
     
+    public override float GetLifeTime()
+    {
+        return inner.GetLifeTime();
+    }
+    
+    public override Damage.Type GetDamageType()
+    {
+        return inner.GetDamageType();
+    }
+    
     public override IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
     {
         this.team = team;
