@@ -76,7 +76,7 @@ public class Spell
     }
     
     
-    public void AddModifier(Modifier mod)
+    /*public void AddModifier(Modifier mod)
     {
         modifiers.Add(mod);
         Rebuild();
@@ -86,13 +86,13 @@ public class Spell
     {
         modifiers.Remove(mod);
         Rebuild();
-    }
+    }*/
 
-    private void Rebuild()
+    /*private void Rebuild()
     {
         // tell the owner to rebuild this spell
-        owner.RebuildSpell(this);
-    }
+        //owner.RebuildSpell(this);
+    }*/
 
     public List<Modifier> GetModifiers()
     {
