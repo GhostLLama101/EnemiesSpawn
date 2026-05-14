@@ -15,7 +15,7 @@ public static class SpellBuilder
             "damage-amplified" => new damageAmp(owner, info, inner),
             "speed-amplified" => new speedAmp(owner, info, inner),
             "swifty" => new Budget(owner, info, inner),
-            //"chaotic" => new chaotic(owner, info, inner),
+            "spear" => new lance(owner, info, inner),
             "chaotic" => new chaotic(owner, info, inner),
             "homing" => new homing(owner, info, inner),
             _ => null
