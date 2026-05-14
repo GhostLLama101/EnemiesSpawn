@@ -16,6 +16,7 @@ public static class SpellBuilder
             "speed-amplified" => new speedAmp(owner, info, inner),
             "swifty" => new Budget(owner, info, inner),
             //"chaotic" => new chaotic(owner, info, inner),
+            "chaotic" => new chaotic(owner, info, inner),
             "homing" => new homing(owner, info, inner),
             _ => null
         };
