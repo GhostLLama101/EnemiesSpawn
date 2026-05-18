@@ -103,10 +103,19 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(spellcaster.Cast(transform.position, mouseWorld));
     }
 
-    void OnMove(InputValue value)
+    void OnMove(InputValue value) // add this to the observation
     {
         if (GameManager.Instance.state == GameManager.GameState.PREGAME || GameManager.Instance.state == GameManager.GameState.GAMEOVER) return;
-        unit.movement = value.Get<Vector2>()*speed;
+        Vector2 movement = value.Get<Vector2>();
+        
+        unit.movement = movement *speed;
+        Debug.Log("Moveing" + movement);
+        
+        if (movement.sqrMagnitude < 0.01f)
+        {
+            Debug.Log("firing event DoNotMove");
+            EventBus.Instance.DoNotMove();
+        }
     }
 
     void Die()
