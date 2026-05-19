@@ -34,7 +34,6 @@ public class SpellCaster
         this.mana_reg = mana_reg;
         this.team = team;
 
-        //SpellBuilder builder = new SpellBuilder();
         core = new Spell(this, GameManager.Instance.SpellsDict["arcane_bolt"]);
         spells.Add(core);
     }
