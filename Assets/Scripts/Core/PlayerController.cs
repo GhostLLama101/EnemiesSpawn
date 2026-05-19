@@ -44,6 +44,8 @@ public class PlayerController : MonoBehaviour
         healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);
         spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
+        
+        DontMoveRelic dontMoveRelic = new DontMoveRelic(); // for testing
     }
 
     // Update is called once per frame

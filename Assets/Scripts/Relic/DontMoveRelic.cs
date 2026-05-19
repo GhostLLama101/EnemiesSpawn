@@ -1,11 +1,11 @@
 using System;
 using UnityEngine;
 
-public class DontMoveRelic : MonoBehaviour
+public class DontMoveRelic : RelicInfo
 {
-    void Start()
+    public DontMoveRelic()
     {
-        Debug.Log("calling the relic");
+        Debug.Log("Added OnNotMove to bus");
         EventBus.Instance.OnNotMove += OnNotMove;
     }
 
