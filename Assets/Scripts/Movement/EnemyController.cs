@@ -49,6 +49,7 @@ public class EnemyController : MonoBehaviour
         {
             dead = true;
             GameManager.Instance.RemoveEnemy(gameObject);
+            EventBus.Instance.DoKilledEnemy();  // this is where you call the relic for killing enemies.
             Destroy(gameObject);
         }
     }
