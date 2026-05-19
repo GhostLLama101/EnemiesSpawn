@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class KillEnemyRelic : MonoBehaviour
+public class KillEnemyRelic : RelicInfo
 {
     public KillEnemyRelic()
     {
-        Debug.Log("Added OnNotMove to bus");
-        EventBus.Instance.OnNotMove += OnEnemyKilled;
+        Debug.Log("Added OnEnemyKilled to bus");
+        EventBus.Instance.OnEnemyKilled += OnEnemyKilled;
     }
 
     private void OnEnemyKilled()

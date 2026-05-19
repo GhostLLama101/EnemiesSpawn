@@ -18,8 +18,11 @@ public class EventBus
 
     public event Action OnNotMove;  // add more events that can happen like not moving for 3 seconds
 
-    public event Action OnEnemyKelled;// killing and enemy
-    // damaging an enemy
+    public event Action OnEnemyKilled;// killing and enemy
+
+    public event Action OnTakeDamage;// Whenever you take damage, you gain 5 mana.
+    
+    // When you take damage, your next spell gets 100 spellpower.
     
     public void DoDamage(Vector3 where, Damage dmg, Hittable target)
     {
@@ -34,7 +37,15 @@ public class EventBus
     public void DoKilledEnemy()
     {
         Debug.Log("Invoking OnEnemyKilled");
-        OnEnemyKelled?.Invoke();
+        OnEnemyKilled?.Invoke();
     }
+
+    public void DoTakeDamage()
+    {
+        Debug.Log("Invoking OnTakeDamage");
+        OnTakeDamage?.Invoke();
+    }
+    
+    // need to do spell power next
 
 }
