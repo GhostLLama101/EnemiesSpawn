@@ -15,10 +15,26 @@ public class EventBus
     }
 
     public event Action<Vector3, Damage, Hittable> OnDamage;
+
+    public event Action OnNotMove;  // add more events that can happen like not moving for 3 seconds
+
+    public event Action OnEnemyKelled;// killing and enemy
+    // damaging an enemy
     
     public void DoDamage(Vector3 where, Damage dmg, Hittable target)
     {
         OnDamage?.Invoke(where, dmg, target);
+    }
+    public void DoNotMove() // if the event is active do it
+    {
+        Debug.Log("Invoking onNotMove");
+        OnNotMove?.Invoke(); 
+    }
+
+    public void DoKilledEnemy()
+    {
+        Debug.Log("Invoking OnEnemyKilled");
+        OnEnemyKelled?.Invoke();
     }
 
 }
