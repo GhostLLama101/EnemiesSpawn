@@ -47,6 +47,8 @@ public class PlayerController : MonoBehaviour
         spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
         
         DontMoveRelic dontMoveRelic = new DontMoveRelic(); // for testing
+        KillEnemyRelic killedTheEnemy = new KillEnemyRelic(); // for testing
+        TakeDamageMana tookDamageMana = new TakeDamageMana(); // for testing
     }
 
     // Update is called once per frame
@@ -67,27 +69,31 @@ public class PlayerController : MonoBehaviour
         //Should be robust
         if (Keyboard.current.digit1Key.wasPressedThisFrame)
         {
-            Debug.Log("1");
+            //Debug.Log("1");
             spellcaster.current_spell = 0;
-            Debug.Log("Selected spell: " + spellcaster.spells[0].GetName());
+            //Debug.Log("Selected spell: " + spellcaster.spells[0].GetName());
+           // spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
         }
         else if (Keyboard.current.digit2Key.wasPressedThisFrame && spellcaster.spells.Count > 1)
         {
-            Debug.Log("2");
+            //Debug.Log("2");
             spellcaster.current_spell = 1;
-            Debug.Log("Selected spell: " + spellcaster.spells[1].GetName());
+           //Debug.Log("Selected spell: " + spellcaster.spells[1].GetName());
+            //spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
         }
         else if (Keyboard.current.digit3Key.wasPressedThisFrame && spellcaster.spells.Count > 2)
         {
-            Debug.Log("3");
+            //Debug.Log("3");
             spellcaster.current_spell = 2;
-            Debug.Log("Selected spell: " + spellcaster.spells[2].GetName());
+           // Debug.Log("Selected spell: " + spellcaster.spells[2].GetName());
+            //spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
         }
         else if (Keyboard.current.digit4Key.wasPressedThisFrame && spellcaster.spells.Count > 3)
         {
-            Debug.Log("4");
+            //Debug.Log("4");
             spellcaster.current_spell = 3;
-            Debug.Log("Selected spell: " + spellcaster.spells[3].GetName());
+           // Debug.Log("Selected spell: " + spellcaster.spells[3].GetName());
+           // spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
         }
         
         
@@ -108,7 +114,7 @@ public class PlayerController : MonoBehaviour
         Vector2 movement = value.Get<Vector2>();
         
         unit.movement = movement *speed;
-        Debug.Log("Moveing" + movement);
+        //Debug.Log("Moveing" + movement);
         
         if (movement.sqrMagnitude < 0.01f)
         {
