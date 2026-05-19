@@ -53,6 +53,7 @@ public class GameManager
     public Dictionary<string, SpellInfo> SpellsDict = JSONReader.LoadDictionary<SpellInfo>("spells");
     public List<string> spellKeys;
     public Dictionary<string, ModifierInfo> ModDict = JSONReader.LoadDictionary<ModifierInfo>("modifier");
+    public Dictionary<string, PlayerClass> PlayerClasses = JSONReader.LoadDictionary<PlayerClass>("classes");
     
     
     public int enemy_count { get { return enemies.Count; } }

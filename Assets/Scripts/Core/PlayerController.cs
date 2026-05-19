@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
 
     public void StartLevel()
     {
+        Debug.Log("yo");
         spellcaster = new SpellCaster(125, 8, Hittable.Team.PLAYER);
         StartCoroutine(spellcaster.ManaRegeneration());
         
@@ -67,28 +68,24 @@ public class PlayerController : MonoBehaviour
             Debug.Log("1");
             spellcaster.current_spell = 0;
             Debug.Log("Selected spell: " + spellcaster.spells[0].GetName());
-           // spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
         }
         else if (Keyboard.current.digit2Key.wasPressedThisFrame && spellcaster.spells.Count > 1)
         {
             Debug.Log("2");
             spellcaster.current_spell = 1;
             Debug.Log("Selected spell: " + spellcaster.spells[1].GetName());
-            //spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
         }
         else if (Keyboard.current.digit3Key.wasPressedThisFrame && spellcaster.spells.Count > 2)
         {
             Debug.Log("3");
             spellcaster.current_spell = 2;
             Debug.Log("Selected spell: " + spellcaster.spells[2].GetName());
-            //spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
         }
         else if (Keyboard.current.digit4Key.wasPressedThisFrame && spellcaster.spells.Count > 3)
         {
             Debug.Log("4");
             spellcaster.current_spell = 3;
             Debug.Log("Selected spell: " + spellcaster.spells[3].GetName());
-           // spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
         }
         
         
