@@ -53,6 +53,9 @@ public class PlayerController : MonoBehaviour
         hp.OnDeath += Die;
         hp.team = Hittable.Team.PLAYER;
 
+        //SPEED
+        speed = Evaluate(playerClass.speed, RPNDict);
+
         // tell UI elements what to show
         //to change the player sprite but currently doesn't do anything
         PlayerSpriteSwitcher.Switch();
@@ -77,7 +80,6 @@ public class PlayerController : MonoBehaviour
         if (GameManager.Instance.state == GameManager.GameState.WAVEEND && !scaling)
         {
             ScalePlayer();
-            healthui.SetHealth(hp);
         }
 
         //Player spell switching
@@ -135,25 +137,21 @@ public class PlayerController : MonoBehaviour
     void ScalePlayer()
     {   
         scaling = true; //scale only once please
-        Dictionary<string, int> dictForRPN = new Dictionary<string, int>();
-        dictForRPN["wave"] = GameManager.Instance.wave_count;
+        RPNDict["wave"] = GameManager.Instance.wave_count;
 
         //hp
-        hp.SetMaxHP(Evaluate("95 wave 5 * +", dictForRPN));
+        hp.SetMaxHP(Evaluate(playerClass.health, RPNDict));
 
         //mana and mana regen
-        spellcaster.max_mana = Evaluate("90 wave 10 * +", dictForRPN);
-        spellcaster.mana_reg = Evaluate("10 wave +", dictForRPN);
+        spellcaster.max_mana = Evaluate(playerClass.mana, RPNDict);
+        spellcaster.mana_reg = Evaluate(playerClass.mana_regeneration, RPNDict);
 
         //player power
-        spellcaster.power = Evaluate("wave 10 *", dictForRPN);
-
-        //spellcaster.FillSpells();
+        spellcaster.power = Evaluate(playerClass.spellpower, RPNDict);
+        //Player speed
+        speed = Evaluate(playerClass.speed, RPNDict);
 
         //now update UI(s)
-        //TODO:
-        spellui.SetSpell(spellcaster.spells[0]);// use this for all spells when we have the UI set up
-        //or find a way to do it in the loop
         healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);
 
