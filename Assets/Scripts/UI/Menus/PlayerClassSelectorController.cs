@@ -32,18 +32,14 @@ public class PlayerClassSelectorController : MonoBehaviour
     {
         canvas.SetActive(true);
     }
+    public void HideUI()
+    {
+        canvas.SetActive(false);
+    }
 
     public void SelectClass(string key)
     {
-        //TODO:
-        //spellcaster.class = dic[key](level);
-        Debug.Log(key);
-    }
-
-    
-    public void SetClass(string text)
-    {
-        classText = text;
-        //label.text = text;
+        GameManager.Instance.playerClass = GameManager.Instance.PlayerClasses[key];
+        //Debug.Log(key);
     }
 }

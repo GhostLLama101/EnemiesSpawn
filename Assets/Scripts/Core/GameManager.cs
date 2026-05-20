@@ -60,6 +60,7 @@ public class GameManager
     public int enemy_count { get { return enemies.Count; } }
 
     public int wave_count = 0;
+    public PlayerClass playerClass;
 
     public void AddEnemy(GameObject enemy)
     {
