@@ -7,6 +7,7 @@ using System.IO;
 using System.Collections.Generic;
 using static RPNEvaluator.RPNEvaluator;
 using UnityEngine.Tilemaps;
+using Microsoft.Unity.VisualStudio.Editor;
 
 public class PlayerController : MonoBehaviour
 {
@@ -58,7 +59,9 @@ public class PlayerController : MonoBehaviour
 
         // tell UI elements what to show
         //to change the player sprite but currently doesn't do anything
-        PlayerSpriteSwitcher.Switch();
+        //TODO Make this work
+        GameManager.Instance.playerSpriteManager.PlaceSprite(playerClass.sprite,
+                            GameManager.Instance.playerSpriteManager.image);
 
         healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);
@@ -154,7 +157,5 @@ public class PlayerController : MonoBehaviour
         //now update UI(s)
         healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);
-
     }
-
 }
