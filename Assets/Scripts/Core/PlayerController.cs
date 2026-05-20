@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Collections.Generic;
 using static RPNEvaluator.RPNEvaluator;
+using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class PlayerController : MonoBehaviour
     public bool dead = false;
 
     public bool scaling = false;
+    public PlayerClass playerClass;
+    Dictionary<string, int> RPNDict = new Dictionary<string, int>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -33,15 +36,27 @@ public class PlayerController : MonoBehaviour
 
     public void StartLevel()
     {
-        //GameManager.Instance.playerClassSelectorController.Start();
-        spellcaster = new SpellCaster(125, 8, Hittable.Team.PLAYER);
+        //Make a deep copy cus why not
+        playerClass = GameManager.Instance.playerClass.Duplicate();
+        RPNDict["wave"] = GameManager.Instance.wave_count;
+
+        //MANA
+        int mana = Evaluate(playerClass.mana, RPNDict);
+        int mana_reg = Evaluate(playerClass.mana_regeneration, RPNDict);
+
+        spellcaster = new SpellCaster(mana, mana_reg, Hittable.Team.PLAYER);
         StartCoroutine(spellcaster.ManaRegeneration());
         
-        hp = new Hittable(100, Hittable.Team.PLAYER, gameObject);
+        //HEALTH
+        int health = Evaluate(playerClass.health, RPNDict);
+        hp = new Hittable(health, Hittable.Team.PLAYER, gameObject);
         hp.OnDeath += Die;
         hp.team = Hittable.Team.PLAYER;
 
         // tell UI elements what to show
+        //to change the player sprite but currently doesn't do anything
+        PlayerSpriteSwitcher.Switch();
+
         healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);
         spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
@@ -69,31 +84,19 @@ public class PlayerController : MonoBehaviour
         //Should be robust
         if (Keyboard.current.digit1Key.wasPressedThisFrame)
         {
-            //Debug.Log("1");
             spellcaster.current_spell = 0;
-            //Debug.Log("Selected spell: " + spellcaster.spells[0].GetName());
-           // spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
         }
         else if (Keyboard.current.digit2Key.wasPressedThisFrame && spellcaster.spells.Count > 1)
         {
-            //Debug.Log("2");
             spellcaster.current_spell = 1;
-           //Debug.Log("Selected spell: " + spellcaster.spells[1].GetName());
-            //spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
         }
         else if (Keyboard.current.digit3Key.wasPressedThisFrame && spellcaster.spells.Count > 2)
         {
-            //Debug.Log("3");
             spellcaster.current_spell = 2;
-           // Debug.Log("Selected spell: " + spellcaster.spells[2].GetName());
-            //spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
         }
         else if (Keyboard.current.digit4Key.wasPressedThisFrame && spellcaster.spells.Count > 3)
         {
-            //Debug.Log("4");
             spellcaster.current_spell = 3;
-           // Debug.Log("Selected spell: " + spellcaster.spells[3].GetName());
-           // spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
         }
         
         

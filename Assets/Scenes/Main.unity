@@ -10876,6 +10876,13 @@ MonoBehaviour:
   unit: {fileID: 0}
   dead: 0
   scaling: 0
+  playerClass:
+    sprite: 0
+    health: 
+    mana: 
+    mana_regeneration: 
+    spellpower: 
+    speed: 
 --- !u!4 &1718273953
 Transform:
   m_ObjectHideFlags: 0

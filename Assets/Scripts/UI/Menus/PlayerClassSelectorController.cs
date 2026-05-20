@@ -40,6 +40,6 @@ public class PlayerClassSelectorController : MonoBehaviour
     public void SelectClass(string key)
     {
         GameManager.Instance.playerClass = GameManager.Instance.PlayerClasses[key];
-        //Debug.Log(key);
+        this.HideUI();
     }
 }
