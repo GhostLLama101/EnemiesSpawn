@@ -25,8 +25,6 @@ public class GameManager
                 theInstance = new GameManager();
             
             theInstance.InitalizeHelpers();
-            
-            //Debug.Log("GameManager");
             return theInstance;
         }
     }
@@ -99,7 +97,6 @@ public class GameManager
     private void InitalizeHelpers()
     {
         spellKeys = new List<string>(SpellsDict.Keys);
-        Debug.Log("Initing");
     }
     
 }

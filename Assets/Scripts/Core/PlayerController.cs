@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
 
     public void StartLevel()
     {
-        Debug.Log("yo");
+        //GameManager.Instance.playerClassSelectorController.Start();
         spellcaster = new SpellCaster(125, 8, Hittable.Team.PLAYER);
         StartCoroutine(spellcaster.ManaRegeneration());
         
