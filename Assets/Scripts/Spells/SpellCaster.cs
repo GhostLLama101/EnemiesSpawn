@@ -51,7 +51,7 @@ public class SpellCaster
         if (index >= 0 && index < spells.Count)
             spells[index] = spell;
     }
-    
+    //public void
     /*public void RebuildSpell(Spell spell)
     {
         int index = spells.IndexOf(spell);
