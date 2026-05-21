@@ -22,8 +22,13 @@ public class Unit : MonoBehaviour
         Move(new Vector2(movement.x, 0) * Time.fixedDeltaTime);
         Move(new Vector2(0, movement.y) * Time.fixedDeltaTime);
         distance += movement.magnitude*Time.fixedDeltaTime;
-        GameManager.Instance.totalDistance += distance;
-        //Debug.Log("Total dist " + GameManager.Instance.totalDistance);
+        //totalDistance += distance;
+        if (gameObject.name == "player")
+        {
+            GameManager.Instance.totalDistance += distance;
+            
+        }
+        //Debug.Log("Total dist " +totalDistance);
         if (distance > 0.5f)
         {
             OnMove?.Invoke(distance);

@@ -125,6 +125,7 @@ public class PlayerController : MonoBehaviour
         
         unit.movement = movement *speed;
         
+        
         if (movement.sqrMagnitude < 0.01f)
         {
             Debug.Log("firing event DoNotMove");
