@@ -41,6 +41,7 @@ public class GameManager
     
     
     public int total_damage_dealt = 0;
+    public float totalDistance = 0f;
     
     private List<GameObject> enemies;
 

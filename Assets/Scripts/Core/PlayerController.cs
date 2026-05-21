@@ -60,20 +60,21 @@ public class PlayerController : MonoBehaviour
         //SPEED
         speed = Evaluate(playerClass.speed, RPNDict);
 
-        // tell UI elements what to show
-        //to change the player sprite but currently doesn't do anything
-        //TODO Make this work
+        //UI
+        //SPRITE
         GameManager.Instance.playerSpriteManager.PlaceSprite(playerClass.sprite,
                             GameManager.Instance.playerSpriteManager.image);
-
+        //OTHER
         healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);
         spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
         
-        //DontMoveRelic dontMoveRelic = new DontMoveRelic(); // for testing
-        KillEnemyRelic killedTheEnemy = new KillEnemyRelic(this); // for testing
-        //TakeDamageMana tookDamageMana = new TakeDamageMana(); // for testing
-        //TakeDamageSpellPower tookDamageSpellpower = new TakeDamageSpellPower(); // for testing
+        DontMoveRelic dontMoveRelic = new DontMoveRelic(); // for testing
+        KillEnemyRelic killedTheEnemy = new KillEnemyRelic(); // for testing
+        TakeDamageMana tookDamageMana = new TakeDamageMana(); // for testing
+        MoveGainSpellpower moveGainSpellpower = new MoveGainSpellpower();
+
+
     }
 
     // Update is called once per frame
@@ -119,14 +120,14 @@ public class PlayerController : MonoBehaviour
         mouseWorld.z = 0;
         StartCoroutine(spellcaster.Cast(transform.position, mouseWorld));
     }
-
+    //totalDistance += distance;
     void OnMove(InputValue value) // add this to the observation
     {
         if (GameManager.Instance.state == GameManager.GameState.PREGAME || GameManager.Instance.state == GameManager.GameState.GAMEOVER) return;
         Vector2 movement = value.Get<Vector2>();
         
         unit.movement = movement *speed;
-        //Debug.Log("Moveing" + movement);
+        
         
         if (movement.sqrMagnitude > 0.01f)
         {
@@ -140,6 +141,10 @@ public class PlayerController : MonoBehaviour
         {
             if (_notMoveCoroutine == null)
                 _notMoveCoroutine = StartCoroutine(NotMovingTimer());
+        }
+        else
+        {
+            EventBus.Instance.DoOnMove();
         }
     }
 
