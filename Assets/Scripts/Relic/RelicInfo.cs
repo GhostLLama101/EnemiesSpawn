@@ -8,7 +8,12 @@ public class RelicInfo
     public int sprite;
     public RelicTrigger trigger;
     public RelicEffect effect;
-
+    
+    // TODO this needs to be fixed.  
+    public int getAmount(RelicTrigger trigger)
+    {
+        return effect.amount;
+    }
 }
 [Serializable] 
 public class RelicTrigger

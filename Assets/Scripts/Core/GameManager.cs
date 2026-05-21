@@ -37,8 +37,8 @@ public class GameManager
     public PlayerSpriteManager playerSpriteManager;
     public RelicIconManager relicIconManager;
     public PlayerClassSelectorController playerClassSelectorController;
-    
-    
+
+    public bool AddedSpellpower = false;
     
     public int total_damage_dealt = 0;
     public float totalDistance = 0f;

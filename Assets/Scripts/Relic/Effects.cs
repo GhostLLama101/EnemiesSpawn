@@ -7,8 +7,13 @@ public class Effects : MonoBehaviour
         player.spellcaster.mana = Mathf.Min(player.spellcaster.mana + amount, player.spellcaster.max_mana);
     }
 
-    public void AddSpellPower(int amount, PlayerController player )
+    public static void AddSpellPower(int amount, PlayerController player )
     {
-        
+        player.spellcaster.power += amount;
+    }
+
+    public static void RemoveSpellPower(int amount, PlayerController player)
+    {
+        player.spellcaster.power -= amount;
     }
 }

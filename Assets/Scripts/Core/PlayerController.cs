@@ -69,12 +69,10 @@ public class PlayerController : MonoBehaviour
         manaui.SetSpellCaster(spellcaster);
         spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
         
-        DontMoveRelic dontMoveRelic = new DontMoveRelic(); // for testing
-        KillEnemyRelic killedTheEnemy = new KillEnemyRelic(); // for testing
-        TakeDamageMana tookDamageMana = new TakeDamageMana(); // for testing
-        MoveGainSpellpower moveGainSpellpower = new MoveGainSpellpower();
-
-
+        //DontMoveRelic dontMoveRelic = new DontMoveRelic(this); // for testing
+        KillEnemyRelic killedTheEnemy = new KillEnemyRelic(this); // for testing
+        //TakeDamageMana tookDamageMana = new TakeDamageMana(this); // for testing
+        TakeDamageSpellPower tookDamageSpellpower = new TakeDamageSpellPower(this); // for testing
     }
 
     // Update is called once per frame

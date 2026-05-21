@@ -33,7 +33,8 @@ public class SpellCaster
         this.max_mana = mana;
         this.mana_reg = mana_reg;
         this.team = team;
-
+        //this.player = player;
+        
         core = new Spell(this, GameManager.Instance.SpellsDict["arcane_bolt"]);
         spells.Add(core);
     }
@@ -51,17 +52,7 @@ public class SpellCaster
         if (index >= 0 && index < spells.Count)
             spells[index] = spell;
     }
-    public void GetPower()
-    {
-        return;// this.power + added
-    }
-    /*public void RebuildSpell(Spell spell)
-    {
-        int index = spells.IndexOf(spell);
-        Spell freshCore = new Spell(this, spell.spellInfo);
-        freshCore.modifiers = spell.modifiers;
-        spells[index] = SpellBuilder.Build(freshCore, freshCore.GetModifiers());
-    }*/
+    
     public void FillSpells()
     {
         for (int i = 0; i < 3; i++)
@@ -73,13 +64,24 @@ public class SpellCaster
     }
     
     public IEnumerator Cast(Vector3 where, Vector3 target)
-    {        
+    {   
+        PlayerController player = GameManager.Instance.player.GetComponent<PlayerController>();
+        if (GameManager.Instance.AddedSpellpower)
+        {
+            GameManager.Instance.AddedSpellpower = false;
+            Effects.RemoveSpellPower(100, player);
+        }    
+        
         Spell spell = new Spell(this, spells[current_spell].spellInfo);
         if (mana >= spell.GetManaCost() && spell.IsReady())
         {
             mana -= spells[current_spell].GetManaCost();
             yield return spells[current_spell].Cast(where, target, team);
         }
+        
+        
+        
+        
         yield break;
     }
 }
