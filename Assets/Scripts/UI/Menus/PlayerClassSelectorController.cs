@@ -11,6 +11,7 @@ public class PlayerClassSelectorController : MonoBehaviour
     public GameObject buttonPrefab;
     public GameObject buttonParent;
     public string classText;
+    public Image image;
     Dictionary<string, PlayerClass> classes;
     
     public void OnEnable()
@@ -40,6 +41,7 @@ public class PlayerClassSelectorController : MonoBehaviour
     public void SelectClass(string key)
     {
         GameManager.Instance.playerClass = GameManager.Instance.PlayerClasses[key];
+        GameManager.Instance.playerSpriteManager.image = this.image;
         this.HideUI();
     }
 }
