@@ -27,8 +27,9 @@ public class Unit : MonoBehaviour
         {
             if (distance > 0)
             {
-                EventBus.Instance.DoOnMove();
+                
                 GameManager.Instance.totalDistance += distance;
+                EventBus.Instance.DoMoved50();
             }
             
         }

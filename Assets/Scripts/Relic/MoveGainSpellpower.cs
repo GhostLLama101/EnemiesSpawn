@@ -10,7 +10,7 @@ public class MoveGainSpellpower : RelicInfo
     public MoveGainSpellpower()
     {
         Debug.Log("Added MoveGainSpellpower");
-        EventBus.Instance.OnMove += OnMove;
+        EventBus.Instance.OnMoved50 += OnMove;
         this.name = "Red Pendant";
         this.sprite = 7;
         this.trigger.description = "Every 10 units you travel";
