@@ -52,7 +52,19 @@ public class SpellCaster
         if (index >= 0 && index < spells.Count)
             spells[index] = spell;
     }
-    
+    public void GetPower()
+    {
+        
+
+        return;// this.power + added
+    }
+    /*public void RebuildSpell(Spell spell)
+    {
+        int index = spells.IndexOf(spell);
+        Spell freshCore = new Spell(this, spell.spellInfo);
+        freshCore.modifiers = spell.modifiers;
+        spells[index] = SpellBuilder.Build(freshCore, freshCore.GetModifiers());
+    }*/
     public void FillSpells()
     {
         for (int i = 0; i < 3; i++)

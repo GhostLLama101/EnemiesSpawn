@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 // this is where the effects function will all be called.
 public class Effects : MonoBehaviour

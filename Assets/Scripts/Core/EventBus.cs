@@ -26,8 +26,11 @@ public class EventBus
     public event Action OnSpellCasted;
     
     // When you take damage, your next spell gets 100 spellpower.
-    
     public event Action OnMove;
+
+    public event Action OnReceiveSpell;
+
+
     public void DoDamage(Vector3 where, Damage dmg, Hittable target)
     {
         OnDamage?.Invoke(where, dmg, target);
@@ -58,8 +61,13 @@ public class EventBus
     }
     public void DoOnMove() // if the event is active do it
     {
-        Debug.Log("Invoking onMove");
+        //Debug.Log("Invoking onMove");
         OnMove?.Invoke(); 
+    }
+    public void DoOnReceiveSpell()
+    {
+        Debug.Log("Invoking OnReceiveSpell");
+        OnReceiveSpell?.Invoke(); 
     }
     
     // need to do spell power next

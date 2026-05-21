@@ -65,7 +65,7 @@ public class RewardScreenManager : MonoBehaviour
 
     public void AcceptReward()
     {
-        Debug.Log("AcceptReward called");
+        
         if (spellReward == null) return;
  
         // Hide accept immediately so it can't be clicked again
@@ -76,10 +76,12 @@ public class RewardScreenManager : MonoBehaviour
         if (!player.spellcaster.IsFull())
         {
             int newIndex = player.spellcaster.spells.Count;
-            player.spellcaster.AddSpell(spellReward);
             spellUIContainer.AddSpell(newIndex, spellReward);
+            player.spellcaster.AddSpell(spellReward);
             spellReward = null;
             // Player now clicks Next to start next wave
+            Debug.Log("AcceptReward called");
+            EventBus.Instance.DoOnReceiveSpell();
         }
         else
         {
@@ -102,6 +104,8 @@ public class RewardScreenManager : MonoBehaviour
  
         swapPanel.SetActive(false);
         spellReward = null;
+        Debug.Log("AcceptReward called");
+        EventBus.Instance.DoOnReceiveSpell();
         // Player now clicks Next to start next wave
     }
 
