@@ -82,11 +82,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //Scaling the player
-        if (GameManager.Instance.state == GameManager.GameState.INWAVE)
+        if (GameManager.Instance.state == GameManager.GameState.WAVEEND)
         {
             scaling = false;
         }
-        if (GameManager.Instance.state == GameManager.GameState.WAVEEND && !scaling)
+        if (GameManager.Instance.state == GameManager.GameState.COUNTDOWN && !scaling)
         {
             ScalePlayer();
         }
@@ -175,6 +175,7 @@ public class PlayerController : MonoBehaviour
         //now update UI(s)
         healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);
+        
     }
 
     private IEnumerator NotMovingTimer()
