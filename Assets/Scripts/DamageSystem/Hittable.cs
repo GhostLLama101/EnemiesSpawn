@@ -15,7 +15,9 @@ public class Hittable
     public void Damage(Damage damage)
     {
         EventBus.Instance.DoDamage(owner.transform.position, damage, this);
-        EventBus.Instance.DoTakeDamage(); // this needs to be changed so ita only for the player?
+        if (team == Team.PLAYER) EventBus.Instance.DoTakeDamage(this); 
+        
+        
         hp -= damage.amount;
         GameManager.Instance.RegisterDamage(damage.amount);
         if (hp <= 0)
