@@ -22,6 +22,8 @@ public class EventBus
 
     public event Action <Hittable>OnTakeDamage;// Whenever you take damage, you gain 5 mana.
     public event Action<Hittable> OnTakeDamageSP;
+
+    public event Action OnSpellCasted;
     
     // When you take damage, your next spell gets 100 spellpower.
     
@@ -47,7 +49,12 @@ public class EventBus
         OnTakeDamage?.Invoke(target);
         OnTakeDamageSP?.Invoke(target);
     }
-    
+
+    public void DoSpellCasted()
+    {
+        Debug.Log("Invoking OnSpellCasted");
+        OnSpellCasted?.Invoke();
+    }
     // need to do spell power next
 
 }

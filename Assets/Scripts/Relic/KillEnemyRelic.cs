@@ -13,7 +13,6 @@ public class KillEnemyRelic : RelicInfo
     private void OnEnemyKilled()
     {
         Debug.Log("Killed enemy +10 mana");
-        
         Effects.AddMana(10, player);
     }
 }

@@ -15,7 +15,7 @@ public class Hittable
     public void Damage(Damage damage)
     {
         EventBus.Instance.DoDamage(owner.transform.position, damage, this);
-        if (team == Team.PLAYER) EventBus.Instance.DoTakeDamage(this); 
+        if (team == Team.PLAYER && !GameManager.Instance.AddedSpellpower) EventBus.Instance.DoTakeDamage(this); 
         
         
         hp -= damage.amount;
