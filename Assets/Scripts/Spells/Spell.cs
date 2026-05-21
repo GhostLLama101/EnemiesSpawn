@@ -100,7 +100,7 @@ public class Spell
             OnHit,
             GetLifeTime(),
             GetDamageType());
-        Debug.Log($"Damage type: {GetDamageType()}");
+        //Debug.Log($"Damage type: {GetDamageType()}");
         yield return new WaitForEndOfFrame();
     }
 

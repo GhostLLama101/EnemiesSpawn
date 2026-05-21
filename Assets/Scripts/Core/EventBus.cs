@@ -30,6 +30,8 @@ public class EventBus
 
     public event Action OnReceiveSpell;
 
+    public event Action OnScaledPlayer;
+
 
     public void DoDamage(Vector3 where, Damage dmg, Hittable target)
     {
@@ -37,7 +39,7 @@ public class EventBus
     }
     public void DoNotMove() // if the event is active do it
     {
-        Debug.Log("Invoking onNotMove");
+        //Debug.Log("Invoking onNotMove");
         OnNotMove?.Invoke(); 
     }
 
@@ -68,6 +70,11 @@ public class EventBus
     {
         Debug.Log("Invoking OnReceiveSpell");
         OnReceiveSpell?.Invoke(); 
+    }
+    public void DoOnScaledPlayer()
+    {
+        Debug.Log("Invoking OnScaledPlayer");
+        OnScaledPlayer?.Invoke(); 
     }
     
     // need to do spell power next

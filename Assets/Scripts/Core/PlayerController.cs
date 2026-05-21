@@ -88,6 +88,7 @@ public class PlayerController : MonoBehaviour
         }
         if (GameManager.Instance.state == GameManager.GameState.COUNTDOWN && !scaling)
         {
+            Debug.Log("Scaling");
             ScalePlayer();
         }
 
@@ -175,7 +176,9 @@ public class PlayerController : MonoBehaviour
         //now update UI(s)
         healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);
-        
+
+        //Let the world know
+        EventBus.Instance.DoOnScaledPlayer();
     }
 
     private IEnumerator NotMovingTimer()
