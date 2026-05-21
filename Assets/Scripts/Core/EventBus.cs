@@ -20,7 +20,8 @@ public class EventBus
 
     public event Action OnEnemyKilled;// killing and enemy
 
-    public event Action OnTakeDamage;// Whenever you take damage, you gain 5 mana.
+    public event Action <Hittable>OnTakeDamage;// Whenever you take damage, you gain 5 mana.
+    public event Action<Hittable> OnTakeDamageSP;
     
     // When you take damage, your next spell gets 100 spellpower.
     
@@ -40,10 +41,11 @@ public class EventBus
         OnEnemyKilled?.Invoke();
     }
 
-    public void DoTakeDamage()
+    public void DoTakeDamage(Hittable target)
     {
         Debug.Log("Invoking OnTakeDamage");
-        OnTakeDamage?.Invoke();
+        OnTakeDamage?.Invoke(target);
+        OnTakeDamageSP?.Invoke(target);
     }
     
     // need to do spell power next

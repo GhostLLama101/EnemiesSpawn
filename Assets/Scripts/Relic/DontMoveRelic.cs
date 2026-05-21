@@ -12,5 +12,6 @@ public class DontMoveRelic : RelicInfo
     void OnNotMove()
     {
         Debug.Log("You are not moving");
+        // call the add spell pwoer effect and pass in the correct values
     }
 }

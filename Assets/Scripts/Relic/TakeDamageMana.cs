@@ -9,7 +9,7 @@ public class TakeDamageMana : RelicInfo
         EventBus.Instance.OnTakeDamage += OnTakeDamage;
     }
 
-    private void OnTakeDamage()
+    private void OnTakeDamage(Hittable target)
     {
         Debug.Log("You took damage you get 5 mana");
     }
