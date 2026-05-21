@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
@@ -7,7 +8,7 @@ using System.IO;
 using System.Collections.Generic;
 using static RPNEvaluator.RPNEvaluator;
 using UnityEngine.Tilemaps;
-using Microsoft.Unity.VisualStudio.Editor;
+//using Microsoft.VisualStudio.Editor;
 
 public class PlayerController : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class PlayerController : MonoBehaviour
     public bool scaling = false;
     public PlayerClass playerClass;
     Dictionary<string, int> RPNDict = new Dictionary<string, int>();
+    
+    private Coroutine _notMoveCoroutine;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -70,6 +73,7 @@ public class PlayerController : MonoBehaviour
         DontMoveRelic dontMoveRelic = new DontMoveRelic(); // for testing
         KillEnemyRelic killedTheEnemy = new KillEnemyRelic(); // for testing
         TakeDamageMana tookDamageMana = new TakeDamageMana(); // for testing
+        TakeDamageSpellPower tookDamageSpellpwoer = new TakeDamageSpellPower(); // for testing
     }
 
     // Update is called once per frame
@@ -124,10 +128,18 @@ public class PlayerController : MonoBehaviour
         unit.movement = movement *speed;
         //Debug.Log("Moveing" + movement);
         
-        if (movement.sqrMagnitude < 0.01f)
+        if (movement.sqrMagnitude > 0.01f)
         {
-            Debug.Log("firing event DoNotMove");
-            EventBus.Instance.DoNotMove();
+            if (_notMoveCoroutine != null)
+            {
+                StopCoroutine(_notMoveCoroutine);
+                _notMoveCoroutine = null;
+            }
+        }
+        else
+        {
+            if (_notMoveCoroutine == null)
+                _notMoveCoroutine = StartCoroutine(NotMovingTimer());
         }
     }
 
@@ -157,5 +169,13 @@ public class PlayerController : MonoBehaviour
         //now update UI(s)
         healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);
+    }
+
+    private IEnumerator NotMovingTimer()
+    {
+        yield return new WaitForSeconds(3f);
+        _notMoveCoroutine = null;
+        Debug.Log("firing event DoNotMove");
+        EventBus.Instance.DoNotMove();
     }
 }
