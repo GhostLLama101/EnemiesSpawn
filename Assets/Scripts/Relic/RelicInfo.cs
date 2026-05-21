@@ -6,8 +6,8 @@ public class RelicInfo
 {
     public string name;
     public int sprite;
-    public RelicTrigger trigger;
-    public RelicEffect effect;
+    public RelicTrigger trigger = new RelicTrigger();
+    public RelicEffect effect = new RelicEffect();
 
 }
 [Serializable] 

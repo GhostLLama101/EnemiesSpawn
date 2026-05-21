@@ -53,6 +53,8 @@ public class SpellCaster
     }
     public void GetPower()
     {
+        
+
         return;// this.power + added
     }
     /*public void RebuildSpell(Spell spell)

@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
 
     public bool scaling = false;
     public PlayerClass playerClass;
-    Dictionary<string, int> RPNDict = new Dictionary<string, int>();
+    public Dictionary<string, int> RPNDict = new Dictionary<string, int>();
     
     private Coroutine _notMoveCoroutine;
 
@@ -70,9 +70,10 @@ public class PlayerController : MonoBehaviour
         spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
         
         DontMoveRelic dontMoveRelic = new DontMoveRelic(); // for testing
-        KillEnemyRelic killedTheEnemy = new KillEnemyRelic(); // for testing
+        KillEnemyRelic killedTheEnemy = new KillEnemyRelic(this); // for testing
         TakeDamageMana tookDamageMana = new TakeDamageMana(); // for testing
         MoveGainSpellpower moveGainSpellpower = new MoveGainSpellpower();
+        SpellsGivePower spellsGivePower = new SpellsGivePower();
 
 
     }
@@ -131,6 +132,7 @@ public class PlayerController : MonoBehaviour
         
         if (movement.sqrMagnitude > 0.01f)
         {
+            
             if (_notMoveCoroutine != null)
             {
                 StopCoroutine(_notMoveCoroutine);
@@ -140,12 +142,11 @@ public class PlayerController : MonoBehaviour
         else
         {
             if (_notMoveCoroutine == null)
+            {
                 _notMoveCoroutine = StartCoroutine(NotMovingTimer());
+            }
         }
-        else
-        {
-            EventBus.Instance.DoOnMove();
-        }
+        
     }
 
     void Die()

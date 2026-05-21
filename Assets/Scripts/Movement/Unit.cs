@@ -25,7 +25,11 @@ public class Unit : MonoBehaviour
         //totalDistance += distance;
         if (gameObject.name == "player")
         {
-            GameManager.Instance.totalDistance += distance;
+            if (distance > 0)
+            {
+                EventBus.Instance.DoOnMove();
+                GameManager.Instance.totalDistance += distance;
+            }
             
         }
         //Debug.Log("Total dist " +totalDistance);

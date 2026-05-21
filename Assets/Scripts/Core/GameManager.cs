@@ -56,8 +56,9 @@ public class GameManager
     public List<string> spellKeys;
     public Dictionary<string, ModifierInfo> ModDict = JSONReader.LoadDictionary<ModifierInfo>("modifier");
     public Dictionary<string, PlayerClass> PlayerClasses = JSONReader.LoadDictionary<PlayerClass>("classes");
-    
-    
+    public List<RelicInfo> RelicsFromJson = JSONReader.Load<RelicInfo>("relics");
+    public Dictionary<string, RelicInfo> Relics;
+
     public int enemy_count { get { return enemies.Count; } }
 
     public int wave_count = 0;
@@ -99,6 +100,11 @@ public class GameManager
     private void InitalizeHelpers()
     {
         spellKeys = new List<string>(SpellsDict.Keys);
+
+        Relics = RelicsFromJson.ToDictionary(
+            relic => relic.name,   
+            relic => relic         
+        );
     }
     
 }
