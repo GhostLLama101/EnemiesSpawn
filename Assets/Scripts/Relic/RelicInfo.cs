@@ -28,5 +28,5 @@ public class RelicEffect
 {
     public string description;
     public string type;
-    public int amount;
+    public string amount;
 }
