@@ -6,6 +6,7 @@ using TMPro;
 public class RewardScreenManager : MonoBehaviour
 {
     public GameObject rewardUI;
+    public GameObject relicRewards;
     public SpellUI spellRewardUI;
     //public TextMeshProUGUI damageText;
     public SpellUIContainer spellUIContainer;
