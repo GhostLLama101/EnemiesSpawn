@@ -30,29 +30,19 @@ public class GameManager
     }
 
     public GameObject player;
-    
     public ProjectileManager projectileManager;
     public SpellIconManager spellIconManager;
     public EnemySpriteManager enemySpriteManager;
     public PlayerSpriteManager playerSpriteManager;
     public RelicIconManager relicIconManager;
     public PlayerClassSelectorController playerClassSelectorController;
-
+    
     public bool AddedSpellpower = false;
-    
     public int total_damage_dealt = 0;
-    
     public float totalDistance = 0f;
     public float distFor10Relic = 0f;
-    
-    private List<GameObject> enemies;
 
-    /*public List<Spell> SpellDef = JSONReader.Load<Spell>("spells");
-    public List<Modifier> ModDef = JSONReader.Load<Modifier>("modifier");
-    
-    public Dictionary<string, Spell> SpellsDict = new Dictionary<string, Spell>();
-    public Dictionary<string, Modifier> ModDict = new Dictionary<string, Modifier>();
-    */
+    private List<GameObject> enemies;
 
     public Dictionary<string, SpellInfo> SpellsDict = JSONReader.LoadDictionary<SpellInfo>("spells");
     public List<string> spellKeys;
