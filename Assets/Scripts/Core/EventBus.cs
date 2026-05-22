@@ -32,6 +32,8 @@ public class EventBus
 
     public event Action OnScaledPlayer;
 
+    public event Action OnMoved10;
+
 
     public void DoDamage(Vector3 where, Damage dmg, Hittable target)
     {
@@ -75,6 +77,11 @@ public class EventBus
     {
         Debug.Log("Invoking OnScaledPlayer");
         OnScaledPlayer?.Invoke(); 
+    }
+    public void DoMoved10()
+    {
+        Debug.Log("Invoking OnMoved10");
+        OnMoved10?.Invoke();
     }
     
     // need to do spell power next

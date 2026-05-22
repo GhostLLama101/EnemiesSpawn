@@ -41,7 +41,9 @@ public class GameManager
     public bool AddedSpellpower = false;
     
     public int total_damage_dealt = 0;
+    
     public float totalDistance = 0f;
+    public float distFor10Relic = 0f;
     
     private List<GameObject> enemies;
 

@@ -29,7 +29,14 @@ public class Unit : MonoBehaviour
             {
                 
                 GameManager.Instance.totalDistance += distance;
-                EventBus.Instance.DoMoved50();
+                GameManager.Instance.distFor10Relic += distance;
+                
+                if (GameManager.Instance.distFor10Relic > 10 )
+                {
+                    EventBus.Instance.DoMoved10();
+                    GameManager.Instance.distFor10Relic -= 10;
+                }
+                
             }
             
         }
