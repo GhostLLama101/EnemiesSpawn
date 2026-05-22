@@ -30,11 +30,11 @@ public class Unit : MonoBehaviour
                 
                 GameManager.Instance.totalDistance += distance;
                 GameManager.Instance.distFor10Relic += distance;
-                
+
                 if (GameManager.Instance.distFor10Relic > 10 )
                 {
-                    EventBus.Instance.DoMoved10();
                     GameManager.Instance.distFor10Relic -= 10;
+                    EventBus.Instance.DoMoved10();
                 }
                 
             }

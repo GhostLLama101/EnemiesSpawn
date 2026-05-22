@@ -25,6 +25,7 @@ public class MoveGainSpellpower : RelicInfo
     void OnMoved10() //Increases total in the relic 
     //Also handles mid-round increases
     {
+        addedSpellpower++;
         PlayerController playerController = GameManager.Instance.player.GetComponent<PlayerController>();
         Effects.AddSpellPower(1, playerController);
     }
