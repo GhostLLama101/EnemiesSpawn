@@ -6,7 +6,6 @@ using TMPro;
 public class RewardScreenManager : MonoBehaviour
 {
     public GameObject rewardUI;
-    public GameObject relicRewards;
     public SpellUI spellRewardUI;
     //public TextMeshProUGUI damageText;
     public SpellUIContainer spellUIContainer;
@@ -14,7 +13,7 @@ public class RewardScreenManager : MonoBehaviour
     public Button acceptButton;
     Spell spellReward;
     private bool rewarded = false;
-    private bool accepted = false;
+    //private bool accepted = false;
 
     [Header("Swap Panel")] public GameObject swapPanel;
     public SpellUI[] swapSlotUIs;
