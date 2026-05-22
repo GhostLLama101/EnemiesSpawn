@@ -13,7 +13,7 @@ public class RewardScreenManager : MonoBehaviour
     public Button acceptButton;
     Spell spellReward;
     private bool rewarded = false;
-    private bool accepted = false;
+    //private bool accepted = false;
 
     [Header("Swap Panel")] public GameObject swapPanel;
     public SpellUI[] swapSlotUIs;
