@@ -6,11 +6,12 @@ using static RPNEvaluator.RPNEvaluator;
 public class MoveGainSpellpower : RelicInfo
 {
     public int addedSpellpower = 0;
-    public float totalDistance = 0f;
+    
     public MoveGainSpellpower()
     {
         Debug.Log("Added MoveGainSpellpower");
-        EventBus.Instance.OnMove += OnMove;
+        EventBus.Instance.OnMoved10 += OnMoved10;
+        EventBus.Instance.OnScaledPlayer += OnScaledPlayer;
         this.name = "Red Pendant";
         this.sprite = 7;
         this.trigger.description = "Every 10 units you travel";
@@ -21,17 +22,18 @@ public class MoveGainSpellpower : RelicInfo
         this.effect.amount = "1";
     }
 
-    void OnMove()
+    void OnMoved10() //Increases total in the relic 
+    //Also handles mid-round increases
     {
-        
-        int new_sp = (int)GameManager.Instance.totalDistance/
-                Evaluate(trigger.amount, new Dictionary<string, int>());
-        //Debug.Log("Distance Moved "+totalDistance);
-        if (new_sp > addedSpellpower)
-        {
-            addedSpellpower = new_sp;
-        }
-        
+        addedSpellpower++;
+        PlayerController playerController = GameManager.Instance.player.GetComponent<PlayerController>();
+        Effects.AddSpellPower(1, playerController);
+    }
+
+    void OnScaledPlayer() //Adds spellpower when power is refreshed
+    {
+        PlayerController playerController = GameManager.Instance.player.GetComponent<PlayerController>();
+        Effects.AddSpellPower(addedSpellpower, playerController);
     }
 
 }

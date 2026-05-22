@@ -69,11 +69,11 @@ public class PlayerController : MonoBehaviour
         manaui.SetSpellCaster(spellcaster);
         spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
         
-        DontMoveRelic dontMoveRelic = new DontMoveRelic(); // for testing
-        KillEnemyRelic killedTheEnemy = new KillEnemyRelic(this); // for testing
-        TakeDamageMana tookDamageMana = new TakeDamageMana(); // for testing
+        //DontMoveRelic dontMoveRelic = new DontMoveRelic(); // for testing
+        //KillEnemyRelic killedTheEnemy = new KillEnemyRelic(this); // for testing
+        //TakeDamageMana tookDamageMana = new TakeDamageMana(); // for testing
         MoveGainSpellpower moveGainSpellpower = new MoveGainSpellpower();
-        SpellsGivePower spellsGivePower = new SpellsGivePower();
+        //SpellsGivePower spellsGivePower = new SpellsGivePower();
 
 
     }
@@ -82,12 +82,13 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //Scaling the player
-        if (GameManager.Instance.state == GameManager.GameState.INWAVE)
+        if (GameManager.Instance.state == GameManager.GameState.WAVEEND)
         {
             scaling = false;
         }
-        if (GameManager.Instance.state == GameManager.GameState.WAVEEND && !scaling)
+        if (GameManager.Instance.state == GameManager.GameState.COUNTDOWN && !scaling)
         {
+            Debug.Log("Scaling");
             ScalePlayer();
         }
 
@@ -175,6 +176,9 @@ public class PlayerController : MonoBehaviour
         //now update UI(s)
         healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);
+
+        //Let the world know
+        EventBus.Instance.DoOnScaledPlayer();
     }
 
     private IEnumerator NotMovingTimer()

@@ -34,7 +34,7 @@ public class ProjectileManager : MonoBehaviour
         {
             new_projectile.GetComponent<ProjectileController>().pierce = true; // this is begi wierd
         }
-        Debug.Log($"Type received: {type}");
+        //Debug.Log($"Type received: {type}");
     }
     // this will be used for the shot gun one probably
 

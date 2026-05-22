@@ -116,7 +116,7 @@ public class EnemySpawner : MonoBehaviour
 
                 for (int index = 0; index < batchSize; index++)
                 {
-                    Debug.unityLogger.Log(spawn.enemy);
+                    //Debug.unityLogger.Log(spawn.enemy);
                     SpawnEnemy(parameters); 
                 }
 
