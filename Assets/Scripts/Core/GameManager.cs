@@ -36,7 +36,7 @@ public class GameManager
     public PlayerSpriteManager playerSpriteManager;
     public RelicIconManager relicIconManager;
     public PlayerClassSelectorController playerClassSelectorController;
-    
+
     public bool AddedSpellpower = false;
     public int total_damage_dealt = 0;
     public float totalDistance = 0f;
@@ -48,7 +48,7 @@ public class GameManager
     public List<string> spellKeys;
     public Dictionary<string, ModifierInfo> ModDict = JSONReader.LoadDictionary<ModifierInfo>("modifier");
     public Dictionary<string, PlayerClass> PlayerClasses = JSONReader.LoadDictionary<PlayerClass>("classes");
-    public List<RelicInfo> RelicsFromJson = JSONReader.Load<RelicInfo>("relics");
+    public List<RelicInfo> RelicList = JSONReader.Load<RelicInfo>("relics");
     public Dictionary<string, RelicInfo> Relics;
 
     public int enemy_count { get { return enemies.Count; } }
@@ -93,7 +93,7 @@ public class GameManager
     {
         spellKeys = new List<string>(SpellsDict.Keys);
 
-        Relics = RelicsFromJson.ToDictionary(
+        Relics = RelicList.ToDictionary(
             relic => relic.name,   
             relic => relic         
         );

@@ -19,6 +19,7 @@ public class SpellInfo
     public SpellInfo Duplicate()
     {
         SpellInfo newSpell = new SpellInfo();
+        
         newSpell.name = this.name;
         newSpell.description = this.description;
         newSpell.icon = this.icon;

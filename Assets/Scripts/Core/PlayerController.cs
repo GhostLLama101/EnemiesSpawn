@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
     
     private Coroutine _notMoveCoroutine;
 
+    public List<RelicInfo> PlayerRelics = new List<RelicInfo>();
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -72,7 +74,7 @@ public class PlayerController : MonoBehaviour
         //DontMoveRelic dontMoveRelic = new DontMoveRelic(); // for testing
         //KillEnemyRelic killedTheEnemy = new KillEnemyRelic(this); // for testing
         //TakeDamageMana tookDamageMana = new TakeDamageMana(); // for testing
-        MoveGainSpellpower moveGainSpellpower = new MoveGainSpellpower();
+        //MoveGainSpellpower moveGainSpellpower = new MoveGainSpellpower();
         //SpellsGivePower spellsGivePower = new SpellsGivePower();
 
 
@@ -178,6 +180,10 @@ public class PlayerController : MonoBehaviour
         manaui.SetSpellCaster(spellcaster);
 
         //Let the world know
+        foreach (RelicInfo relic in PlayerRelics)
+        {
+            Debug.Log(relic.name);
+        }
         EventBus.Instance.DoOnScaledPlayer();
     }
 

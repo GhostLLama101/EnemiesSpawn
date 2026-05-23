@@ -1246,6 +1246,7 @@ MonoBehaviour:
   spellUIContainer: {fileID: 1982188287}
   exchangeButton: {fileID: 307022488}
   acceptButton: {fileID: 2059049066}
+  relicRewards: {fileID: 0}
   swapPanel: {fileID: 956868628}
   swapSlotUIs:
   - {fileID: 1736446106}
@@ -2603,6 +2604,7 @@ MonoBehaviour:
   spellUIContainer: {fileID: 1982188287}
   exchangeButton: {fileID: 307022488}
   acceptButton: {fileID: 2059049066}
+  relicRewards: {fileID: 0}
   swapPanel: {fileID: 956868628}
   swapSlotUIs:
   - {fileID: 1736446106}
@@ -12268,6 +12270,7 @@ MonoBehaviour:
   buttonParent: {fileID: 1979962854}
   classText: 
   image: {fileID: 1915240917}
+  relicRewards: {fileID: 1028382796}
 --- !u!1 &1709288111
 GameObject:
   m_ObjectHideFlags: 0
@@ -12286,7 +12289,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1709288112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12362,6 +12365,7 @@ MonoBehaviour:
   spellUIContainer: {fileID: 1982188287}
   exchangeButton: {fileID: 2059049066}
   acceptButton: {fileID: 307022488}
+  relicRewards: {fileID: 0}
   swapPanel: {fileID: 956868628}
   swapSlotUIs:
   - {fileID: 1736446106}
@@ -12445,6 +12449,7 @@ MonoBehaviour:
     mana_regeneration: 
     spellpower: 
     speed: 
+  PlayerRelics: []
 --- !u!4 &1718273953
 Transform:
   m_ObjectHideFlags: 0

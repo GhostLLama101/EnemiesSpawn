@@ -12,6 +12,7 @@ public class PlayerClassSelectorController : MonoBehaviour
     public GameObject buttonParent;
     public string classText;
     public Image image;
+    public GameObject relicRewards;
     Dictionary<string, PlayerClass> classes;
     
     public void OnEnable()
@@ -43,5 +44,7 @@ public class PlayerClassSelectorController : MonoBehaviour
         GameManager.Instance.playerClass = GameManager.Instance.PlayerClasses[key];
         GameManager.Instance.playerSpriteManager.image = this.image;
         this.HideUI();
+        relicRewards.SetActive(true);//For testing
+        
     }
 }
