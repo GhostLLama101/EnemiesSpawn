@@ -11,7 +11,7 @@ public class SpellCaster
     public int mana_reg;
     public Hittable.Team team;
     public int maxSpellCount = 4;
-    public List<Spell> spells = new List<Spell>();
+    public List<Spell> spells = new List<Spell>(); // maybe we fix this move it to playerController
     public int current_spell = 0;
     
     public int power = 10; //starting power

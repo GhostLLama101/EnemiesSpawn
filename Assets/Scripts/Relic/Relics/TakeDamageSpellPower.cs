@@ -1,21 +1,26 @@
+using System.Collections.Generic;
 using UnityEngine;
+using static RPNEvaluator.RPNEvaluator;
 
-public class TakeDamageSpellPower : RelicInfo
+public class TakeDamageSpellPower : RelicBaseClass
 {
-    PlayerController player;
-    public TakeDamageSpellPower(PlayerController player)
+    public TakeDamageSpellPower(PlayerController player) : base(player) { }
+
+    /*protected override void Subscribe()
     {
-        Debug.Log("Added OnTakeDamageMana to event bus");
-        this.player = player;
         EventBus.Instance.OnTakeDamageSP += OnTakeDamageSP;
-        //EventBus.Instance.OnSpellCasted += OnSpellCasted;
+    }
+
+    public override void Unsubscribe()
+    {
+        EventBus.Instance.OnTakeDamageSP -= OnTakeDamageSP;
     }
 
     private void OnTakeDamageSP(Hittable target)
     {
-        Debug.Log("You took damage you get 100 spellPower");
-        Effects.AddSpellPower(100, player);
+        int amount = Evaluate(Effects.GetAmount("Golden Mask"), RPNDict);
+        Effects.AddSpellPower(amount, player);
         GameManager.Instance.AddedSpellpower = true;
-    }
+    }*/
 
 }
