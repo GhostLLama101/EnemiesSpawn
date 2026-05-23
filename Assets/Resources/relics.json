@@ -53,5 +53,33 @@
             "type": "gain-mana",
             "amount": "25"
         }
+    },
+    {
+        "name": "Red Pendant",
+        "sprite": 7,
+        "trigger": {
+            "description": "Every 10 units you travel",
+            "type": "move-x-units",
+            "amount": "10"
+        },
+        "effect": {
+            "description": "you gain 1 spellpower.",
+            "type": "gain-spellpower",
+            "amount": "1"
+        }
+    },
+    {
+        "name": "Ancient Spellbook",
+        "sprite": 10,
+        "trigger": {
+            "description": "When you take a spell",
+            "type": "take-spell",
+            "amount": "1"
+        },
+        "effect": {
+            "description": "you gain 5 spellpower",
+            "type": "gain-spellpower",
+            "amount": "5"
+        }
     }
 ]
