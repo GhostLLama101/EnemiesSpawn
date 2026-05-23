@@ -26,14 +26,11 @@ public class SpellsGivePower : RelicInfo
     {
         spellsTaken ++;
         additionalSpellpower = spellsTaken*Evaluate(this.effect.amount, new Dictionary<string, int>());
-        //Debug.Log("WE TOOK A SPELL; ADDED SPELLPOWER IS "+additionalSpellpower);
     }
     void OnScaledPlayer() //This should give extra spellpower each time we scale the player
     {
         PlayerController playerController = GameManager.Instance.player.GetComponent<PlayerController>();
-        //Debug.Log("Old power " + playerController.spellcaster.power);
         Effects.AddSpellPower(additionalSpellpower, playerController);
-        //Debug.Log("New power " + playerController.spellcaster.power);
     }
 
 }
