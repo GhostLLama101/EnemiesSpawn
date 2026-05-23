@@ -15,7 +15,7 @@ public class MoveGainSpellpower : RelicInfo
         this.name = "Red Pendant";
         this.sprite = 7;
         this.trigger.description = "Every 10 units you travel";
-        this.trigger.type = "move";
+        this.trigger.type = "move-x-units";
         this.trigger.amount = "10";
         this.effect.description = "you gain 1 spellpower";
         this.effect.type = "gain-spellpower";
