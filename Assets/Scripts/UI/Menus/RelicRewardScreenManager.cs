@@ -58,7 +58,6 @@ public class RelicRewardScreenManager : MonoBehaviour
 
                 Button button = relicObjects[j].transform.Find("pickButton").GetComponent<Button>();
                 button.onClick.AddListener(() => {
-                    Debug.Log(j);
                     AddRelic(availableRelics[j]);
                     for (int k = 0; k < 3; k++)
                     {
@@ -80,9 +79,10 @@ public class RelicRewardScreenManager : MonoBehaviour
             relicObjects[k].transform.Find("pickButton").GetComponent<Button>().gameObject.SetActive(true);
         }
     }
-    public void AddRelic(RelicInfo relic)
+    public void AddRelic(RelicInfo relicinfo)
     {
+        //TODO: Change from adding relicInfos to relics
         GameManager.Instance.player.GetComponent<PlayerController>()
-            .PlayerRelics.Add(relic.Duplicate());
+            .PlayerRelics.Add(relicinfo.Duplicate());
     }
 }

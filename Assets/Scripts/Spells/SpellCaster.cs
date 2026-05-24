@@ -71,7 +71,7 @@ public class SpellCaster
         {
             Spell core = SpellBuilder.RandomSpell(this);
             this.spells.Add(core);
-            Debug.Log(core.GetName());
+            //Debug.Log(core.GetName());
         }
     }
     

@@ -15,7 +15,7 @@ public class RewardScreenManager : MonoBehaviour
     private bool rewarded = false;
 
     public GameObject relicRewards;
-    //private bool accepted = false;
+    private bool accepted = false;
 
     [Header("Swap Panel")] public GameObject swapPanel;
     public SpellUI[] swapSlotUIs;
@@ -41,11 +41,6 @@ public class RewardScreenManager : MonoBehaviour
             if (!rewarded)
             {
                 relicRewards.SetActive(true);//For testing
-                foreach (RelicInfo relic in GameManager.Instance.player.GetComponent<PlayerController>()
-                    .PlayerRelics)
-                {
-                    Debug.Log(relic.name);
-                }
                 rewardUI.SetActive(true);
                 acceptButton.gameObject.SetActive(true);
                 exchangeButton.gameObject.SetActive(false);

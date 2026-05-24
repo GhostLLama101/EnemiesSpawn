@@ -26,11 +26,6 @@ public class MenuSelectorController : MonoBehaviour
 
     public void StartLevel()
     {
-        foreach (RelicInfo relic in GameManager.Instance.player.GetComponent<PlayerController>()
-            .PlayerRelics)
-        {
-            Debug.Log(relic.name);
-        }
         spawner.StartLevel(level);
     }
 }

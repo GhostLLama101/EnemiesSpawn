@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
         }
         if (GameManager.Instance.state == GameManager.GameState.COUNTDOWN && !scaling)
         {
-            Debug.Log("Scaling");
+            //Debug.Log("Scaling");
             ScalePlayer();
         }
 
@@ -180,18 +180,21 @@ public class PlayerController : MonoBehaviour
         manaui.SetSpellCaster(spellcaster);
 
         //Let the world know
+        
+        EventBus.Instance.DoOnScaledPlayer();
+        /**/
         foreach (RelicInfo relic in PlayerRelics)
         {
             Debug.Log(relic.name);
         }
-        EventBus.Instance.DoOnScaledPlayer();
+        /**/
     }
 
     private IEnumerator NotMovingTimer()
     {
         yield return new WaitForSeconds(3f);
         _notMoveCoroutine = null;
-        Debug.Log("firing event DoNotMove");
+        //Debug.Log("firing event DoNotMove");
         EventBus.Instance.DoNotMove();
     }
 }
