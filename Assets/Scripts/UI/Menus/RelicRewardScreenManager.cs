@@ -78,11 +78,12 @@ public class RelicRewardScreenManager : MonoBehaviour
         {
             relicObjects[k].transform.Find("pickButton").GetComponent<Button>().gameObject.SetActive(true);
         }
+        availableRelics.Clear();
     }
     public void AddRelic(RelicInfo relicinfo)
     {
         //TODO: Change from adding relicInfos to relics
-        GameManager.Instance.player.GetComponent<PlayerController>()
-            .PlayerRelics.Add(relicinfo.Duplicate());
+        PlayerController player = GameManager.Instance.player.GetComponent<PlayerController>();
+        player.PlayerRelics.Add(new RelicBaseClass(player, relicinfo));
     }
 }

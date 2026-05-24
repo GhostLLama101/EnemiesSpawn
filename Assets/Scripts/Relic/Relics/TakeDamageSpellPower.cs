@@ -4,7 +4,7 @@ using static RPNEvaluator.RPNEvaluator;
 
 public class TakeDamageSpellPower : RelicBaseClass
 {
-    public TakeDamageSpellPower(PlayerController player) : base(player) { }
+    public TakeDamageSpellPower(PlayerController player, RelicInfo relicInfo) : base(player, relicInfo) { }
 
     /*protected override void Subscribe()
     {

@@ -80,7 +80,7 @@ public class EventBus
     }
     public void DoMoved10()
     {
-        Debug.Log("Invoking OnMoved10");
+        //Debug.Log("Invoking OnMoved10");
         OnMoved10?.Invoke();
     }
     

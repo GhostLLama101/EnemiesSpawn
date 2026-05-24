@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     
     private Coroutine _notMoveCoroutine;
 
-    public List<RelicInfo> PlayerRelics = new List<RelicInfo>();
+    public List<RelicBaseClass> PlayerRelics = new List<RelicBaseClass>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -185,9 +185,9 @@ public class PlayerController : MonoBehaviour
         
         EventBus.Instance.DoOnScaledPlayer();
         /**/
-        foreach (RelicInfo relic in PlayerRelics)
+        foreach (RelicBaseClass relic in PlayerRelics)
         {
-            Debug.Log(relic.name);
+            Debug.Log(relic.relicInfo.name);
         }
         /**/
     }

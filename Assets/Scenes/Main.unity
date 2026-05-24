@@ -1246,7 +1246,7 @@ MonoBehaviour:
   spellUIContainer: {fileID: 1982188287}
   exchangeButton: {fileID: 307022488}
   acceptButton: {fileID: 2059049066}
-  relicRewards: {fileID: 0}
+  relicRewards: {fileID: 1028382796}
   swapPanel: {fileID: 956868628}
   swapSlotUIs:
   - {fileID: 1736446106}
@@ -2604,7 +2604,7 @@ MonoBehaviour:
   spellUIContainer: {fileID: 1982188287}
   exchangeButton: {fileID: 307022488}
   acceptButton: {fileID: 2059049066}
-  relicRewards: {fileID: 0}
+  relicRewards: {fileID: 1028382796}
   swapPanel: {fileID: 956868628}
   swapSlotUIs:
   - {fileID: 1736446106}
@@ -12365,7 +12365,7 @@ MonoBehaviour:
   spellUIContainer: {fileID: 1982188287}
   exchangeButton: {fileID: 2059049066}
   acceptButton: {fileID: 307022488}
-  relicRewards: {fileID: 0}
+  relicRewards: {fileID: 1028382796}
   swapPanel: {fileID: 956868628}
   swapSlotUIs:
   - {fileID: 1736446106}
@@ -12449,7 +12449,6 @@ MonoBehaviour:
     mana_regeneration: 
     spellpower: 
     speed: 
-  PlayerRelics: []
 --- !u!4 &1718273953
 Transform:
   m_ObjectHideFlags: 0
