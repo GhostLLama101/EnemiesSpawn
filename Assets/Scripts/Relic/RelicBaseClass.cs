@@ -5,13 +5,28 @@ using static RPNEvaluator.RPNEvaluator;
 public  class RelicBaseClass 
 {
     private PlayerController player;
+    public RelicInfo relicInfo;
     public Dictionary<string, int> RPNDict = new Dictionary<string, int>();
+    public int permanent_effects = 0;
 
-    public RelicBaseClass(PlayerController player)
+    public RelicBaseClass(PlayerController player, RelicInfo relicInfo)
     {
-        this.player = player;
-        this.RPNDict = new Dictionary<string, int>();
-        ReadRelics(GameManager.Instance.Relics);
+        if (relicInfo.name == "Red Pendant")
+        {
+            this.relicInfo = new MoveGainSpellpower();
+        }
+        else if (relicInfo.name == "Ancient Spellbook")
+        {
+            this.relicInfo = new SpellsGivePower();
+        }
+        else
+        {
+            this.player = player;
+            this.RPNDict = new Dictionary<string, int>();
+            this.relicInfo = relicInfo.Duplicate();
+            AddToEventBus(this.relicInfo, this.relicInfo.trigger.type);
+            //ReadRelics(GameManager.Instance.Relics);
+        }
     }
     
     private void ReadRelics(Dictionary<string, RelicInfo> Relics) 
@@ -36,22 +51,33 @@ public  class RelicBaseClass
             case "on-kill":
                 EventBus.Instance.OnEnemyKilled += ()=> OnEnemyKilled(Relic);
                 break;
+            case "move-x-units":
+                EventBus.Instance.OnMoved10 += ()=> OnMoved10(Relic);
+                break;
         }
     }
     
     private void OnTakeDamage(RelicInfo Relic)
     {
+        RPNDict["wave"] = GameManager.Instance.wave_count;
         int amount = Evaluate(Effects.GetAmount(Relic.name),  RPNDict);
         DoEffectTypes(Relic.effect.type, amount);
     }
     
     private void OnNotMove(RelicInfo Relic)
     {
+        RPNDict["wave"] = GameManager.Instance.wave_count;
         int amount = Evaluate(Effects.GetAmount(Relic.name),  RPNDict);
         DoEffectTypes(Relic.effect.type, amount);
     }
 
     private void OnEnemyKilled(RelicInfo Relic)
+    {
+        RPNDict["wave"] = GameManager.Instance.wave_count;
+        int amount = Evaluate(Effects.GetAmount(Relic.name),  RPNDict);
+        DoEffectTypes(Relic.effect.type, amount);
+    }
+    private void OnMoved10(RelicInfo Relic)
     {
         int amount = Evaluate(Effects.GetAmount(Relic.name),  RPNDict);
         DoEffectTypes(Relic.effect.type, amount);

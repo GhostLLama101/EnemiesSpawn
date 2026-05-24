@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class KillEnemyRelic : RelicBaseClass
 {
-    public KillEnemyRelic(PlayerController player) : base(player) { }
+    public KillEnemyRelic(PlayerController player, RelicInfo relicInfo) : base(player, relicInfo) { }
     /*protected override void Subscribe()
     {
         EventBus.Instance.OnEnemyKilled += OnEnemyKilled;
