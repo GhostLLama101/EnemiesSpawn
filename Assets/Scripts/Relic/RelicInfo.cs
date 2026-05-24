@@ -45,6 +45,7 @@ public class RelicEffect
     public string description;
     public string type;
     public string amount;
+    public string until;
 
     public RelicEffect Duplicate()
     {
@@ -53,6 +54,7 @@ public class RelicEffect
         newRelicEffect.description = this.description;
         newRelicEffect.type = this.type;
         newRelicEffect.amount = this.amount;
+        newRelicEffect.until = this.until;
 
         return newRelicEffect;
     }
