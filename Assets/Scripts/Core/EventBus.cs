@@ -20,8 +20,8 @@ public class EventBus
 
     public event Action OnEnemyKilled;// killing and enemy
 
-    public event Action <Hittable>OnTakeDamage;// Whenever you take damage, you gain 5 mana.
-    public event Action<Hittable> OnTakeDamageSP;
+    public event Action OnTakeDamage; // Whenever you take damage, you gain 5 mana.
+    //public event Action<Hittable> OnTakeDamageSP;
 
     public event Action OnSpellCasted;
     
@@ -51,11 +51,11 @@ public class EventBus
         OnEnemyKilled?.Invoke();
     }
 
-    public void DoTakeDamage(Hittable target)
+    public void DoTakeDamage()
     {
         Debug.Log("Invoking OnTakeDamage");
-        OnTakeDamage?.Invoke(target);
-        OnTakeDamageSP?.Invoke(target);
+        OnTakeDamage?.Invoke();
+        //OnTakeDamageSP?.Invoke(target);
     }
 
     public void DoSpellCasted()

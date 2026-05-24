@@ -1,18 +1,20 @@
 using UnityEngine;
 
-public class KillEnemyRelic : RelicInfo
+public class KillEnemyRelic : RelicBaseClass
 {
-    private PlayerController player;
-    public KillEnemyRelic(PlayerController player)
+    public KillEnemyRelic(PlayerController player) : base(player) { }
+    /*protected override void Subscribe()
     {
-        this.player = player;
-        Debug.Log("Added OnEnemyKilled to bus");
         EventBus.Instance.OnEnemyKilled += OnEnemyKilled;
+    }
+    public override void Unsubscribe()
+    {
+        EventBus.Instance.OnEnemyKilled -= OnEnemyKilled;
     }
 
     private void OnEnemyKilled()
     {
         Debug.Log("Killed enemy +10 mana");
         Effects.AddMana(10, player);
-    }
+    }*/
 }

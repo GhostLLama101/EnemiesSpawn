@@ -74,6 +74,8 @@ public class PlayerController : MonoBehaviour
         //DontMoveRelic dontMoveRelic = new DontMoveRelic(); // for testing
         //KillEnemyRelic killedTheEnemy = new KillEnemyRelic(this); // for testing
         //TakeDamageMana tookDamageMana = new TakeDamageMana(); // for testing
+        //TakeDamageMana tookDamageMana = new TakeDamageMana(this); // for testing
+        //TakeDamageSpellPower tookDamageSpellPower = new TakeDamageSpellPower(this);
         //MoveGainSpellpower moveGainSpellpower = new MoveGainSpellpower();
         //SpellsGivePower spellsGivePower = new SpellsGivePower();
 
