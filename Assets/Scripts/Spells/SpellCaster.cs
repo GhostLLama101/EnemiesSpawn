@@ -77,18 +77,12 @@ public class SpellCaster
     
     public IEnumerator Cast(Vector3 where, Vector3 target)
     {   
-        PlayerController player = GameManager.Instance.player.GetComponent<PlayerController>();
-        if (GameManager.Instance.AddedSpellpower)
-        {
-            GameManager.Instance.AddedSpellpower = false;
-            Effects.RemoveSpellPower(100, player);
-        }    
-        
         Spell spell = new Spell(this, spells[current_spell].spellInfo);
         if (mana >= spell.GetManaCost() && spell.IsReady())
         {
             mana -= spells[current_spell].GetManaCost();
             yield return spells[current_spell].Cast(where, target, team);
+            EventBus.Instance.DoSpellCasted();
         }
         
         

@@ -1,14 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using TMPro;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using System.IO;
 using System.Collections.Generic;
 using static RPNEvaluator.RPNEvaluator;
-using UnityEngine.Tilemaps;
-//using Microsoft.VisualStudio.Editor;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -71,15 +66,6 @@ public class PlayerController : MonoBehaviour
         manaui.SetSpellCaster(spellcaster);
         spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
         
-        //DontMoveRelic dontMoveRelic = new DontMoveRelic(); // for testing
-        //KillEnemyRelic killedTheEnemy = new KillEnemyRelic(this); // for testing
-        //TakeDamageMana tookDamageMana = new TakeDamageMana(); // for testing
-        //TakeDamageMana tookDamageMana = new TakeDamageMana(this); // for testing
-        //TakeDamageSpellPower tookDamageSpellPower = new TakeDamageSpellPower(this);
-        //MoveGainSpellpower moveGainSpellpower = new MoveGainSpellpower();
-        //SpellsGivePower spellsGivePower = new SpellsGivePower();
-
-
     }
 
     // Update is called once per frame
@@ -137,7 +123,7 @@ public class PlayerController : MonoBehaviour
         
         if (movement.sqrMagnitude > 0.01f)
         {
-            
+            EventBus.Instance.DoOnMove();
             if (_notMoveCoroutine != null)
             {
                 StopCoroutine(_notMoveCoroutine);
@@ -159,7 +145,6 @@ public class PlayerController : MonoBehaviour
         Debug.Log("You Lost");
         GameManager.Instance.state = GameManager.GameState.GAMEOVER;
     }
-
     void ScalePlayer()
     {   
         scaling = true; //scale only once please
