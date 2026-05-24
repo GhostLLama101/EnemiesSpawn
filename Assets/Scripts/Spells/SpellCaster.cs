@@ -77,7 +77,7 @@ public class SpellCaster
     
     public IEnumerator Cast(Vector3 where, Vector3 target)
     {   
-        Spell spell = new Spell(this, spells[current_spell].spellInfo);
+        Spell spell = spells[current_spell];
         if (mana >= spell.GetManaCost() && spell.IsReady())
         {
             mana -= spells[current_spell].GetManaCost();
