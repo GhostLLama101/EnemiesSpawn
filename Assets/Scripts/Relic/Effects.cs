@@ -18,6 +18,11 @@ public class Effects : MonoBehaviour
         player.spellcaster.power -= amount;
     }
 
+    public static void GainHealth(int amount, PlayerController player)
+    {
+        player.health += amount;
+    }
+
     public static string GetAmount(string name)
     {
         return GameManager.Instance.Relics[name].effect.amount;
