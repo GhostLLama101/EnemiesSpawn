@@ -91,9 +91,9 @@
             "amount": "1"
         },
         "effect": {
-            "description": "you gain 5 health",
+            "description": "you gain 5 health.",
             "type": "gain-health",
-            "amount": "100"
+            "amount": "5"
         }
     }
 ]
