@@ -1246,6 +1246,7 @@ MonoBehaviour:
   spellUIContainer: {fileID: 1982188287}
   exchangeButton: {fileID: 307022488}
   acceptButton: {fileID: 2059049066}
+  continueButton: {fileID: 284566018}
   relicRewards: {fileID: 1028382796}
   swapPanel: {fileID: 956868628}
   swapSlotUIs:
@@ -1703,7 +1704,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Next Wave
+  m_text: Continue
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2218,7 +2219,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 519420033}
         m_TargetAssemblyTypeName: EnemySpawner, Assembly-CSharp
-        m_MethodName: NextWave
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2604,6 +2605,7 @@ MonoBehaviour:
   spellUIContainer: {fileID: 1982188287}
   exchangeButton: {fileID: 307022488}
   acceptButton: {fileID: 2059049066}
+  continueButton: {fileID: 284566018}
   relicRewards: {fileID: 1028382796}
   swapPanel: {fileID: 956868628}
   swapSlotUIs:
@@ -4299,6 +4301,7 @@ MonoBehaviour:
   - {fileID: 2073311049}
   - {fileID: 1577913788}
   - {fileID: 587991943}
+  rewardButton: {fileID: 0}
   currentLevelname: 
   delay: 2
 --- !u!1 &532755679
@@ -12365,6 +12368,7 @@ MonoBehaviour:
   spellUIContainer: {fileID: 1982188287}
   exchangeButton: {fileID: 2059049066}
   acceptButton: {fileID: 307022488}
+  continueButton: {fileID: 284566018}
   relicRewards: {fileID: 1028382796}
   swapPanel: {fileID: 956868628}
   swapSlotUIs:
@@ -12437,6 +12441,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthui: {fileID: 765025204}
   manaui: {fileID: 71109453}
+  health: 0
   spellui: {fileID: 2085212185}
   speed: 5
   unit: {fileID: 0}
