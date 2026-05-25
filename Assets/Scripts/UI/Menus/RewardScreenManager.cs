@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class RewardScreenManager : MonoBehaviour
 {
@@ -41,6 +42,7 @@ public class RewardScreenManager : MonoBehaviour
         {
             if (!rewarded)
             {
+                rewarded = true;
                 rewardUI.SetActive(true);
                 acceptButton.gameObject.SetActive(true);
                 exchangeButton.gameObject.SetActive(false);
@@ -60,7 +62,6 @@ public class RewardScreenManager : MonoBehaviour
 
                 continueButton.onClick.RemoveAllListeners();
                 continueButton.onClick.AddListener(ContinueButtonOnClick);
-                
             }
             
         }
@@ -88,7 +89,6 @@ public class RewardScreenManager : MonoBehaviour
             player.spellcaster.AddSpell(spellReward);
             spellReward = null;
             // Player now clicks Next to start next wave
-            //Debug.Log("AcceptReward called");
             EventBus.Instance.DoOnReceiveSpell();
         }
         else
