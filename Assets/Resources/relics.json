@@ -81,5 +81,19 @@
             "type": "gain-spellpower",
             "amount": "5"
         }
+    },
+    {
+        "name": "Holy Pendant",
+        "sprite": 8,
+        "trigger": {
+            "description": "When you kill an enemy",
+            "type": "on-kill",
+            "amount": "1"
+        },
+        "effect": {
+            "description": "you gain 5 health",
+            "type": "gain-health",
+            "amount": "100"
+        }
     }
 ]
