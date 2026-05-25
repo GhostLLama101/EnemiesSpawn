@@ -141,6 +141,9 @@ public  class RelicBaseClass
             case "gain-spellpower":
                 Effects.AddSpellPower(amount, player);
                 break;
+            case "gain-health":
+                Effects.GainHealth(amount, player);
+                break;
         }
     }
     

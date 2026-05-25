@@ -20,7 +20,11 @@ public class Effects : MonoBehaviour
 
     public static void GainHealth(int amount, PlayerController player)
     {
-        player.health += amount;
+        player.hp.hp += amount;
+        if (player.hp.hp > 2*player.hp.max_hp)
+        {
+            player.hp.hp = player.hp.max_hp;
+        }
     }
 
     public static string GetAmount(string name)
