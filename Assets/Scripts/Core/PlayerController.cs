@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public Hittable hp;
     public HealthBar healthui;
     public ManaBar manaui;
+    public int health;
 
     public SpellCaster spellcaster;
     public SpellUI spellui; // this is the spell
@@ -49,7 +50,7 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(spellcaster.ManaRegeneration());
         
         //HEALTH
-        int health = Evaluate(playerClass.health, RPNDict);
+        health = Evaluate(playerClass.health, RPNDict);
         hp = new Hittable(health, Hittable.Team.PLAYER, gameObject);
         hp.OnDeath += Die;
         hp.team = Hittable.Team.PLAYER;
