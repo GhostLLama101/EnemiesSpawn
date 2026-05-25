@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class RewardScreenManager : MonoBehaviour
 {
@@ -41,26 +42,19 @@ public class RewardScreenManager : MonoBehaviour
         {
             if (!rewarded)
             {
+                rewarded = true;
                 rewardUI.SetActive(true);
                 acceptButton.gameObject.SetActive(true);
                 exchangeButton.gameObject.SetActive(false);
                 swapPanel.SetActive(false);
                 
-                try
-                {
-                    spellReward = SpellBuilder.RandomSpell();
-                    spellRewardUI.SetSpell(spellReward);
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"RandomSpell failed: {e}");
-                }
-
-                rewarded = true;
+                spellReward = SpellBuilder.RandomSpell();
+                spellRewardUI.SetSpell(spellReward);
+                Debug.Log("This is the reward we should be getting: "+spellReward.GetName());
+                
 
                 continueButton.onClick.RemoveAllListeners();
                 continueButton.onClick.AddListener(ContinueButtonOnClick);
-                
             }
             
         }
@@ -88,7 +82,6 @@ public class RewardScreenManager : MonoBehaviour
             player.spellcaster.AddSpell(spellReward);
             spellReward = null;
             // Player now clicks Next to start next wave
-            //Debug.Log("AcceptReward called");
             EventBus.Instance.DoOnReceiveSpell();
         }
         else
