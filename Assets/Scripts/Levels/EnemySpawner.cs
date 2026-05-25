@@ -19,6 +19,7 @@ public class EnemySpawner : MonoBehaviour
     public GameObject button;
     public GameObject enemy;
     public SpawnPoint[] SpawnPoints; 
+    public GameObject rewardButton;
     Dictionary<string, Enemy> enemy_types = new Dictionary<string, Enemy>(); 
     Dictionary<string, Level> level_types = new Dictionary<string, Level>(); 
     public string currentLevelname;
@@ -44,6 +45,7 @@ public class EnemySpawner : MonoBehaviour
             selector.GetComponent<MenuSelectorController>().SetLevel(kvp.Key);
             currentY -= spacing;
         }
+        GameManager.Instance.enemySpawner = this;
     }
 
     // Update is called once per frame
@@ -81,6 +83,7 @@ public class EnemySpawner : MonoBehaviour
             GameManager.Instance.countdown--;
         }
         GameManager.Instance.state = GameManager.GameState.INWAVE;
+        Debug.Log("Starting Wave: "+GameManager.Instance.wave_count);
         
         Level currentLevel = level_types[currentLevelname];         // sets the current level type
         for (int i = 0; i < currentLevel.spawns.Count; i++)                // this spawns the stuff 
