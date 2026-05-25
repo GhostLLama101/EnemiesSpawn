@@ -19,9 +19,7 @@ public class RelicRewardScreenManager : MonoBehaviour
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
-    {
-        //screen.SetActive(false);
-    }
+    {}
 
     // Update is called once per frame
     public void OnEnable()
