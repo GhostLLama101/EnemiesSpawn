@@ -48,10 +48,17 @@ public class RewardScreenManager : MonoBehaviour
                 exchangeButton.gameObject.SetActive(false);
                 swapPanel.SetActive(false);
                 
-                spellReward = SpellBuilder.RandomSpell();
-                spellRewardUI.SetSpell(spellReward);
-                Debug.Log("This is the reward we should be getting: "+spellReward.GetName());
-                
+                try
+                {
+                    spellReward = SpellBuilder.RandomSpell(spellUIContainer.player.spellcaster);
+                    spellRewardUI.SetSpell(spellReward);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError($"RandomSpell failed: {e}");
+                }
+
+                rewarded = true;
 
                 continueButton.onClick.RemoveAllListeners();
                 continueButton.onClick.AddListener(ContinueButtonOnClick);
