@@ -11,6 +11,7 @@ public class RewardScreenManager : MonoBehaviour
     public SpellUIContainer spellUIContainer;
     public Button exchangeButton;
     public Button acceptButton;
+    public Button continueButton;
     Spell spellReward;
     private bool rewarded = false;
 
@@ -40,7 +41,6 @@ public class RewardScreenManager : MonoBehaviour
         {
             if (!rewarded)
             {
-                relicRewards.SetActive(true);//For testing
                 rewardUI.SetActive(true);
                 acceptButton.gameObject.SetActive(true);
                 exchangeButton.gameObject.SetActive(false);
@@ -57,7 +57,12 @@ public class RewardScreenManager : MonoBehaviour
                 }
 
                 rewarded = true;
+
+                continueButton.onClick.RemoveAllListeners();
+                continueButton.onClick.AddListener(ContinueButtonOnClick);
+                
             }
+            
         }
         else
         {
@@ -83,7 +88,7 @@ public class RewardScreenManager : MonoBehaviour
             player.spellcaster.AddSpell(spellReward);
             spellReward = null;
             // Player now clicks Next to start next wave
-            Debug.Log("AcceptReward called");
+            //Debug.Log("AcceptReward called");
             EventBus.Instance.DoOnReceiveSpell();
         }
         else
@@ -92,6 +97,7 @@ public class RewardScreenManager : MonoBehaviour
             ShowSwapUI();
         }
     }
+
     void ShowSwapUI()
     {
         exchangeButton.gameObject.SetActive(true);
@@ -112,8 +118,6 @@ public class RewardScreenManager : MonoBehaviour
         // Player now clicks Next to start next wave
     }
 
-    
-
     public void OnExchangeClicked()
     {
         exchangeButton.gameObject.SetActive(false);
@@ -133,5 +137,19 @@ public class RewardScreenManager : MonoBehaviour
             int slotIndex = i;
             swapSlotUIs[i].SetClickable(true, () => SwapSpell(slotIndex));
         }
+    }
+    void ContinueButtonOnClick()
+    {
+        if (GameManager.Instance.wave_count != 0 && GameManager.Instance.wave_count % 3 == 0)
+        {
+            relicRewards.SetActive(true);
+            
+        }
+        else
+        {
+            GameManager.Instance.enemySpawner.NextWave();
+        }
+        continueButton.onClick.RemoveAllListeners();
+        rewardUI.SetActive(false);
     }
 }

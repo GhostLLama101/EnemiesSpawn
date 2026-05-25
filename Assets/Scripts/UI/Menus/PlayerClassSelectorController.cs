@@ -44,7 +44,5 @@ public class PlayerClassSelectorController : MonoBehaviour
         GameManager.Instance.playerClass = GameManager.Instance.PlayerClasses[key];
         GameManager.Instance.playerSpriteManager.image = this.image;
         this.HideUI();
-        relicRewards.SetActive(true);//For testing
-        
     }
 }

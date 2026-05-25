@@ -20,7 +20,7 @@ public class RelicRewardScreenManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        screen.SetActive(false);
+        //screen.SetActive(false);
     }
 
     // Update is called once per frame
@@ -79,6 +79,7 @@ public class RelicRewardScreenManager : MonoBehaviour
             relicObjects[k].transform.Find("pickButton").GetComponent<Button>().gameObject.SetActive(true);
         }
         availableRelics.Clear();
+        GameManager.Instance.enemySpawner.NextWave();
     }
     public void AddRelic(RelicInfo relicinfo)
     {
