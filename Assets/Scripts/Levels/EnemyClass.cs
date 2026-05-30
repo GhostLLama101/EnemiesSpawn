@@ -7,4 +7,5 @@ public class EnemyClass {
     public int hp = 1;
     public int speed = 0;
     public int damage = 0;
+    
 }

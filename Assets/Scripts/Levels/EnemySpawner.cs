@@ -20,8 +20,8 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemy;
     public SpawnPoint[] SpawnPoints; 
     public GameObject rewardButton;
-    Dictionary<string, EnemyClass> enemy_types = new Dictionary<string, EnemyClass>(); 
-    Dictionary<string, LevelClass> level_types = new Dictionary<string, LevelClass>(); 
+    Dictionary<string, EnemyClass> enemy_types;
+    Dictionary<string, LevelClass> level_types;
     public string currentLevelname;
     //private int wave_count;
     public int delay = 2;
@@ -73,8 +73,7 @@ public class EnemySpawner : MonoBehaviour
         GameManager.Instance.wave_count++;
         StartCoroutine(SpawnWave());
     }
-    
-    IEnumerator SpawnWave()
+        IEnumerator SpawnWave()
     {
         GameManager.Instance.state = GameManager.GameState.COUNTDOWN; // This is for countdown till the next wave
         GameManager.Instance.countdown = 3;
@@ -84,61 +83,83 @@ public class EnemySpawner : MonoBehaviour
             GameManager.Instance.countdown--;
         }
         GameManager.Instance.state = GameManager.GameState.INWAVE;
-        Debug.Log("Starting Wave: "+GameManager.Instance.wave_count);
-        
-        LevelClass currentLevel = level_types[currentLevelname];         // sets the current level type
-        for (int i = 0; i < currentLevel.spawns.Count; i++)                // this spawns the stuff 
+        Debug.Log("Starting Wave: " + GameManager.Instance.wave_count);
+
+        LevelClass currentLevel = level_types[currentLevelname]; // sets the current level type
+
+        // Keep track of how many active enemy types are currently spawning
+        int activeSpawningRoutines = currentLevel.spawns.Count;
+
+        // Start ALL enemy type spawning loops at the exact same time
+        for (int i = 0; i < currentLevel.spawns.Count; i++)
         {
-            
             Spawns spawn = currentLevel.spawns[i];
-            EnemyClass enemy_data = enemy_types[spawn.enemy];
             
-            SetPerameters parameters =  new SetPerameters // saves the parameters to the builder class to get later.
-            {
-                type = spawn.enemy,
-                hp = Evaluate(spawn.hp, new Dictionary<string, int> {{ "base", enemy_data.hp }, { "wave", GameManager.Instance.wave_count }}),
-                damage = Evaluate(spawn.damage ?? "base" , new Dictionary<string, int> {{ "base", enemy_data.damage }, { "wave", GameManager.Instance.wave_count }}),
-                speed = Evaluate(enemy_data.speed.ToString(), new Dictionary<string, int>{{ "base", enemy_data.speed }, { "wave", GameManager.Instance.wave_count }}),
-                delay = Evaluate(currentLevel.spawns[i].delay.ToString(), new Dictionary<string, int> {{ "base", 2}, { "wave", GameManager.Instance.wave_count }}),
-                location = currentLevel.spawns[i].location,
-                
-            };
-            int count = Evaluate(spawn.count, new Dictionary<string, int> { { "wave", GameManager.Instance.wave_count } });
-            if (count <= 0) count = 1;
-
-            // fallback to spawning 1 at a time
-            int[] sequence = (spawn.sequence != null && spawn.sequence.Length > 0) ? spawn.sequence : new int[] { 1 };
-            
-            int sequenceIndex = 0;
-            int spawnedSoFar = 0;
-
-            while (spawnedSoFar < count)
-            {
-                int batchSize = sequence[sequenceIndex % sequence.Length];
-                
-                batchSize = Mathf.Min(batchSize, count - spawnedSoFar);
-
-                for (int index = 0; index < batchSize; index++)
-                {
-                    //Debug.unityLogger.Log(spawn.enemy);
-                    SpawnEnemy(parameters); 
-                }
-
-                spawnedSoFar += batchSize;
-                sequenceIndex++;
-
-                // wait before triggering the next batch 
-                if (spawnedSoFar < count)
-                {
-                    float waitTime = parameters.delay == 0 ? 2f : parameters.delay;
-                    yield return new WaitForSeconds(waitTime);
-                }
-            }
-
+            // Fire off an independent sub-coroutine for this specific enemy type
+            StartCoroutine(SpawnEnemyTypeSequence(spawn, currentLevel, () => {
+                activeSpawningRoutines--; // Decrement counter when this specific enemy finishes all its batches
+            }));
         }
+
+        // Wait until EVERY single enemy type has finished firing its spawn batches
+        yield return new WaitUntil(() => activeSpawningRoutines == 0);
+
+        // Wait until the player actually clears the battlefield
         yield return new WaitWhile(() => GameManager.Instance.enemy_count > 0);
         GameManager.Instance.state = GameManager.GameState.WAVEEND;
     }
+
+    // New helper coroutine to handle an individual enemy type's batch timing in parallel
+    IEnumerator SpawnEnemyTypeSequence(Spawns spawn, LevelClass currentLevel, System.Action onComplete)
+    {
+        EnemyClass enemy_data = enemy_types[spawn.enemy];
+        Dictionary<string, int> RPNDict = new Dictionary<string, int>();
+        RPNDict["wave"] = GameManager.Instance.wave_count;
+
+        SetPerameters parameters = new SetPerameters();
+        parameters.type = spawn.enemy;
+        RPNDict["base"] = enemy_data.hp;
+        parameters.hp = Evaluate(spawn.hp, RPNDict);
+        RPNDict["base"] = enemy_data.damage;
+        parameters.damage = Evaluate(spawn.damage, RPNDict);
+        RPNDict["base"] = enemy_data.speed;
+        parameters.speed = Evaluate(enemy_data.speed.ToString(), RPNDict);
+        RPNDict["base"] = 2; // default delay if not specified
+        parameters.delay = Evaluate(spawn.delay.ToString(), RPNDict);
+        parameters.location = spawn.location;
+        RPNDict["base"] = 1; // default count if not specified
+        int count = Evaluate(spawn.count, RPNDict);
+        if (count <= 0) count = 1;
+
+        int[] sequence = (spawn.sequence != null && spawn.sequence.Length > 0) ? spawn.sequence : new int[] { 1 };
+
+        int sequenceIndex = 0;
+        int spawnedSoFar = 0;
+
+        while (spawnedSoFar < count)
+        {
+            int batchSize = sequence[sequenceIndex % sequence.Length];
+            batchSize = Mathf.Min(batchSize, count - spawnedSoFar);
+
+            for (int index = 0; index < batchSize; index++)
+            {
+                SpawnEnemy(parameters);
+            }
+
+            spawnedSoFar += batchSize;
+            sequenceIndex++;
+
+            if (spawnedSoFar < count)
+            {
+                float waitTime = parameters.delay == 0 ? 2f : parameters.delay;
+                yield return new WaitForSeconds(waitTime);
+            }
+        }
+
+        // Notify the main SpawnWave coroutine that this type is done spawning
+        onComplete?.Invoke();
+    }
+
 
     void SpawnEnemy(SetPerameters parameters)                                // going to need to add the other perimeters like 
     {
