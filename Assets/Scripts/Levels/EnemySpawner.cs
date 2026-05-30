@@ -20,8 +20,8 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemy;
     public SpawnPoint[] SpawnPoints; 
     public GameObject rewardButton;
-    Dictionary<string, Enemy> enemy_types = new Dictionary<string, Enemy>(); 
-    Dictionary<string, Level> level_types = new Dictionary<string, Level>(); 
+    Dictionary<string, EnemyClass> enemy_types = new Dictionary<string, EnemyClass>(); 
+    Dictionary<string, LevelClass> level_types = new Dictionary<string, LevelClass>(); 
     public string currentLevelname;
     //private int wave_count;
     public int delay = 2;
@@ -29,8 +29,9 @@ public class EnemySpawner : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        LoadEnemyType();
-        LoadLevelType(); 
+        enemy_types = GameManager.Instance.enemyDict;
+
+        level_types = GameManager.Instance.levelDict;
         // loop through levels and add a button for each difficulty
         
         int totalLevels = level_types.Count;
@@ -85,12 +86,12 @@ public class EnemySpawner : MonoBehaviour
         GameManager.Instance.state = GameManager.GameState.INWAVE;
         Debug.Log("Starting Wave: "+GameManager.Instance.wave_count);
         
-        Level currentLevel = level_types[currentLevelname];         // sets the current level type
+        LevelClass currentLevel = level_types[currentLevelname];         // sets the current level type
         for (int i = 0; i < currentLevel.spawns.Count; i++)                // this spawns the stuff 
         {
             
-            Spawn spawn = currentLevel.spawns[i];
-            Enemy enemy_data = enemy_types[spawn.enemy];
+            Spawns spawn = currentLevel.spawns[i];
+            EnemyClass enemy_data = enemy_types[spawn.enemy];
             
             SetPerameters parameters =  new SetPerameters // saves the parameters to the builder class to get later.
             {
@@ -98,7 +99,7 @@ public class EnemySpawner : MonoBehaviour
                 hp = Evaluate(spawn.hp, new Dictionary<string, int> {{ "base", enemy_data.hp }, { "wave", GameManager.Instance.wave_count }}),
                 damage = Evaluate(spawn.damage ?? "base" , new Dictionary<string, int> {{ "base", enemy_data.damage }, { "wave", GameManager.Instance.wave_count }}),
                 speed = Evaluate(enemy_data.speed.ToString(), new Dictionary<string, int>{{ "base", enemy_data.speed }, { "wave", GameManager.Instance.wave_count }}),
-                delay = currentLevel.spawns[i].delay,
+                delay = Evaluate(currentLevel.spawns[i].delay.ToString(), new Dictionary<string, int> {{ "base", 2}, { "wave", GameManager.Instance.wave_count }}),
                 location = currentLevel.spawns[i].location,
                 
             };
@@ -170,7 +171,7 @@ public class EnemySpawner : MonoBehaviour
 
         GameObject new_enemy = Instantiate(enemy, initial_position, Quaternion.identity);
         
-        Enemy data = enemy_types[parameters.type];                                   // get the name of the enemy to are makeing
+        EnemyClass data = enemy_types[parameters.type];                                   // get the name of the enemy to are makeing
         new_enemy.GetComponent<SpriteRenderer>().sprite = GameManager.Instance
                                      .enemySpriteManager.Get(data.sprite);           // assign the sprite of the name
         new_enemy.GetComponent<EnemyController>().SetParameters(parameters);         // assign the contoller to the name and parameters
@@ -178,37 +179,6 @@ public class EnemySpawner : MonoBehaviour
         GameManager.Instance.AddEnemy(new_enemy);                                    // creat the enemy in the game
     }
     
-    
-    public void LoadEnemyType()
-    {
-        
-        var enemytext = Resources.Load<TextAsset>("enemies");   // this loads the enemies files
-        JToken jo = JToken.Parse(enemytext.text);
-        foreach (var enemy in jo)
-        {
-            Enemy en = enemy.ToObject<Enemy>();
-            enemy_types[en.name] = en;
-        }
-        
-    }
-
-    public void LoadLevelType()
-    {
-        var levelstext = Resources.Load<TextAsset>("levels");
-        JToken jo = JToken.Parse(levelstext.text);
-        foreach (var levelIterator in jo)
-        {
-            Level level = levelIterator.ToObject<Level>();
-            level_types[level.name] = level;
-        }
-        
-        /*foreach (var kvp in level_types)
-        {
-            Level level = kvp.Value;
-            Debug.Log($"=== LEVEL: {level.name} | Waves: {level.waves} | Total Spawns: {level.spawns.Count} ===");
-            
-        }*/
-    }
     
     public void RestartLevel()
     {

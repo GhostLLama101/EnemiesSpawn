@@ -31,6 +31,14 @@
                 "delay": "10",
                 "damage": "base 50 +",
                 "location": "random bone"
+            },
+            {
+                "enemy": "eye",
+                "count": "5 wave 2 * +",
+                "hp": "base 5 wave * +",
+                "delay": "1",
+                "sequence": [3,2,3],
+                "location": "random"
             }
         ]
    },
