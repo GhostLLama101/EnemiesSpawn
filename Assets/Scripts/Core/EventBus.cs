@@ -34,6 +34,8 @@ public class EventBus
 
     public event Action OnMoved10;
 
+    public event Action OnRelicPickup;
+
 
     public void DoDamage(Vector3 where, Damage dmg, Hittable target)
     {
@@ -83,7 +85,12 @@ public class EventBus
         //Debug.Log("Invoking OnMoved10");
         OnMoved10?.Invoke();
     }
-    
+
+    public void DoRelicPickup()
+    {
+        Debug.Log("Invoking OnRelicPickup");
+        OnRelicPickup?.Invoke();
+    }
     // need to do spell power next
 
 }
