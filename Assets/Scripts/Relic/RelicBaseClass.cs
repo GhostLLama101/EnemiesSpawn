@@ -144,6 +144,12 @@ public  class RelicBaseClass
             case "gain-health":
                 Effects.GainHealth(amount, player);
                 break;
+            case "gain-speed":
+                Effects.GainSpeed(amount, player);
+                break;
+            case "gain-invulnerability":
+                Effects.GainInvulnerability();
+                break;
         }
     }
     
