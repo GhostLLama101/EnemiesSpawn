@@ -45,6 +45,17 @@ public class GameManager
 
     private List<GameObject> enemies;
 
+    //Loads the level definitions from the JSON file
+    public List<LevelClass> levelDefs = JSONReader.Load<LevelClass>("levels");    
+    public LevelClass currentLevel;
+    
+    //Loads the level definitions from the JSON file
+    public List<EnemyClass> enemyDefs = JSONReader.Load<EnemyClass>("enemies"); //Loads the enemy definitions from the JSON file
+
+    //Time to make a dictionary for the enemies and levels for easy access
+    public Dictionary<string, EnemyClass> enemyDict = new Dictionary<string, EnemyClass>();
+    public Dictionary<string, LevelClass> levelDict = new Dictionary<string, LevelClass>();
+
     public Dictionary<string, SpellInfo> SpellsDict = JSONReader.LoadDictionary<SpellInfo>("spells");
     public List<string> spellKeys;
     public Dictionary<string, ModifierInfo> ModDict = JSONReader.LoadDictionary<ModifierInfo>("modifier");
@@ -92,6 +103,16 @@ public class GameManager
 
     private void InitalizeHelpers()
     {
+        foreach (EnemyClass enemy in enemyDefs)
+        {
+            enemyDict[enemy.name] = enemy;
+        }
+
+        foreach (LevelClass level in levelDefs)
+        {
+            levelDict[level.name] = level;
+        }
+
         spellKeys = new List<string>(SpellsDict.Keys);
 
         Relics = RelicList.ToDictionary(

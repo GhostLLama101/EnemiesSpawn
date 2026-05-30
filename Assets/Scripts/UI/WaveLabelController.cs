@@ -20,6 +20,8 @@ public class WaveLabelController : MonoBehaviour
         if (GameManager.Instance.state == GameManager.GameState.COUNTDOWN)
         {
             tmp.text = "Starting in " + GameManager.Instance.countdown;
-        }
+        }//ad
+
     }
+    
 }
