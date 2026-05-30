@@ -23,14 +23,6 @@ public  class RelicBaseClass
         
     }
     
-    private void ReadRelics(Dictionary<string, RelicInfo> Relics) 
-    {
-        // call add relic for event bus
-        foreach (var relic in Relics)
-        {
-            AddToEventBus(relic.Value, relic.Value.trigger.type);
-        }
-    }
     private void AddToEventBus(RelicInfo Relic, string type)
     {
         switch (type)

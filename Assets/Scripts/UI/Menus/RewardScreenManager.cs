@@ -140,7 +140,7 @@ public class RewardScreenManager : MonoBehaviour
     }
     void ContinueButtonOnClick()
     {
-        if (GameManager.Instance.wave_count != 0 && GameManager.Instance.wave_count % 3 == 0)
+        if (GameManager.Instance.wave_count != 0 && GameManager.Instance.wave_count % 1 == 0)
         {
             relicRewards.SetActive(true);
             
