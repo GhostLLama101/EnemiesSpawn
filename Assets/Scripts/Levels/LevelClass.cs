@@ -6,5 +6,5 @@ public class LevelClass
 {
     public string name;
     public int waves = 5;
-    public List<Spawns> spawns;
+    public List<Spawn> spawns;
 }
