@@ -21,6 +21,13 @@
        "damage": 10
    },
    {
+       "name": "staged_minion",
+       "sprite": 2,
+       "hp": 100,
+       "speed": 2,
+       "damage": 15
+   },
+   {
        "name": "knight",
        "sprite": 17,
        "hp": 200,

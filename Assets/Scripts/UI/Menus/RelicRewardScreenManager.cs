@@ -24,48 +24,40 @@ public class RelicRewardScreenManager : MonoBehaviour
     // Update is called once per frame
     public void OnEnable()
     {
-        //do rewards
-        //Show them
-        //Activate the buttons maybe?
+        nextButton.onClick.RemoveAllListeners();
         nextButton.onClick.AddListener(Next);
 
-        Random rng = new Random();
-        RelicInfo newRelic;
+        availableRelics.Clear(); // clear here too, not just in Next()
 
+        Random rng = new Random();
         while (availableRelics.Count < 3)
         {
-            newRelic = GameManager.Instance.RelicList[rng.Next(0, GameManager.Instance.Relics.Count)];
-            
+            RelicInfo newRelic = GameManager.Instance.RelicList[rng.Next(0, GameManager.Instance.Relics.Count)];
             if (!availableRelics.Contains(newRelic))
-            {
                 availableRelics.Add(newRelic);
-            }
         }
+
         RelicIconManager rico_man = GameManager.Instance.relicIconManager;
-        if (rico_man != null){ 
+        if (rico_man != null)
+        {
             GameObject[] relicObjects = { relic1, relic2, relic3 };
             for (int i = 0; i < 3; i++)
             {
                 int j = i;
                 rico_man.PlaceSprite(availableRelics[j].sprite, relicObjects[j].GetComponent<Image>());
-                relicObjects[j].transform.Find("Name(TMP)").GetComponent<TextMeshProUGUI>().text =
-                    availableRelics[j].name;
+                relicObjects[j].transform.Find("Name(TMP)").GetComponent<TextMeshProUGUI>().text = availableRelics[j].name;
                 relicObjects[j].transform.Find("Description").GetComponent<TextMeshProUGUI>().text =
-                    availableRelics[j].trigger.description+" "+availableRelics[j].effect.description;
-
+                    availableRelics[j].trigger.description + " " + availableRelics[j].effect.description;
 
                 Button button = relicObjects[j].transform.Find("pickButton").GetComponent<Button>();
+                button.onClick.RemoveAllListeners(); // clear before adding
                 button.onClick.AddListener(() => {
                     AddRelic(availableRelics[j]);
                     for (int k = 0; k < 3; k++)
-                    {
                         relicObjects[k].transform.Find("pickButton").GetComponent<Button>().gameObject.SetActive(false);
-                    }
-                    //button.RemoveAllListeners(); 
                 });
             }
         }
-        
     }
     public void Next()
     {
@@ -81,8 +73,8 @@ public class RelicRewardScreenManager : MonoBehaviour
     }
     public void AddRelic(RelicInfo relicinfo)
     {
-        //TODO: Change from adding relicInfos to relics
         PlayerController player = GameManager.Instance.player.GetComponent<PlayerController>();
         player.PlayerRelics.Add(new RelicBaseClass(player, relicinfo));
+        EventBus.Instance.DoRelicPickup();
     }
 }
