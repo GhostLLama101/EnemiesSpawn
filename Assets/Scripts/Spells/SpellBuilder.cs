@@ -19,6 +19,9 @@ public static class SpellBuilder
             "chaotic" => new chaotic(owner, info, inner),
             "homing" => new homing(owner, info, inner),
             "crawlingMine" => new crawlingMine(owner, info, inner),
+            "firerate-amplified" => firerateAmp(owner, info, inner),
+            "octupled" => octupled(owner, info, inner),
+            "whirlpool" => whirlpool(owner, info, inner),
             _ => null
         };
     }

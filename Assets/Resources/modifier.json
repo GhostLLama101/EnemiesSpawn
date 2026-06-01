@@ -45,11 +45,32 @@
     "name": "lance",
     "description": "go through things",
     "pierce": "true"
-  }, 
+  },
   "mine": {
     "name": "crawlingMine",
     "description": "Makes the projectile stay put and massively increases damage.",
     "speed_multiplier": "  0 * 1 2 / +",
-    "damage_multiplier":" 5 *"
+    "damage_multiplier": " 5 *"
+  },
+  "firerate_amp": {
+    "name": "firerate-amplified",
+    "description": "Decreased damage and cooldown.",
+    "damage_multiplier": "0.75",
+    "cooldown_multiplier": "0.5"
+  },
+  "octuple": {
+    "name": "octupled",
+    "description": "Spell is cast in all eight directions; increased mana cost",
+    "count": "8",
+    "angle": "45",
+    "mana_multiplier": "2"
+  },
+  "whirlpool": {
+    "name": "whirlpool",
+    "description": "4 projectiles are sent spiraling. Increased cooldown.",
+    "count": "4",
+    "angle": "90",
+    "cooldown_multiplier": "2",
+    "projectile_trajectory": "spiraling"
   }
 }

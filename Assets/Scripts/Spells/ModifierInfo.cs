@@ -16,4 +16,5 @@ public class ModifierInfo
     public string projectile_trajectory;
     public string mana_adder;
     public string pierce;
+    public int count;
 }
