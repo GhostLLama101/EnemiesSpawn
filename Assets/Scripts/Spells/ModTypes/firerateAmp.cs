@@ -20,8 +20,8 @@ public class firerateAmp : Modifier
 
     public override void ApplyModStats()
     {
-        this.ModifierInfo.damage_multiplier = "0.75";
-        this.ModifierInfo.cooldown_multiplier = "0.5";
+        this.ModifierInfo.damage_multiplier = " 3 * 4 /";
+        this.ModifierInfo.cooldown_multiplier = " 2 /";
 
         inner.spellInfo.damage.amount += this.ModifierInfo.damage_multiplier;
         inner.spellInfo.cooldown += this.ModifierInfo.cooldown_multiplier;
