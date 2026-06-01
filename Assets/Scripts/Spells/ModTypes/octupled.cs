@@ -20,15 +20,19 @@ public class octupled : Modifier
     public override IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
     {
         this.team = team;
-        int angle = int.Parse(ModifierInfo.angle);
-        
-        //Debug.Log($"count:{count}");
+        float angleOffset = float.Parse(ModifierInfo.angle); // optional extra rotation offset
+        float angleStep = 360f / ModifierInfo.count;         // evenly divide the circle
+        Vector3 direction = (target - where).normalized;
+        //Debug.Log($"where:{where}  target:{target}");
+
         for (int i = 0; i < ModifierInfo.count; i++)
         {
             yield return new WaitForSeconds(ModifierInfo.delay);
-            GameManager.Instance.projectileManager.StartCoroutine(inner.Cast(where, Quaternion.Euler(0, 0, angle * i) * (target - where), team));
+            float currentAngle = angleStep * i + angleOffset;
+            Vector3 target1 = where + (Quaternion.Euler(0, 0,currentAngle) * direction);
+            GameManager.Instance.projectileManager.StartCoroutine(inner.Cast(where, target1, team));
         }
-     
+
         yield return new WaitForEndOfFrame();
     }
 }
