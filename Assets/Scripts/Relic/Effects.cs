@@ -3,8 +3,6 @@ using UnityEngine;
 // this is where the effects function will all be called.
 public class Effects : MonoBehaviour
 {
-    float invincibleTimer;
-    static bool playerInvincible;
 
     public static void AddMana(int amount, PlayerController player)
     {
@@ -36,7 +34,7 @@ public class Effects : MonoBehaviour
     }
     public static void GainInvulnerability()
     {
-        playerInvincible = true;
+        PlayerController.playerInvincible = true;
     }
 
     public static string GetAmount(string name)
@@ -44,16 +42,4 @@ public class Effects : MonoBehaviour
         return GameManager.Instance.Relics[name].effect.amount;
     }
 
-    void Update()
-    {
-        if (playerInvincible)
-        {
-            invincibleTimer += Time.deltaTime;
-
-            if (invincibleTimer >= 5f)
-            {
-                playerInvincible = false;
-            }
-        }
-    }
 }
