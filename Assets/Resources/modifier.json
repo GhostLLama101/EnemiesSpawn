@@ -70,7 +70,7 @@
     "description": "4 projectiles are sent spiraling. Increased cooldown.",
     "count": "4",
     "angle": "90",
-    "cooldown_multiplier": " 2",
+    "cooldown_multiplier": " 2 *",
     "projectile_trajectory": "spiraling"
   }
 }

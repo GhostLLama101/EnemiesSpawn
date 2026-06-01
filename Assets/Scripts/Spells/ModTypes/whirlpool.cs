@@ -13,10 +13,20 @@ public class whirlpool : Modifier
     {
         base.SetAttributes(attributes);
         ModifierInfo.angle = attributes["angle"].ToString();
-        ModifierInfo.mana_multiplier = attributes["mana_multiplier"].ToString();
+        //ModifierInfo.mana_multiplier = attributes["mana_multiplier"].ToString();
         ModifierInfo.count = attributes["count"].ToObject<int>();
         ModifierInfo.cooldown_multiplier = attributes["cooldown_multiplier"].ToString();
         ModifierInfo.projectile_trajectory = attributes["projectile_trajectory"].ToString();
+
+    }
+
+    public override void ApplyModStats()
+    {
+        //this.spellInfo.projectile.angle = this.attributes["angle"].ToString(); I think this is handled in the Cast
+        inner.spellInfo.mana_cost += this.ModifierInfo.mana_multiplier;
+        //inner.spellInfo.count = this.ModifierInfo.count; I think this is handled in the Cast
+        inner.spellInfo.cooldown += this.ModifierInfo.cooldown_multiplier;
+        inner.spellInfo.projectile.trajectory = this.ModifierInfo.projectile_trajectory;
 
     }
 
