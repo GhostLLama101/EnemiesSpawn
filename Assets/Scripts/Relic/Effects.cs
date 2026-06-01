@@ -3,6 +3,9 @@ using UnityEngine;
 // this is where the effects function will all be called.
 public class Effects : MonoBehaviour
 {
+    float invincibleTimer;
+    static bool playerInvincible;
+
     public static void AddMana(int amount, PlayerController player)
     {
         player.spellcaster.mana = Mathf.Min(player.spellcaster.mana + amount, player.spellcaster.max_mana);
@@ -27,8 +30,30 @@ public class Effects : MonoBehaviour
         }
     }
 
+    public static void GainSpeed(int amount, PlayerController player)
+    {
+        player.speed += amount;
+    }
+    public static void GainInvulnerability()
+    {
+        playerInvincible = true;
+    }
+
     public static string GetAmount(string name)
     {
         return GameManager.Instance.Relics[name].effect.amount;
+    }
+
+    void Update()
+    {
+        if (playerInvincible)
+        {
+            invincibleTimer += Time.deltaTime;
+
+            if (invincibleTimer >= 5f)
+            {
+                playerInvincible = false;
+            }
+        }
     }
 }

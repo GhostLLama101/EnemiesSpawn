@@ -95,5 +95,44 @@
             "type": "gain-health",
             "amount": "5"
         }
+    },    {
+        "name": "Massive Bong",
+        "sprite": 4,
+        "trigger": {
+            "description": "When you press R",
+            "type": "on-press"
+        },
+        "effect": {
+            "description": "you gain 1 HP.",
+            "type": "gain-health",
+            "amount": "5"
+        }
+    },
+    {
+
+        "name": "Momma's Mittens",
+        "sprite": 5,
+        "trigger": {
+            "description": "When you kill an enemy",
+            "type": "on-kill"
+        },
+        "effect": {
+            "description": "gain 1 speed.",
+            "type": "gain-speed",
+            "amount": "1"
+        }
+    },
+    {
+        "name": "Super Armor",
+        "sprite": 6,
+        "trigger": {
+            "description": "When you take damage",
+            "type": "take-damage"
+        },
+        "effect": {
+            "description": "gain invulnerability for 5s",
+            "type": "gain-invulnerability",
+            "amount": "5"
+        }
     }
 ]
