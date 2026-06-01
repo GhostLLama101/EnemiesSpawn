@@ -39,7 +39,11 @@ public class Modifier : Spell
     {
         return inner.GetManaCost();
     }
-    
+
+    public override float GetCooldown()
+    {
+        return inner.GetCooldown();
+    }
     public override float GetLifeTime()
     {
         return inner.GetLifeTime();
