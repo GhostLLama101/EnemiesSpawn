@@ -43,10 +43,6 @@ public static class SpellBuilder
    }
     public static Spell RandomSpell(SpellCaster placeholder)
     {
-        /*if (placeholder == null)
-        {
-            placeholder = new SpellCaster(-1, -1, Hittable.Team.PLAYER);
-        }*/
         Random rng = new Random();
 
         int index = rng.Next(0, GameManager.Instance.spellKeys.Count);
