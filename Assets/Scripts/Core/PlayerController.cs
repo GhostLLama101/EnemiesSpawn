@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour
     public Unit unit;
     
     public bool dead = false;
-
     public bool scaling = false;
     public PlayerClass playerClass;
     public Dictionary<string, int> RPNDict = new Dictionary<string, int>();
@@ -28,6 +27,9 @@ public class PlayerController : MonoBehaviour
     private Coroutine _notMoveCoroutine;
 
     public List<RelicBaseClass> PlayerRelics = new List<RelicBaseClass>();
+
+    public float invincibleTimer;
+    public static bool playerInvincible;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -102,6 +104,16 @@ public class PlayerController : MonoBehaviour
             spellcaster.current_spell = 3;
         }
         
+        // Give player invulnerability on damage (relic buff)
+        if (playerInvincible)
+        {
+            invincibleTimer += Time.deltaTime;
+
+            if (invincibleTimer >= 5f)
+            {
+                playerInvincible = false;
+            }
+        }
         
     }
 
@@ -139,6 +151,17 @@ public class PlayerController : MonoBehaviour
             }
         }
         
+    }
+
+    void OnBuff(InputValue value)
+    {
+        if (GameManager.Instance.state == GameManager.GameState.PREGAME || GameManager.Instance.state == GameManager.GameState.GAMEOVER) return;
+        foreach (RelicBaseClass relic in PlayerRelics) {
+            if (relic.relicInfo.name == "Massive Bong")
+            {
+                hp.hp += 1;
+            }
+        }
     }
 
     void Die()

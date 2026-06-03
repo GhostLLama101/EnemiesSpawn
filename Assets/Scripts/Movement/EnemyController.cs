@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
     public HealthBar healthui;
     public bool dead;
     public int damage; // added this so damage from the json could be passed in
+    
 
     public float last_attack;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -38,10 +39,12 @@ public class EnemyController : MonoBehaviour
         if (last_attack + 2 < Time.time)
         {
             last_attack = Time.time;
-            target.gameObject.GetComponent<PlayerController>().hp.Damage(new Damage(damage, Damage.Type.PHYSICAL));
+            if (!PlayerController.playerInvincible)
+            {
+                target.gameObject.GetComponent<PlayerController>().hp.Damage(new Damage(5, Damage.Type.PHYSICAL));
+            }
         }
     }
-
 
     void Die()
     {
