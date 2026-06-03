@@ -573,8 +573,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 93.3, y: -17.8}
-  m_SizeDelta: {x: -270.2318, y: -63.861}
+  m_AnchoredPosition: {x: 95.88753, y: -17.799995}
+  m_SizeDelta: {x: -265.0567, y: -63.861}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &235488208
 MonoBehaviour:
@@ -596,13 +596,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Programer
+  m_text: 'Programmer
 
-    Programer
+    Programmer
 
-    Programer
+    Programmer
 
-    Programer'
+    Programmer'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1152,7 +1152,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Josep Dadlez
 
-    Zander-Miller-Brown
+    Zander Miller-Brown
 
     Johnny Fisher
 

@@ -63,7 +63,7 @@
     "description": "Spell is cast in all eight directions; increased mana cost",
     "count": "8",
     "angle": "45",
-    "mana_multiplier": " 2"
+    "mana_multiplier": " 2 *"
   },
   "whirlpool": {
     "name": "whirlpool",
