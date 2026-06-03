@@ -25,28 +25,24 @@ public static class SpellBuilder
             _ => null
         };
     }
-    public static Spell Build(SpellCaster owner, Spell spell)
-    {
-        Spell freshCore = new Spell(owner, spell.spellInfo);
-        return Build(freshCore, spell.GetModifiers());
-    }
     
    public static Spell Build(Spell coreSpell, List<Modifier> spellModifiers)
    {
        Spell current = coreSpell;
+       SpellInfo global = coreSpell.spellInfo; // grab the shared reference
+       
        foreach (var modifier in spellModifiers)
        {
+           modifier.spellInfo = global; //point all modifiers at the same SpellInfo
            modifier.inner = current;
            current = modifier;
+           modifier.ApplyModStats();
        }
        return current;
    }
-    public static Spell RandomSpell(SpellCaster placeholder)
+   
+   public static Spell RandomSpell(SpellCaster placeholder)
     {
-        /*if (placeholder == null)
-        {
-            placeholder = new SpellCaster(-1, -1, Hittable.Team.PLAYER);
-        }*/
         Random rng = new Random();
 
         int index = rng.Next(0, GameManager.Instance.spellKeys.Count);
@@ -58,30 +54,30 @@ public static class SpellBuilder
             return null;
         }
 
-        Dictionary<string, ModifierInfo> availableModifiers = GameManager.Instance.ModDict;
+        Dictionary<string, ModifierInfo> availableModifiers = GameManager.Instance.ModDict; //TODO
         
         if (availableModifiers == null || availableModifiers.Count == 0)
             throw new ArgumentException("availableModifiers must not be null or empty.");
         
         int numberOfModifiers = 3;
         
-        var keys = new List<string>(availableModifiers.Keys); // copy, don't mutate original
+        var keys = new List<string>(availableModifiers.Keys); // copy, don't mutate original //TODO
         List<Modifier> spellModifiers = new List<Modifier>();
         
         Spell current = new Spell(placeholder, spinf);
-        SpellInfo global = current.spellInfo;
+        SpellInfo global = current.spellInfo; //TODO
         for (int i = 0; i < numberOfModifiers; i++)
         {
-            ModifierInfo info = availableModifiers[keys[rng.Next(0, keys.Count)]];
+            ModifierInfo info = availableModifiers[keys[rng.Next(0, keys.Count)]]; // TODO
             Modifier mod = CreateModifier(placeholder, info, current);
             if (mod == null) continue; 
-            mod.spellInfo = global;
+            mod.spellInfo = global; // all the modifiers point to the spell info VERY IMPORTANT //TODO
             spellModifiers.Add(mod);
             current = mod;
         }
         foreach (Modifier mod in spellModifiers)
         {
-            mod.ApplyModStats();
+            mod.ApplyModStats(); //TODO
         }
 
         return current;
