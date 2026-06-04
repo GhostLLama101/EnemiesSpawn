@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 using Random = System.Random;
+using UnityEngine.InputSystem;
 
 public class SpellInventoryManager : MonoBehaviour
 {
@@ -14,13 +15,22 @@ public class SpellInventoryManager : MonoBehaviour
     public GameObject spell4;
     private List<SpellInfo> playerSpells = new List<SpellInfo>();
     public Button nextButton;
-    
+    public Key triggerKey = Key.Escape;
 
     void Start()
     {
+        
         //TODO
         //collect the player's spells
-        //disable the canvas
+        screen.SetActive(false);
+    }
+    
+    void Update()
+    {
+        if (Keyboard.current != null && Keyboard.current[triggerKey].wasPressedThisFrame)
+        {
+            screen.SetActive(true);
+        }
     }
 
     public void OnEnable()

@@ -34,9 +34,11 @@ public class SpellCaster
         this.mana_reg = mana_reg;
         this.team = team;
         //this.player = player;
+        for (int i = 0; i < maxSpellCount; i++)
+        {
+            spells.Add(new Spell(this, GameManager.Instance.SpellsDict["arcane_bolt"]));
+        }
         
-        core = new Spell(this, GameManager.Instance.SpellsDict["arcane_bolt"]);
-        spells.Add(core);
     }
     
     public bool IsFull() => spells.Count >= maxSpellCount;
