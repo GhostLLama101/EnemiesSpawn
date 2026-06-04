@@ -19,9 +19,6 @@ public class SpellInventoryManager : MonoBehaviour
 
     void Start()
     {
-        
-        //TODO
-        //collect the player's spells
         screen.SetActive(false);
     }
     
@@ -35,17 +32,27 @@ public class SpellInventoryManager : MonoBehaviour
 
     public void OnEnable()
     {
-        nextButton.onClick.RemoveAllListeners();
+        GameManager.Instance.state = GameManager.GameState.PAUSE;
         nextButton.onClick.AddListener(Next);
 
-        SpellIconManager sp_ico_man = GameManager.Instance.spellIconManager;
-        if (sp_ico_man != null)
+        if (GameManager.Instance.player == null) return;
+
+        PlayerController player = GameManager.Instance.player.GetComponent<PlayerController>();
+
+        for (int i = 0; i < 4; i++)
+        {
+            playerSpells.Add(player.spellcaster.spells[i].spellInfo);
+        }
+        
+
+        SpellIconManager sp_icon_man = GameManager.Instance.spellIconManager;
+        if (sp_icon_man != null)
         {
             GameObject[] spellObjects = { spell1, spell2, spell3, spell4 };
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
                 int j = i;
-                sp_ico_man.PlaceSprite(playerSpells[j].icon, spellObjects[j].GetComponent<Image>());
+                sp_icon_man.PlaceSprite(playerSpells[j].icon, spellObjects[j].GetComponent<Image>());
                 //TODO: I think add the other things like mana and damage too
 
                 Button button = spellObjects[j].GetComponent<Button>();
@@ -60,16 +67,20 @@ public class SpellInventoryManager : MonoBehaviour
             }
         }
     }
+    public void OnDisable()
+    {
+        nextButton.onClick.RemoveListener(Next);
+        GameManager.Instance.state = GameManager.GameState.INWAVE;
+    }
     private void GoToSpellTree(SpellInfo spellInfo)
     {
         //TODO
-        //disable this canvas and its buttons
+        screen.SetActive(false);
         //enable the spell tree canvas and populate it with the selected spell's info
     }
-
+    
     public void Next()
     {
-        nextButton.onClick.RemoveListener(Next);
         GameManager.Instance.enemySpawner.NextWave();
         screen.SetActive(false);
     }

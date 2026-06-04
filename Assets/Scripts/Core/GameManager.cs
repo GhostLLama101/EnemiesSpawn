@@ -11,6 +11,7 @@ public class GameManager
     {
         PREGAME,
         INWAVE,
+        PAUSE,
         WAVEEND,
         COUNTDOWN,
         GAMEOVER
