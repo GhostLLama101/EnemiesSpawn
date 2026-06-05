@@ -104,5 +104,18 @@
                "location": "random bone"
             }
         ]
+   },
+   {
+       "name": "Test",
+       "spawns": [
+            {
+                "enemy": "zombie",
+                "count": "0",
+                "hp": "15 wave *",
+                "delay": "5",
+                "sequence": [1,2,3],
+                "location": "random"
+            }
+        ]
    }
 ]

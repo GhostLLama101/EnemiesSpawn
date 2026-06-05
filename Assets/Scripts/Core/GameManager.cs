@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using Newtonsoft.Json;
 
 public class GameManager 
 {
@@ -20,8 +21,10 @@ public class GameManager
     private static GameManager theInstance;
     public static GameManager Instance {  get
         {
-            if (theInstance == null)
+            if (theInstance == null) 
                 theInstance = new GameManager();
+            
+            theInstance.InitalizeHelpers();
             return theInstance;
         }
     }
@@ -33,11 +36,33 @@ public class GameManager
     public EnemySpriteManager enemySpriteManager;
     public PlayerSpriteManager playerSpriteManager;
     public RelicIconManager relicIconManager;
+    public PlayerClassSelectorController playerClassSelectorController;
+
+    public bool AddedSpellpower = false;
     
     public int total_damage_dealt = 0;
+    public float totalDistance = 0f;
     
     private List<GameObject> enemies;
+
+    /*public List<Spell> SpellDef = JSONReader.Load<Spell>("spells");
+    public List<Modifier> ModDef = JSONReader.Load<Modifier>("modifier");
+    
+    public Dictionary<string, Spell> SpellsDict = new Dictionary<string, Spell>();
+    public Dictionary<string, Modifier> ModDict = new Dictionary<string, Modifier>();
+    */
+
+    public Dictionary<string, SpellInfo> SpellsDict = JSONReader.LoadDictionary<SpellInfo>("spells");
+    public List<string> spellKeys;
+    public Dictionary<string, ModifierInfo> ModDict = JSONReader.LoadDictionary<ModifierInfo>("modifier");
+    public Dictionary<string, PlayerClass> PlayerClasses = JSONReader.LoadDictionary<PlayerClass>("classes");
+    public List<RelicInfo> RelicsFromJson = JSONReader.Load<RelicInfo>("relics");
+    public Dictionary<string, RelicInfo> Relics;
+
     public int enemy_count { get { return enemies.Count; } }
+
+    public int wave_count = 0;
+    public PlayerClass playerClass;
 
     public void AddEnemy(GameObject enemy)
     {
@@ -70,6 +95,16 @@ public class GameManager
     private GameManager()
     {
         enemies = new List<GameObject>();
+    }
+
+    private void InitalizeHelpers()
+    {
+        spellKeys = new List<string>(SpellsDict.Keys);
+
+        Relics = RelicsFromJson.ToDictionary(
+            relic => relic.name,   
+            relic => relic         
+        );
     }
     
 }

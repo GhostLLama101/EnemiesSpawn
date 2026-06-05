@@ -22,7 +22,7 @@ public class EnemySpawner : MonoBehaviour
     Dictionary<string, Enemy> enemy_types = new Dictionary<string, Enemy>(); 
     Dictionary<string, Level> level_types = new Dictionary<string, Level>(); 
     public string currentLevelname;
-    private int wave_count;
+    //private int wave_count;
     public int delay = 2;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -54,7 +54,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void StartLevel(string levelname)
     {
-        wave_count = 1;
+        GameManager.Instance.wave_count = 1;
         currentLevelname = levelname;
         
         level_selector.gameObject.SetActive(false);
@@ -67,7 +67,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void NextWave()
     {
-        wave_count++;
+        GameManager.Instance.wave_count++;
         StartCoroutine(SpawnWave());
     }
     
@@ -92,14 +92,14 @@ public class EnemySpawner : MonoBehaviour
             SetPerameters parameters =  new SetPerameters // saves the parameters to the builder class to get later.
             {
                 type = spawn.enemy,
-                hp = Evaluate(spawn.hp, new Dictionary<string, int> {{ "base", enemy_data.hp }, { "wave", wave_count }}),
-                damage = Evaluate(spawn.damage ?? "base" , new Dictionary<string, int> {{ "base", enemy_data.damage }, { "wave", wave_count }}),
-                speed = Evaluate(enemy_data.speed.ToString(), new Dictionary<string, int>{{ "base", enemy_data.speed }, { "wave", wave_count }}),
+                hp = Evaluate(spawn.hp, new Dictionary<string, int> {{ "base", enemy_data.hp }, { "wave", GameManager.Instance.wave_count }}),
+                damage = Evaluate(spawn.damage ?? "base" , new Dictionary<string, int> {{ "base", enemy_data.damage }, { "wave", GameManager.Instance.wave_count }}),
+                speed = Evaluate(enemy_data.speed.ToString(), new Dictionary<string, int>{{ "base", enemy_data.speed }, { "wave", GameManager.Instance.wave_count }}),
                 delay = currentLevel.spawns[i].delay,
                 location = currentLevel.spawns[i].location,
                 
             };
-            int count = Evaluate(spawn.count, new Dictionary<string, int> { { "wave", wave_count } });
+            int count = Evaluate(spawn.count, new Dictionary<string, int> { { "wave", GameManager.Instance.wave_count } });
             if (count <= 0) count = 1;
 
             // fallback to spawning 1 at a time
@@ -199,12 +199,12 @@ public class EnemySpawner : MonoBehaviour
             level_types[level.name] = level;
         }
         
-        foreach (var kvp in level_types)
+        /*foreach (var kvp in level_types)
         {
             Level level = kvp.Value;
             Debug.Log($"=== LEVEL: {level.name} | Waves: {level.waves} | Total Spawns: {level.spawns.Count} ===");
             
-        }
+        }*/
     }
     
     public void RestartLevel()

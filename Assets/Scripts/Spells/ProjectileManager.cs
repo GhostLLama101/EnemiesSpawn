@@ -24,13 +24,19 @@ public class ProjectileManager : MonoBehaviour
         new_projectile.GetComponent<ProjectileController>().OnHit += onHit;
     }
 
-    public void CreateProjectile(int which, string trajectory, Vector3 where, Vector3 direction, float speed, Action<Hittable, Vector3> onHit, float lifetime)
+    public void CreateProjectile(int which, string trajectory, Vector3 where, Vector3 direction, float speed, Action<Hittable, Vector3> onHit, float lifetime, Damage.Type type = Damage.Type.ARCANE)
     {
         GameObject new_projectile = Instantiate(projectiles[which], where + direction.normalized * 1.1f, Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
         new_projectile.GetComponent<ProjectileController>().movement = MakeMovement(trajectory, speed);
         new_projectile.GetComponent<ProjectileController>().OnHit += onHit;
         new_projectile.GetComponent<ProjectileController>().SetLifetime(lifetime);
+        if (type == Damage.Type.PIERCE)
+        {
+            new_projectile.GetComponent<ProjectileController>().pierce = true; // this is begi wierd
+        }
+        Debug.Log($"Type received: {type}");
     }
+    // this will be used for the shot gun one probably
 
     public ProjectileMovement MakeMovement(string name, float speed)
     {
