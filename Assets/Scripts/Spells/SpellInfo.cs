@@ -13,8 +13,8 @@ public class SpellInfo
     public string mana_cost = "10";
     public string cooldown = "2";
     public Projectile projectile;
-
     public Projectile secondary_projectile;
+    public List<ModifierInfo> modifiers = new List<ModifierInfo>();
 
     public SpellInfo Duplicate()
     {
@@ -27,6 +27,13 @@ public class SpellInfo
         newSpell.mana_cost = this.mana_cost;
         newSpell.cooldown = this.cooldown;
         newSpell.projectile = this.projectile.Duplicate();
+        if (this.secondary_projectile != null)
+            newSpell.secondary_projectile = this.secondary_projectile.Duplicate();
+        newSpell.modifiers = new List<ModifierInfo>();
+        for (int i = 0; i < this.modifiers.Count; i++)
+        {
+            newSpell.modifiers.Add(this.modifiers[i].Duplicate());
+        }
 
         return newSpell;
     }

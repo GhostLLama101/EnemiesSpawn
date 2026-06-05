@@ -119,7 +119,11 @@ public class PlayerController : MonoBehaviour
 
     void OnAttack(InputValue value)
     {
-        if (GameManager.Instance.state == GameManager.GameState.PREGAME || GameManager.Instance.state == GameManager.GameState.GAMEOVER) return;
+        if (GameManager.Instance.state == GameManager.GameState.PREGAME ||
+            GameManager.Instance.state == GameManager.GameState.GAMEOVER || 
+            GameManager.Instance.state == GameManager.GameState.WAVEEND || 
+            GameManager.Instance.state == GameManager.GameState.PAUSE) return;
+        Debug.Log("Current state: " + GameManager.Instance.state);
         Vector2 mouseScreen = Mouse.current.position.value;
         Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(mouseScreen);
         mouseWorld.z = 0;
@@ -128,7 +132,14 @@ public class PlayerController : MonoBehaviour
     //totalDistance += distance;
     void OnMove(InputValue value) // add this to the observation
     {
-        if (GameManager.Instance.state == GameManager.GameState.PREGAME || GameManager.Instance.state == GameManager.GameState.GAMEOVER) return;
+        /*if (GameManager.Instance.state == GameManager.GameState.PREGAME || 
+            GameManager.Instance.state == GameManager.GameState.GAMEOVER || 
+            GameManager.Instance.state == GameManager.GameState.WAVEEND || 
+            GameManager.Instance.state == GameManager.GameState.PAUSE) 
+        {
+            unit.movement = 0 * Vector2.zero;
+            return;
+        }*/
         Vector2 movement = value.Get<Vector2>();
         
         unit.movement = movement *speed;
