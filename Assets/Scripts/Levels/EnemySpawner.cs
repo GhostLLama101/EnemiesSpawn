@@ -121,6 +121,7 @@ public class EnemySpawner : MonoBehaviour
         RPNDict["base"] = enemy_data.hp;
         parameters.hp = Evaluate(spawn.hp, RPNDict);
         RPNDict["base"] = enemy_data.damage;
+        if (spawn.damage == null) spawn.damage = "base";
         parameters.damage = Evaluate(spawn.damage, RPNDict);
         RPNDict["base"] = enemy_data.speed;
         parameters.speed = Evaluate(enemy_data.speed.ToString(), RPNDict);
