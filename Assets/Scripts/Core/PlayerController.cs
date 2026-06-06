@@ -132,14 +132,6 @@ public class PlayerController : MonoBehaviour
     //totalDistance += distance;
     void OnMove(InputValue value) // add this to the observation
     {
-        /*if (GameManager.Instance.state == GameManager.GameState.PREGAME || 
-            GameManager.Instance.state == GameManager.GameState.GAMEOVER || 
-            GameManager.Instance.state == GameManager.GameState.WAVEEND || 
-            GameManager.Instance.state == GameManager.GameState.PAUSE) 
-        {
-            unit.movement = 0 * Vector2.zero;
-            return;
-        }*/
         Vector2 movement = value.Get<Vector2>();
         
         unit.movement = movement *speed;
