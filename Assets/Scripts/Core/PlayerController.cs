@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public HealthBar healthui;
     public ManaBar manaui;
     public int health;
-
+    
     public SpellCaster spellcaster;
     public SpellUI spellui; // this is the spell
 
@@ -211,4 +211,6 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("firing event DoNotMove");
         EventBus.Instance.DoNotMove();
     }
+    
+    
 }

@@ -1,0 +1,40 @@
+﻿[
+  {
+    "spell_slot": 1,
+    "spell_cost": -1,
+    "sprite": 0,
+    "available_modifiers": [
+      {
+        "name": "damage_amplified",
+        "cost": 5
+      },
+      {
+        "name": "split",
+        "cost": 5
+      },
+      {
+        "name": "doubler",
+        "cost": 5
+      }
+    ]
+  },
+  {
+    "spell_slot": 2,
+    "spell_cost": 10,
+    "sprite": 0,
+    "available_modifiers": [
+      {
+        "name": "damage_amplified",
+        "cost": 5
+      },
+      {
+        "name": "split",
+        "cost": 5
+      },
+      {
+        "name": "doubler",
+        "cost": 5
+      }
+    ]
+  }
+]

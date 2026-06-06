@@ -20,7 +20,6 @@ public class SpellTreeManager : MonoBehaviour
     }
     public void OpenSpellTree(SpellInfo spellInfo, SpellIconManager sp_icon_man, int spellIndex)
     {
-        Debug.Log("Opening spell tree for spell " + spellIndex);
         GameManager.Instance.state = GameManager.GameState.PAUSE;
         spellTreeCanvas.SetActive(true);
         //spellModifiersText.text = spellInfo.modifiers;

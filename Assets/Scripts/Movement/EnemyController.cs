@@ -18,6 +18,7 @@ public class EnemyController : MonoBehaviour
         target = GameManager.Instance.player.transform;
         hp.OnDeath += Die;
         healthui.SetHealth(hp);
+        
     }
 
     // Update is called once per frame
@@ -53,6 +54,7 @@ public class EnemyController : MonoBehaviour
             dead = true;
             GameManager.Instance.RemoveEnemy(gameObject);
             EventBus.Instance.DoKilledEnemy();  // this is where you call the relic for killing enemies.
+            GameManager.Instance.AddSkillPoint();
             Destroy(gameObject);
         }
     }
