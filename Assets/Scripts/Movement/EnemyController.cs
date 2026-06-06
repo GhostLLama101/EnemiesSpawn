@@ -42,6 +42,7 @@ public class EnemyController : MonoBehaviour
             last_attack = Time.time;
             if (!PlayerController.playerInvincible)
             {
+                SoundManager.instance.PlaySoundClip(SoundManager.instance.hitSound, transform, 1f);
                 target.gameObject.GetComponent<PlayerController>().hp.Damage(new Damage(5, Damage.Type.PHYSICAL));
             }
         }
