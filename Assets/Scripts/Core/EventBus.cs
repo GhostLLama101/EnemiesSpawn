@@ -15,7 +15,7 @@ public class EventBus
     }
 
     public event Action<Vector3, Damage, Hittable> OnDamage;
-
+    
     public event Action OnNotMove;  // add more events that can happen like not moving for 3 seconds
 
     public event Action OnEnemyKilled;// killing and enemy

@@ -8,6 +8,7 @@ public class RewardScreenManager : MonoBehaviour
 {
     public GameObject rewardUI;
     public SpellUI spellRewardUI;
+    
     //public TextMeshProUGUI damageText;
     public SpellUIContainer spellUIContainer;
     public Button exchangeButton;
@@ -152,4 +153,6 @@ public class RewardScreenManager : MonoBehaviour
         continueButton.onClick.RemoveAllListeners();
         rewardUI.SetActive(false);
     }
+    
+    
 }
