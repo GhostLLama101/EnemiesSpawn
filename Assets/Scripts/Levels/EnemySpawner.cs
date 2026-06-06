@@ -93,7 +93,7 @@ public class EnemySpawner : MonoBehaviour
         // Start ALL enemy type spawning loops at the exact same time
         for (int i = 0; i < currentLevel.spawns.Count; i++)
         {
-            Spawns spawn = currentLevel.spawns[i];
+            Spawn spawn = currentLevel.spawns[i];
             
             // Fire off an independent sub-coroutine for this specific enemy type
             StartCoroutine(SpawnEnemyTypeSequence(spawn, currentLevel, () => {
@@ -110,7 +110,7 @@ public class EnemySpawner : MonoBehaviour
     }
 
     // New helper coroutine to handle an individual enemy type's batch timing in parallel
-    IEnumerator SpawnEnemyTypeSequence(Spawns spawn, LevelClass currentLevel, System.Action onComplete)
+    IEnumerator SpawnEnemyTypeSequence(Spawn spawn, LevelClass currentLevel, System.Action onComplete)
     {
         EnemyClass enemy_data = enemy_types[spawn.enemy];
         Dictionary<string, int> RPNDict = new Dictionary<string, int>();
@@ -121,6 +121,7 @@ public class EnemySpawner : MonoBehaviour
         RPNDict["base"] = enemy_data.hp;
         parameters.hp = Evaluate(spawn.hp, RPNDict);
         RPNDict["base"] = enemy_data.damage;
+        if (spawn.damage == null) spawn.damage = "base";
         parameters.damage = Evaluate(spawn.damage, RPNDict);
         RPNDict["base"] = enemy_data.speed;
         parameters.speed = Evaluate(enemy_data.speed.ToString(), RPNDict);

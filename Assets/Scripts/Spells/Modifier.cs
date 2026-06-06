@@ -39,7 +39,11 @@ public class Modifier : Spell
     {
         return inner.GetManaCost();
     }
-    
+
+    public override float GetCooldown()
+    {
+        return inner.GetCooldown();
+    }
     public override float GetLifeTime()
     {
         return inner.GetLifeTime();
@@ -61,6 +65,26 @@ public class Modifier : Spell
         this.ModifierInfo.name = mod["name"].ToString();
         this.ModifierInfo.description = mod["description"].ToString();
     }
-    
-    
+
+    public Spell AddModifier(SpellCaster owner ,Spell currentspell, string modName)
+    {
+        Modifier mod  = SpellBuilder.CreateModifier(owner, GameManager.Instance.ModDict[modName], currentspell);
+        currentspell.modifiers.Add(mod);
+        Spell changedSpell = SpellBuilder.Build(currentspell, GetModifiers());
+        return changedSpell;
+    }
+
+    public Spell RemoveModifier( Spell currentspell, string modName)
+    {
+        Modifier toRemove = currentspell.modifiers.Find(m => m.ModifierInfo.name == modName);
+        if (toRemove == null)
+        {
+            Debug.Log("modification Not found");
+            return currentspell; // modifier not found, return unchanged
+        }
+        
+        currentspell.modifiers.Remove(toRemove);
+        Spell changedSpell = SpellBuilder.Build(currentspell, GetModifiers());
+        return changedSpell;
+    }
 }

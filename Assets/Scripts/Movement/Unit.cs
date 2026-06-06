@@ -19,6 +19,14 @@ public class Unit : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (GameManager.Instance.state == GameManager.GameState.PREGAME || 
+            GameManager.Instance.state == GameManager.GameState.GAMEOVER || 
+            GameManager.Instance.state == GameManager.GameState.WAVEEND || 
+            GameManager.Instance.state == GameManager.GameState.PAUSE) 
+        {
+            movement = 0 * Vector2.zero;
+            return;
+        }
         Move(new Vector2(movement.x, 0) * Time.fixedDeltaTime);
         Move(new Vector2(0, movement.y) * Time.fixedDeltaTime);
         distance += movement.magnitude*Time.fixedDeltaTime;

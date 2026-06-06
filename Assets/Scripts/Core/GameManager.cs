@@ -11,6 +11,7 @@ public class GameManager
     {
         PREGAME,
         INWAVE,
+        PAUSE,
         WAVEEND,
         COUNTDOWN,
         GAMEOVER
@@ -42,6 +43,8 @@ public class GameManager
     public int total_damage_dealt = 0;
     public float totalDistance = 0f;
     public float distFor10Relic = 0f;
+    
+    public int SkillPoints = 0;
 
     private List<GameObject> enemies;
 
@@ -94,6 +97,18 @@ public class GameManager
     public void RegisterDamage(int amount)
     {
         total_damage_dealt += amount;
+    }
+    
+    public void AddSkillPoint()
+    {
+        SkillPoints++;
+        //Debug.Log("AddSkillPoint" + SkillPoints);
+    }
+
+    public void RemoveSkillPoint()
+    {
+        if (SkillPoints >= 0) return;
+        SkillPoints--;
     }
 
     private GameManager()
