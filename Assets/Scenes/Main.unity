@@ -12454,6 +12454,7 @@ MonoBehaviour:
     mana_regeneration: 
     spellpower: 
     speed: 
+  invincibleTimer: 0
 --- !u!4 &1718273953
 Transform:
   m_ObjectHideFlags: 0
@@ -63606,6 +63607,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1890575871}
   m_CullTransparentMesh: 1
+--- !u!1 &1904339622
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1904339624}
+  - component: {fileID: 1904339623}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1904339623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904339622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c8af3d245a98462ab00cc8e80722db4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundManager
+  audioSourcePrefab: {fileID: 3024735702159601447, guid: 0555be568cafc4083b42800fa5f2e8ea, type: 3}
+  hitSound: {fileID: 8300000, guid: 6290380fd60fd4bf597d4c30e5e6f541, type: 3}
+--- !u!4 &1904339624
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904339622}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1905272089
 GameObject:
   m_ObjectHideFlags: 0
@@ -65938,3 +65985,4 @@ SceneRoots:
   - {fileID: 518699284}
   - {fileID: 947241246}
   - {fileID: 856041117}
+  - {fileID: 1904339624}
