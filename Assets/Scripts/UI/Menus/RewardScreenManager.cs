@@ -77,7 +77,7 @@ public class RewardScreenManager : MonoBehaviour
     {
         
         if (spellReward == null) return;
- 
+        SoundManager.instance.PlaySoundClip(SoundManager.instance.selectSound, transform, 1f);
         // Hide accept immediately so it can't be clicked again
         acceptButton.gameObject.SetActive(false);
  

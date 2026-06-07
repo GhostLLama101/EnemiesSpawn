@@ -82,6 +82,7 @@ public class SpellCaster
         Spell spell = spells[current_spell];
         if (mana >= spell.GetManaCost() && spell.IsReady())
         {
+            SoundManager.instance.PlaySoundClip(SoundManager.instance.shootSound, GameManager.Instance.player.GetComponent<PlayerController>().transform, 1f);
             mana -= spells[current_spell].GetManaCost();
             yield return spells[current_spell].Cast(where, target, team);
             EventBus.Instance.DoSpellCasted();
