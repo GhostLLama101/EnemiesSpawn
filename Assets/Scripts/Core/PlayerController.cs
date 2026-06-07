@@ -128,6 +128,7 @@ public class PlayerController : MonoBehaviour
         Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(mouseScreen);
         mouseWorld.z = 0;
         StartCoroutine(spellcaster.Cast(transform.position, mouseWorld));
+        
     }
     //totalDistance += distance;
     void OnMove(InputValue value) // add this to the observation

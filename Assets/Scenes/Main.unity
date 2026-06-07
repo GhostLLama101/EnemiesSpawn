@@ -6410,6 +6410,7 @@ MonoBehaviour:
   rewardButton: {fileID: 0}
   currentLevelname: 
   delay: 2
+  currentSong: {fileID: 0}
 --- !u!1 &532755679
 GameObject:
   m_ObjectHideFlags: 0
@@ -17591,6 +17592,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
   audioSourcePrefab: {fileID: 3161771716085960972, guid: 0555be568cafc4083b42800fa5f2e8ea, type: 3}
   hitSound: {fileID: 8300000, guid: 6290380fd60fd4bf597d4c30e5e6f541, type: 3}
+  startWave: {fileID: 8300000, guid: d488efb5906ee407680764c9e1e46e63, type: 3}
+  completeWave: {fileID: 8300000, guid: 41b24334eb4cd44188ace1cfd40eeab3, type: 3}
+  shootSound: {fileID: 8300000, guid: 5ff16a8991cc247fda01b1cc1d238f4d, type: 3}
+  selectSound: {fileID: 8300000, guid: 5ac2c1b862f3642538ef4cf1042c9c7d, type: 3}
+  easySong: {fileID: 8300000, guid: 4df843997c117442cb63c7922f440d44, type: 3}
+  mediumSong: {fileID: 8300000, guid: 7502601212940471aa39c513d78c2a95, type: 3}
+  endlessSong: {fileID: 8300000, guid: f2edf09d89eda46b0b7f0435fc51bf47, type: 3}
+  mainMenuSong: {fileID: 8300000, guid: 1b0e44047a3a04d629c6ae5d61071bcd, type: 3}
+  currentSongSource: {fileID: 0}
 --- !u!4 &1778237201
 Transform:
   m_ObjectHideFlags: 0

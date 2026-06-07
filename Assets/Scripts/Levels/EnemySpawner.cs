@@ -26,9 +26,13 @@ public class EnemySpawner : MonoBehaviour
     //private int wave_count;
     public int delay = 2;
 
+    public GameObject currentSong;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        SoundManager.instance.PlaySoundClip(SoundManager.instance.mainMenuSong, transform, 0.5f, true); 
+        
         enemy_types = GameManager.Instance.enemyDict;
 
         level_types = GameManager.Instance.levelDict;
@@ -65,6 +69,11 @@ public class EnemySpawner : MonoBehaviour
         GameManager.Instance.player.GetComponent<PlayerController>().StartLevel();
         Debug.Log($"Starting level: {currentLevelname}");
         
+        if (currentLevelname == "Easy") SoundManager.instance.PlaySoundClip(SoundManager.instance.easySong, transform, 0.5f, true);
+        else if (currentLevelname == "Medium") SoundManager.instance.PlaySoundClip(SoundManager.instance.mediumSong, transform, 0.5f, true);
+        else if (currentLevelname == "Endless") SoundManager.instance.PlaySoundClip(SoundManager.instance.endlessSong, transform, 0.5f, true);
+        else SoundManager.instance.PlaySoundClip(SoundManager.instance.mainMenuSong, transform, 0.5f, true); 
+        
         StartCoroutine(SpawnWave()); // I feel like we should pass the levelname to SpawnWave()
     }
 
@@ -82,6 +91,8 @@ public class EnemySpawner : MonoBehaviour
             yield return new WaitForSeconds(1);
             GameManager.Instance.countdown--;
         }
+
+        SoundManager.instance.PlaySoundClip(SoundManager.instance.startWave, transform, 1f);
         GameManager.Instance.state = GameManager.GameState.INWAVE;
         Debug.Log("Starting Wave: " + GameManager.Instance.wave_count);
 
@@ -107,6 +118,7 @@ public class EnemySpawner : MonoBehaviour
         // Wait until the player actually clears the battlefield
         yield return new WaitWhile(() => GameManager.Instance.enemy_count > 0);
         GameManager.Instance.state = GameManager.GameState.WAVEEND;
+        SoundManager.instance.PlaySoundClip(SoundManager.instance.completeWave, transform, 1f);
     }
 
     // New helper coroutine to handle an individual enemy type's batch timing in parallel
