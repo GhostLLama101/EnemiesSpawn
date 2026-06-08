@@ -18,7 +18,7 @@ public static class SpellBuilder
             "lance" => new lance(owner, info, inner),
             "chaotic" => new chaotic(owner, info, inner),
             "homing" => new homing(owner, info, inner),
-            "crawlingMine" => new crawlingMine(owner, info, inner),
+            "mine" => new mine(owner, info, inner),
             "firerate-amplified" => new firerateAmp(owner, info, inner),
             "octupled" => new octupled(owner, info, inner),
             "whirlpool" => new whirlpool(owner, info, inner),
