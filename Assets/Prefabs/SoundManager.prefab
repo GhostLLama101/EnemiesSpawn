@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &880740859049420627
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6540278276006086978}
+  - component: {fileID: 7626883332796148012}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6540278276006086978
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 880740859049420627}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7626883332796148012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 880740859049420627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c8af3d245a98462ab00cc8e80722db4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundManager
+  audioSourcePrefab: {fileID: 3161771716085960972, guid: 0555be568cafc4083b42800fa5f2e8ea, type: 3}
+  hitSound: {fileID: 8300000, guid: 6290380fd60fd4bf597d4c30e5e6f541, type: 3}
+  startWave: {fileID: 8300000, guid: d488efb5906ee407680764c9e1e46e63, type: 3}
+  completeWave: {fileID: 8300000, guid: 41b24334eb4cd44188ace1cfd40eeab3, type: 3}
+  shootSound: {fileID: 8300000, guid: 5ff16a8991cc247fda01b1cc1d238f4d, type: 3}
+  selectSound: {fileID: 8300000, guid: 5ac2c1b862f3642538ef4cf1042c9c7d, type: 3}
+  easySong: {fileID: 8300000, guid: 4df843997c117442cb63c7922f440d44, type: 3}
+  mediumSong: {fileID: 8300000, guid: 7502601212940471aa39c513d78c2a95, type: 3}
+  endlessSong: {fileID: 8300000, guid: f2edf09d89eda46b0b7f0435fc51bf47, type: 3}
+  mainMenuSong: {fileID: 8300000, guid: 1b0e44047a3a04d629c6ae5d61071bcd, type: 3}
+  currentSongSource: {fileID: 0}
+  volume: 1

@@ -17,6 +17,8 @@ public class SoundManager : MonoBehaviour
 
     public AudioSource currentSongSource;
     
+    public float volume = 1f;
+    
     private void Awake()
     {
         if (instance == null)
@@ -25,9 +27,15 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void PlaySoundClip(AudioClip audioClip, Transform spawnTransform, float volume, bool isSong = false)
+    public void PlaySoundClip(AudioClip audioClip, Transform spawnTransform, bool isSong = false)
     {
         AudioSource audioSource = Instantiate(audioSourcePrefab, spawnTransform.position, Quaternion.identity);
+
+        audioSource.volume = volume;
+                
+        audioSource.clip = audioClip;
+
+        audioSource.loop = true;
 
         if (isSong)
         {
@@ -36,13 +44,9 @@ public class SoundManager : MonoBehaviour
                 Destroy(currentSongSource.gameObject);
             }
             currentSongSource = audioSource;
-        }
-        
-        audioSource.clip = audioClip;
-        
-        audioSource.volume = volume;
 
-        audioSource.loop = true;
+            audioSource.volume = 0.5f*volume;
+        }
 
         audioSource.Play();
 
