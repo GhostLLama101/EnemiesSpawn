@@ -41,7 +41,7 @@ public class PlayerClassSelectorController : MonoBehaviour
 
     public void SelectClass(string key)
     {
-        SoundManager.instance.PlaySoundClip(SoundManager.instance.selectSound, transform, 1f);
+        SoundManager.instance.PlaySoundClip(SoundManager.instance.selectSound, transform);
         GameManager.Instance.playerClass = GameManager.Instance.PlayerClasses[key];
         GameManager.Instance.playerSpriteManager.image = this.image;
         this.HideUI();

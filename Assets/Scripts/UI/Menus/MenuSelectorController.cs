@@ -26,7 +26,7 @@ public class MenuSelectorController : MonoBehaviour
 
     public void StartLevel()
     {
-        SoundManager.instance.PlaySoundClip(SoundManager.instance.selectSound, transform, 1f);
+        SoundManager.instance.PlaySoundClip(SoundManager.instance.selectSound, transform);
         spawner.StartLevel(level);
     }
 }

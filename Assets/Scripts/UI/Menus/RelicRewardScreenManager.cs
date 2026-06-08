@@ -73,7 +73,7 @@ public class RelicRewardScreenManager : MonoBehaviour
     }
     public void AddRelic(RelicInfo relicinfo)
     {
-        SoundManager.instance.PlaySoundClip(SoundManager.instance.selectSound, transform, 1f);
+        SoundManager.instance.PlaySoundClip(SoundManager.instance.selectSound, transform);
         PlayerController player = GameManager.Instance.player.GetComponent<PlayerController>();
         player.PlayerRelics.Add(new RelicBaseClass(player, relicinfo));
         EventBus.Instance.DoRelicPickup();
