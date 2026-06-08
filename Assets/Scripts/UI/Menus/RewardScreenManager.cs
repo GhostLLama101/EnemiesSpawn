@@ -114,7 +114,7 @@ public class RewardScreenManager : MonoBehaviour
  
         swapPanel.SetActive(false);
         spellReward = null;
-        Debug.Log("AcceptReward called");
+        //Debug.Log("AcceptReward called");
         EventBus.Instance.DoOnReceiveSpell();
         // Player now clicks Next to start next wave
     }

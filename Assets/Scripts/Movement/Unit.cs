@@ -59,12 +59,39 @@ public class Unit : MonoBehaviour
 
     public void Move(Vector2 ds)
     {
-        List<RaycastHit2D> hits = new List<RaycastHit2D>();
-        int n = GetComponent<Rigidbody2D>().Cast(ds, hits, ds.magnitude * 2);
-        if (n == 0)
+        // Don't waste processing if we aren't trying to move
+    if (ds == Vector2.zero) return;
+
+    List<RaycastHit2D> hits = new List<RaycastHit2D>();
+    int n = GetComponent<Rigidbody2D>().Cast(ds, hits, ds.magnitude * 2);
+    
+    bool pathIsBlocked = false;
+
+    // Loop through everything the body cast ran into
+    for (int i = 0; i < n; i++)
+    {
+        // Check if the object hit has the "Projectile" tag
+        if (hits[i].collider.CompareTag("projectile"))
         {
-            transform.Translate(ds);
+            continue; // Skip it and check the next hit
         }
+
+        // Skip hitting yourself so you don't accidentally block your own movement
+        if (hits[i].collider.gameObject == gameObject)
+        {
+            continue;
+        }
+
+        // If it isn't a projectile or yourself, it's a wall or player
+        pathIsBlocked = true;
+        break; 
+    }
+
+    // Only translate the object if the path is clear of walls and players
+    if (!pathIsBlocked)
+    {
+        transform.Translate(ds);
+    }
     }
 
 

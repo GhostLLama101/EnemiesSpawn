@@ -2,9 +2,9 @@ using UnityEngine;
 using static RPNEvaluator.RPNEvaluator;
 using Newtonsoft.Json.Linq;
 
-public class crawlingMine : Modifier
+public class mine : Modifier
 {
-    public crawlingMine(SpellCaster owner, ModifierInfo spell, Spell inner) : base(owner, spell, inner)
+    public mine(SpellCaster owner, ModifierInfo spell, Spell inner) : base(owner, spell, inner)
     {
         this.owner = owner;
         this.inner = inner;
@@ -27,7 +27,7 @@ public class crawlingMine : Modifier
         this.ModifierInfo.damage_multiplier = " 5 *";
         inner.spellInfo.damage.amount += this.ModifierInfo.damage_multiplier;
 
-        this.ModifierInfo.speed_multiplier = " 0 * 1 2 / +";
+        this.ModifierInfo.speed_multiplier = " 0 *";
 
         this.spellInfo.projectile.speed += this.ModifierInfo.speed_multiplier;
         if (this.spellInfo.secondary_projectile != null) 
