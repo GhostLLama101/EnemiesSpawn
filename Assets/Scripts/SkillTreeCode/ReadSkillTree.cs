@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class ReadSpellSlot : MonoBehaviour
+public class ReadSkillTree : MonoBehaviour
 {
     public List<SpellSlot> spellSlots;
     public Modifier Modifiers;
