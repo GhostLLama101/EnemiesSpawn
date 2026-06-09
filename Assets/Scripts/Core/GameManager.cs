@@ -45,6 +45,11 @@ public class GameManager
     public float distFor10Relic = 0f;
     
     public int SkillPoints = 0;
+    public int pointsEarnedThisWave = 0;
+    public int currentSpellSelected = 0;
+
+    public List<Spell> spells = new List<Spell>();
+
 
     private List<GameObject> enemies;
 

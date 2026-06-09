@@ -23,6 +23,9 @@ public class RewardScreenManager : MonoBehaviour
     [Header("Swap Panel")] public GameObject swapPanel;
     public SpellUI[] swapSlotUIs;
 
+    public TextMeshProUGUI skillPointText;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -48,7 +51,9 @@ public class RewardScreenManager : MonoBehaviour
                 acceptButton.gameObject.SetActive(true);
                 exchangeButton.gameObject.SetActive(false);
                 swapPanel.SetActive(false);
-                
+
+                skillPointText.text = $"Skill Points Earned: {GameManager.Instance.pointsEarnedThisWave}";
+
                 try
                 {
                     spellReward = SpellBuilder.RandomSpell(spellUIContainer.player.spellcaster);
@@ -85,7 +90,7 @@ public class RewardScreenManager : MonoBehaviour
  
         if (!player.spellcaster.IsFull())
         {
-            int newIndex = player.spellcaster.spells.Count;
+            int newIndex = GameManager.Instance.spells.Count;
             spellUIContainer.AddSpell(newIndex, spellReward);
             player.spellcaster.AddSpell(spellReward);
             spellReward = null;
@@ -124,16 +129,16 @@ public class RewardScreenManager : MonoBehaviour
         exchangeButton.gameObject.SetActive(false);
         swapPanel.SetActive(true);
  
-        SpellCaster caster = spellUIContainer.player.spellcaster;
+        //SpellCaster caster = spellUIContainer.player.spellcaster;
         for (int i = 0; i < swapSlotUIs.Length; i++)
         {
-            if (i >= caster.spells.Count)
+            if (i >= GameManager.Instance.spells.Count)
             {
                 swapSlotUIs[i].gameObject.SetActive(false);
                 continue;
             }
             swapSlotUIs[i].gameObject.SetActive(true);
-            swapSlotUIs[i].SetSpell(caster.spells[i]);
+            swapSlotUIs[i].SetSpell(GameManager.Instance.spells[i]);
  
             int slotIndex = i;
             swapSlotUIs[i].SetClickable(true, () => SwapSpell(slotIndex));

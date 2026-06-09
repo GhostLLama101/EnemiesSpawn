@@ -56,6 +56,7 @@ public class EnemyController : MonoBehaviour
             GameManager.Instance.RemoveEnemy(gameObject);
             EventBus.Instance.DoKilledEnemy();  // this is where you call the relic for killing enemies.
             GameManager.Instance.AddSkillPoint();
+            GameManager.Instance.pointsEarnedThisWave++;
             Destroy(gameObject);
         }
     }

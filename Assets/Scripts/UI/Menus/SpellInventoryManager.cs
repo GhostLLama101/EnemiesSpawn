@@ -51,7 +51,7 @@ public class SpellInventoryManager : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
-            playerSpells.Add(player.spellcaster.spells[i].spellInfo);
+            playerSpells.Add(GameManager.Instance.spells[i].spellInfo);
         }
         
 
@@ -69,6 +69,9 @@ public class SpellInventoryManager : MonoBehaviour
                 Button button = spellObjects[j].GetComponent<Button>();
                 button.onClick.RemoveAllListeners();
                 button.onClick.AddListener(() => {
+                    GameManager.Instance.currentSpellSelected = j;
+                    Debug.Log($"Selected spell: {spellData.name}");
+
                     GoToSpellTree(spellData, sp_icon_man, j);
                 });
             }
