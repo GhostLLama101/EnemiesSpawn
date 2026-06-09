@@ -107,6 +107,7 @@ public class GameManager
     public void AddSkillPoint()
     {
         SkillPoints++;
+        pointsEarnedThisWave++;
         //Debug.Log("AddSkillPoint" + SkillPoints);
     }
 
@@ -114,6 +115,11 @@ public class GameManager
     {
         if (SkillPoints >= 0) return;
         SkillPoints--;
+    }
+
+    public void ResetWavePoints()
+    {
+        pointsEarnedThisWave = 0;
     }
 
     private GameManager()

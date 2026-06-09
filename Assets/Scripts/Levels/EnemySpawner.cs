@@ -80,7 +80,7 @@ public class EnemySpawner : MonoBehaviour
     public void NextWave()
     {
         GameManager.Instance.wave_count++;
-        GameManager.Instance.pointsEarnedThisWave = 0;
+        GameManager.Instance.ResetWavePoints();
         StartCoroutine(SpawnWave());
     }
         IEnumerator SpawnWave()
