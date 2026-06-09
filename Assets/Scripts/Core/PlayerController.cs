@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
     public float invincibleTimer;
     public static bool playerInvincible;
-
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
         //OTHER
         healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);
-        spellui.SetSpell(spellcaster.spells[spellcaster.current_spell]);
+        spellui.SetSpell(GameManager.Instance.spells[spellcaster.current_spell]);
         
     }
 
@@ -91,15 +91,15 @@ public class PlayerController : MonoBehaviour
         {
             spellcaster.current_spell = 0;
         }
-        else if (Keyboard.current.digit2Key.wasPressedThisFrame && spellcaster.spells.Count > 1)
+        else if (Keyboard.current.digit2Key.wasPressedThisFrame && GameManager.Instance.spells.Count > 1)
         {
             spellcaster.current_spell = 1;
         }
-        else if (Keyboard.current.digit3Key.wasPressedThisFrame && spellcaster.spells.Count > 2)
+        else if (Keyboard.current.digit3Key.wasPressedThisFrame && GameManager.Instance.spells.Count > 2)
         {
             spellcaster.current_spell = 2;
         }
-        else if (Keyboard.current.digit4Key.wasPressedThisFrame && spellcaster.spells.Count > 3)
+        else if (Keyboard.current.digit4Key.wasPressedThisFrame && GameManager.Instance.spells.Count > 3)
         {
             spellcaster.current_spell = 3;
         }

@@ -11,7 +11,7 @@ public class SpellCaster
     public int mana_reg;
     public Hittable.Team team;
     public int maxSpellCount = 4;
-    public List<Spell> spells = new List<Spell>(); // maybe we fix this move it to playerController
+     // maybe we fix this move it to playerController
     public int current_spell = 0;
     
     public int power = 10; //starting power
@@ -36,23 +36,23 @@ public class SpellCaster
         //this.player = player;
         for (int i = 0; i < maxSpellCount; i++)
         {
-            spells.Add(new Spell(this, GameManager.Instance.SpellsDict["arcane_bolt"]));
+            GameManager.Instance.spells.Add(new Spell(this, GameManager.Instance.SpellsDict["arcane_bolt"]));
         }
         
     }
     
-    public bool IsFull() => spells.Count >= maxSpellCount;
+    public bool IsFull() => GameManager.Instance.spells.Count >= maxSpellCount;
 
     public void AddSpell(Spell spell)
     {
         if (!IsFull())
-            spells.Add(spell);
+            GameManager.Instance.spells.Add(spell);
     }
 
     public void ReplaceSpell(int index, Spell spell)
     {
-        if (index >= 0 && index < spells.Count)
-            spells[index] = spell;
+        if (index >= 0 && index < GameManager.Instance.spells.Count)
+            GameManager.Instance.spells[index] = spell;
     }
     public void GetPower()
     {
@@ -72,19 +72,19 @@ public class SpellCaster
         for (int i = 0; i < 3; i++)
         {
             Spell core = SpellBuilder.RandomSpell(this);
-            this.spells.Add(core);
+            GameManager.Instance.spells.Add(core);
             //Debug.Log(core.GetName());
         }
     }
     
     public IEnumerator Cast(Vector3 where, Vector3 target)
     {   
-        Spell spell = spells[current_spell];
+        Spell spell = GameManager.Instance.spells[current_spell];
         if (mana >= spell.GetManaCost() && spell.IsReady())
         {
             SoundManager.instance.PlaySoundClip(SoundManager.instance.shootSound, GameManager.Instance.player.GetComponent<PlayerController>().transform);
-            mana -= spells[current_spell].GetManaCost();
-            yield return spells[current_spell].Cast(where, target, team);
+            mana -= GameManager.Instance.spells[current_spell].GetManaCost();
+            yield return GameManager.Instance.spells[current_spell].Cast(where, target, team);
             EventBus.Instance.DoSpellCasted();
         }
         

@@ -115,7 +115,7 @@ public  class RelicBaseClass
     private void OnReceiveSpell(RelicInfo Relic)
     {
         // Recalculate total from scratch based on spell count, like SpellsGivePower did
-        int spellsTaken = player.spellcaster.spells.Count -1;
+        int spellsTaken = GameManager.Instance.spells.Count -1;
         int totalSpellpower = spellsTaken * Evaluate(Effects.GetAmount(Relic.name), new Dictionary<string, int>());
         permanent_effects = totalSpellpower;
         // DoEffectTypes is NOT called here — OnScaledPlayer will apply it on next reset

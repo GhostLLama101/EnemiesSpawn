@@ -2101,6 +2101,7 @@ MonoBehaviour:
   - {fileID: 147026272}
   - {fileID: 1298046904}
   - {fileID: 625889246}
+  skillPointText: {fileID: 1780428608}
 --- !u!4 &220180078
 Transform:
   m_ObjectHideFlags: 0
@@ -3680,6 +3681,7 @@ MonoBehaviour:
   - {fileID: 147026272}
   - {fileID: 1298046904}
   - {fileID: 625889246}
+  skillPointText: {fileID: 1780428608}
 --- !u!114 &324294934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9651,7 +9653,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 873900071}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 967867791}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &885582217
 GameObject:
   m_ObjectHideFlags: 0
@@ -15400,7 +15414,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000019165414}
+  m_AnchoredPosition: {x: 0, y: 0.00045090058}
   m_SizeDelta: {x: 0, y: 418}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1577913786
@@ -16823,6 +16837,7 @@ MonoBehaviour:
   - {fileID: 147026272}
   - {fileID: 1298046904}
   - {fileID: 625889246}
+  skillPointText: {fileID: 1780428608}
 --- !u!1 &1718273950
 GameObject:
   m_ObjectHideFlags: 0
