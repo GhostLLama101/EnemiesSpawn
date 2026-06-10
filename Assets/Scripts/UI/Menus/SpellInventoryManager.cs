@@ -10,11 +10,9 @@ public class SpellInventoryManager : MonoBehaviour
 {
     public GameObject screen;
     public GameObject EventSystem;
-    public GameObject spell1;
-    public GameObject spell2;
-    public GameObject spell3;
-    public GameObject spell4;
-    GameObject[] spellObjects;
+    public TextMeshProUGUI skillPointsText;
+    public GameObject[] unlockButtons;
+    public GameObject[] spellObjects;
     private List<SpellInfo> playerSpells = new List<SpellInfo>();
     public Button nextButton;
     public Key triggerKey = Key.Escape;
@@ -42,6 +40,7 @@ public class SpellInventoryManager : MonoBehaviour
     {
         screen.SetActive(true);
         GameManager.Instance.state = GameManager.GameState.PAUSE;
+        UpdateSkillPointsText();
 
         playerSpells.Clear();
 
@@ -58,7 +57,7 @@ public class SpellInventoryManager : MonoBehaviour
         SpellIconManager sp_icon_man = GameManager.Instance.spellIconManager;
         if (sp_icon_man != null)
         {
-            spellObjects = new GameObject[] { spell1, spell2, spell3, spell4 };
+            //spellObjects = new GameObject[] { spell1, spell2, spell3, spell4 };
             for (int i = 0; i < 4; i++)
             {
                 SpellInfo spellData = playerSpells[i];
@@ -99,5 +98,39 @@ public class SpellInventoryManager : MonoBehaviour
         GameManager.Instance.state = lastState;
         CloseInventory();
     }
-    
+
+    void PurchaseSpell(int cost, Spell spellName)
+    {
+        if (GameManager.Instance.SkillPoints < cost)
+        {
+            return;
+        }
+
+        GameManager.Instance.RemoveSkillPoint(cost);
+
+        GameManager.Instance.player.GetComponent<PlayerController>().spellcaster.AddSpell(spellName);
+    }
+
+    public void UnlockSpell(int index)
+    {
+        if (index < 0 || index > GameManager.Instance.spells.Count) return;
+
+        int[] spellCosts = { 5, 10, 20 };
+
+        int cost = spellCosts[index];
+
+        if (GameManager.Instance.SkillPoints >= cost)
+        {
+            PurchaseSpell(cost, GameManager.Instance.spells[index + 1]);
+            unlockButtons[index].SetActive(false);
+            spellObjects[index + 1].SetActive(true);
+        }
+
+        UpdateSkillPointsText();
+    }
+
+    void UpdateSkillPointsText()
+    {
+        skillPointsText.text = $"Number of Skill Points: {GameManager.Instance.SkillPoints}";
+    }
 }
