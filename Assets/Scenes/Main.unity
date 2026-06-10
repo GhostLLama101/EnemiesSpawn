@@ -12622,12 +12622,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 967867795}
         m_TargetAssemblyTypeName: SpellInventoryManager, Assembly-CSharp
-        m_MethodName: UnlockSpell4
-        m_Mode: 1
+        m_MethodName: UnlockSpell
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -15003,8 +15003,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 967867795}
         m_TargetAssemblyTypeName: SpellInventoryManager, Assembly-CSharp
-        m_MethodName: UnlockSpell2
-        m_Mode: 1
+        m_MethodName: UnlockSpell
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -18442,7 +18442,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7626883332796148012, guid: 0606812b6514c4bee81617a408a9494f, type: 3}
       propertyPath: volume
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -70570,12 +70570,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 967867795}
         m_TargetAssemblyTypeName: SpellInventoryManager, Assembly-CSharp
-        m_MethodName: UnlockSpell3
-        m_Mode: 1
+        m_MethodName: UnlockSpell
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
