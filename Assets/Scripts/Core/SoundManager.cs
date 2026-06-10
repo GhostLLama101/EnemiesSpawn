@@ -17,7 +17,7 @@ public class SoundManager : MonoBehaviour
 
     public AudioSource currentSongSource;
     
-    public float volume = 1f;
+    public float volume = 0.5f;
     
     private void Awake()
     {
@@ -45,7 +45,7 @@ public class SoundManager : MonoBehaviour
             }
             currentSongSource = audioSource;
 
-            audioSource.volume = 0.5f*volume;
+            audioSource.volume /= 2f;
         }
 
         audioSource.Play();
