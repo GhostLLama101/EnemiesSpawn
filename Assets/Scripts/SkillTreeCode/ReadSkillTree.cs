@@ -6,6 +6,7 @@ using UnityEngine;
 public class ReadSkillTree : MonoBehaviour
 {
     public List<SpellSlot> spellSlots;
+    public SpellCaster spellCaster;
     public Modifier Modifiers;
     void Start()
     {
@@ -13,7 +14,19 @@ public class ReadSkillTree : MonoBehaviour
         spellSlots = JsonConvert.DeserializeObject<List<SpellSlot>>(jsonString);
     }
 
-    void PurchaseSpell(int cost, string modifierName)
+    void PurchaseSpell(int cost, string spellName)
+    {
+        if (GameManager.Instance.SkillPoints < cost)
+        {
+            return;
+        }
+
+        GameManager.Instance.SkillPoints -= cost;
+
+        // SpellCaster.AddSpell(Spell spellName); 
+        // this needs to add the spell to a list of unlocked & accessible spells. swapping spells with keybinds needs an additional condition of being unlocked.
+    }
+    void PurchaseModifier(int cost, string modifierName)
     {
         if (GameManager.Instance.SkillPoints < cost)
         {
