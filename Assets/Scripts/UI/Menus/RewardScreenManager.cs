@@ -56,8 +56,8 @@ public class RewardScreenManager : MonoBehaviour
 
                 try
                 {
-                    spellReward = SpellBuilder.RandomSpell(spellUIContainer.player.spellcaster);
-                    spellRewardUI.SetSpell(spellReward);
+                    //spellReward = SpellBuilder.RandomSpell(spellUIContainer.player.spellcaster);
+                    //spellRewardUI.SetSpell(spellReward);
                 }
                 catch (Exception e)
                 {

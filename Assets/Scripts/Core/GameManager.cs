@@ -48,6 +48,14 @@ public class GameManager
     public int pointsEarnedThisWave = 0;
     public int currentSpellSelected = 0;
 
+    public int[][] modifiersPurchased = new int[4][] 
+    {
+        new int[] { 0, 0, 0 },
+        new int[] { 0, 0, 0 },
+        new int[] { 0, 0, 0 },
+        new int[] { 0, 0, 0 }
+    };
+
     public List<Spell> spells = new List<Spell>();
 
 
