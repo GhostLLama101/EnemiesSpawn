@@ -70,7 +70,9 @@ public class GameManager
     public Dictionary<string, PlayerClass> PlayerClasses = JSONReader.LoadDictionary<PlayerClass>("classes");
     public List<RelicInfo> RelicList = JSONReader.Load<RelicInfo>("relics");
     public Dictionary<string, RelicInfo> Relics;
-
+    
+    public Dictionary<string, SpellSlot> SkillTreeMods = JSONReader.LoadDictionary<SpellSlot>("SkillTree");
+    
     public int enemy_count { get { return enemies.Count; } }
 
     public int wave_count = 0;
