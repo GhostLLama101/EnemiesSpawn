@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class ReadSkillTree : MonoBehaviour
+public class SkillTree : MonoBehaviour
 {
     public List<SpellSlot> spellSlots;
     public SpellCaster SpellCaster;
@@ -35,5 +35,20 @@ public class ReadSkillTree : MonoBehaviour
         GameManager.Instance.SkillPoints -= cost;
 
         Modifiers.AddModifier(GameManager.Instance.player.GetComponent<PlayerController>().spellcaster, GameManager.Instance.spells[GameManager.Instance.currentSpellSelected], modifierName);
+    }
+
+    public void Modifier1Clicked()
+    {
+        Debug.Log("Modifier1Clicked");
+    }
+
+    public void Modifier2Clicked()
+    {
+        Debug.Log("Modifier2Clicked");
+    }
+
+    public void Modifier3Clicked()
+    {
+        Debug.Log("Modifier3Clicked");
     }
 }
