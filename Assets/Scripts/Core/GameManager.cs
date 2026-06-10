@@ -111,10 +111,10 @@ public class GameManager
         //Debug.Log("AddSkillPoint" + SkillPoints);
     }
 
-    public void RemoveSkillPoint()
+    public void RemoveSkillPoint(int amount)
     {
-        if (SkillPoints >= 0) return;
-        SkillPoints--;
+        if (SkillPoints < amount) return;
+        SkillPoints -= amount;
     }
 
     public void ResetWavePoints()
