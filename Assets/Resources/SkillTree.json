@@ -9,31 +9,69 @@
         "cost": 5
       },
       {
-        "name": "split",
-        "cost": 5
+        "name": "firerate-amplified",
+        "cost": 10
       },
       {
         "name": "doubler",
-        "cost": 5
+        "cost": 15
       }
     ]
   },
   {
     "spell_slot": 2,
-    "spell_cost": 10,
+    "spell_cost": 15,
     "sprite": 0,
     "available_modifiers": [
       {
-        "name": "damage_amplified",
-        "cost": 5
+        "name": "doubled",
+        "cost": 10
       },
       {
         "name": "split",
+        "cost": 15
+      },
+      {
+        "name": "octupled",
+        "cost": 20
+      }
+    ]
+  },
+  {
+    "spell_slot": 3,
+    "spell_cost": 25,
+    "sprite": 0,
+    "available_modifiers": [
+      {
+        "name": "chaotic",
+        "cost": 15
+      },
+      {
+        "name": "homing",
+        "cost": 20
+      },
+      {
+        "name": "speed-amplified",
+        "cost": 35
+      }
+    ]
+  },
+  {
+    "spell_slot": 4,
+    "spell_cost": 50,
+    "sprite": 0,
+    "available_modifiers": [
+      {
+        "name": "firerate-amplified",
         "cost": 5
       },
       {
-        "name": "doubler",
+        "name": "lance",
         "cost": 5
+      },
+      {
+        "name": "whirlpool",
+        "cost": 15
       }
     ]
   }
