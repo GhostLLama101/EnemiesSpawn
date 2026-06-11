@@ -10,7 +10,7 @@
     "description": "Faster projectile speed",
     "speed_multiplier": "1.75"
   },
-  "doubler": {
+  "doubled": {
     "name": "doubled",
     "description": "Spell is cast a second time after a small delay; increased mana cost and cooldown.",
     "delay": "0.5",
