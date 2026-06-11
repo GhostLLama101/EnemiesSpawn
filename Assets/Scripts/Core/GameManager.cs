@@ -48,14 +48,6 @@ public class GameManager
     public int pointsEarnedThisWave = 0;
     public int currentSpellSelected = 0;
 
-    public int[][] modifiersPurchased = new int[4][] 
-    {
-        new int[] { 0, 0, 0 },
-        new int[] { 0, 0, 0 },
-        new int[] { 0, 0, 0 },
-        new int[] { 0, 0, 0 }
-    };
-
     public List<Spell> spells = new List<Spell>();
 
 
@@ -106,8 +98,6 @@ public class GameManager
         if (enemies.Count == 1) return enemies[0];
         return enemies.Aggregate((a,b) => (a.transform.position - point).sqrMagnitude < (b.transform.position - point).sqrMagnitude ? a : b);
     }
-    
-    
 
     public void RegisterDamage(int amount)
     {
