@@ -17,6 +17,7 @@ public class SpellInventoryManager : MonoBehaviour
     public Button nextButton;
     public Key triggerKey = Key.Escape;
     GameManager.GameState lastState;
+    public SpellUIContainer spellUIContainer;
 
     void Start()
     {
@@ -99,7 +100,7 @@ public class SpellInventoryManager : MonoBehaviour
         CloseInventory();
     }
 
-    void PurchaseSpell(int cost, Spell spellName)
+    void PurchaseSpell(int cost, Spell spellName, int index)
     {
         if (GameManager.Instance.SkillPoints < cost)
         {
@@ -108,7 +109,14 @@ public class SpellInventoryManager : MonoBehaviour
 
         GameManager.Instance.RemoveSkillPoint(cost);
 
-        GameManager.Instance.player.GetComponent<PlayerController>().spellcaster.AddSpell(spellName);
+        PlayerController player = GameManager.Instance.player.GetComponent<PlayerController>();
+        player.spellcaster.AddSpell(spellName);
+        Debug.Log($"Purchased Spell: {spellName}");
+        // Update the spell UI slot for the purchased index
+        if (spellUIContainer != null)
+            spellUIContainer.AddSpell(index, spellName);
+        else
+            Debug.LogError("SpellUIContainer reference is missing on SpellInventoryManager!");
     }
 
     public void UnlockSpell(int index)
@@ -121,7 +129,8 @@ public class SpellInventoryManager : MonoBehaviour
 
         if (GameManager.Instance.SkillPoints >= cost)
         {
-            PurchaseSpell(cost, GameManager.Instance.spells[index + 1]);
+            //PurchaseSpell(cost, GameManager.Instance.spells[index + 1]);
+            PurchaseSpell(cost, GameManager.Instance.spells[index + 1], index + 1); // pass index + 1
             unlockButtons[index].SetActive(false);
             spellObjects[index + 1].SetActive(true);
         }

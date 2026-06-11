@@ -14,8 +14,9 @@ public class SpellUIContainer : MonoBehaviour
             spellUI.SetActive(true);
         }
     }
-    public void AddSpell(int index, Spell spell)
+    public void AddSpell(int index, Spell spell) // this sets the spell UI
     {
+        Debug.Log($"Adding Spell: {spell.GetName()}, Index: {index}");
         if (index < 0 || index >= spellUIs.Length) return;
 
         SpellUI ui = spellUIs[index].GetComponent<SpellUI>();
