@@ -43,10 +43,16 @@ public class SpellTreeManager : MonoBehaviour
         EventSystem.GetComponent<SpellInventoryManager>().OpenInventory();
     }
 
-    private void UpdateModifierText() {
+    private void UpdateModifierText() 
+    {
         for (int i = 0; i < spellModifiersText.Length; i++)
         {
-            spellModifiersText[i].text = "Modifier " + (i + 1) + " Text";
+            foreach (var kvp in GameManager.Instance.ModDict)
+            {
+                ModifierInfo modifier_text = kvp.Value;
+                spellModifiersText[i].text = "Modifier " + (i + 1) + modifier_text.description;
+                Debug.Log($"modifier text: " + modifier_text.description);
+            }
         }
     }
 
