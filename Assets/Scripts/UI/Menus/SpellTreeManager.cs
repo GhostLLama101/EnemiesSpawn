@@ -33,6 +33,7 @@ public class SpellTreeManager : MonoBehaviour
         GameManager.Instance.state = GameManager.GameState.PAUSE;
         spellTreeCanvas.SetActive(true);
         UpdateModifierText();
+        UpdatePurchasedModifiers();
         //spellModifiersText.text = spellInfo.modifiers;
         sp_icon_man.PlaceSprite(spellInfo.icon, spellIconImage.GetComponent<Image>());
     }
@@ -56,13 +57,12 @@ public class SpellTreeManager : MonoBehaviour
         }
     }
 
-    void PurchaseModifier(int cost, string modifierName)
+    private void PurchaseModifier(int cost, string modifierName)
     {
         if (GameManager.Instance.SkillPoints < cost)
         {
             return;
         }
-
 
         GameManager.Instance.SkillPoints -= cost;
 
@@ -71,7 +71,20 @@ public class SpellTreeManager : MonoBehaviour
 
     public void ModiferClicked(int modifierIndex)
     {
-        modifiersPurchased[GameManager.Instance.currentSpellSelected][modifierIndex]++;
+        modifiersPurchased[GameManager.Instance.currentSpellSelected][modifierIndex] = 1;
+
+        if (GameManager.Instance.SkillTreeMods != null)
+        {
+            foreach (var kvp in GameManager.Instance.SkillTreeMods)
+            {
+                SpellSlot skill_slot_info = kvp.Value;
+                Debug.Log("slot: " + skill_slot_info.spell_slot + " sprite: " + skill_slot_info.sprite + " cost: " + skill_slot_info.spell_cost);
+                foreach (var modifier in skill_slot_info.available_modifiers)
+                {
+                    Debug.Log("modifier: " + modifier.name + " cost: " + modifier.cost);
+                }
+            }
+        }
 
         modifierButtons[modifierIndex].SetActive(false);
 
@@ -82,11 +95,11 @@ public class SpellTreeManager : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            modifierButtons[i].SetActive(false);
+            modifierButtons[i].SetActive(true);
 
             if (modifiersPurchased[GameManager.Instance.currentSpellSelected][i] == 1)
             {
-                modifierButtons[i].SetActive(true);
+                modifierButtons[i].SetActive(false);
             }
         }
     }
