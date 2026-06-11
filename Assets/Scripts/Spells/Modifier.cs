@@ -66,15 +66,15 @@ public class Modifier : Spell
         this.ModifierInfo.description = mod["description"].ToString();
     }
 
-    public Spell AddModifier(SpellCaster owner ,Spell currentspell, string modName)
+    public static Spell AddModifier(SpellCaster owner ,Spell currentspell, string modName)
     {
         Modifier mod  = SpellBuilder.CreateModifier(owner, GameManager.Instance.ModDict[modName], currentspell);
         currentspell.modifiers.Add(mod);
-        Spell changedSpell = SpellBuilder.Build(currentspell, GetModifiers());
+        Spell changedSpell = SpellBuilder.Build(currentspell, currentspell.GetModifiers());
         return changedSpell;
     }
 
-    public Spell RemoveModifier( Spell currentspell, string modName)
+    public static Spell RemoveModifier( Spell currentspell, string modName)
     {
         Modifier toRemove = currentspell.modifiers.Find(m => m.ModifierInfo.name == modName);
         if (toRemove == null)
@@ -84,7 +84,7 @@ public class Modifier : Spell
         }
         
         currentspell.modifiers.Remove(toRemove);
-        Spell changedSpell = SpellBuilder.Build(currentspell, GetModifiers());
+        Spell changedSpell = SpellBuilder.Build(currentspell, currentspell.GetModifiers());
         return changedSpell;
     }
 }

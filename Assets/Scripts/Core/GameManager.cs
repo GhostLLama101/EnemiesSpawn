@@ -44,7 +44,7 @@ public class GameManager
     public float totalDistance = 0f;
     public float distFor10Relic = 0f;
     
-    public int SkillPoints = 0;
+    public int SkillPoints = 20;
     public int pointsEarnedThisWave = 0;
     public int currentSpellSelected = 0;
 

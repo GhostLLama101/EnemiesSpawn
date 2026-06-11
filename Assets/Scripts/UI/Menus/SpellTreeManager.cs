@@ -10,7 +10,6 @@ public class SpellTreeManager : MonoBehaviour
     public GameObject spellTreeCanvas;
     public TMP_Text[] spellModifiersText;
     public GameObject[] modifierButtons;
-    private Modifier Modifiers;
     public Image spellIconImage;
     public Button backButton;
     public Button acceptButton;
@@ -27,6 +26,7 @@ public class SpellTreeManager : MonoBehaviour
     {
         spellTreeCanvas.SetActive(false);
         backButton.onClick.AddListener(CloseSpellTree);
+
     }
     public void OpenSpellTree(SpellInfo spellInfo, SpellIconManager sp_icon_man, int spellIndex)
     {
@@ -46,45 +46,56 @@ public class SpellTreeManager : MonoBehaviour
 
     private void UpdateModifierText() 
     {
-        for (int i = 0; i < spellModifiersText.Length; i++)
+        if (GameManager.Instance.SkillTreeMods == null)
         {
-            foreach (var kvp in GameManager.Instance.ModDict)
+            return;
+        }
+
+        for (int i = 0; i < spellModifiersText.Length; i++) {
+
+            foreach (var kvp in GameManager.Instance.SkillTreeMods)
             {
-                ModifierInfo modifier_text = kvp.Value;
-                spellModifiersText[i].text = "Modifier " + (i + 1) + modifier_text.description;
-                Debug.Log($"modifier text: " + modifier_text.description);
+                SpellSlot skill_slot_info = kvp.Value;
+                if (skill_slot_info.spell_slot == GameManager.Instance.currentSpellSelected + 1)
+                {
+                    spellModifiersText[i].text = "Modifier: " + skill_slot_info.available_modifiers[i].name + 
+                    "\nCost = " + skill_slot_info.available_modifiers[i].cost.ToString() + " Skill Points";
+                }
             }
+
         }
     }
 
     private void PurchaseModifier(int cost, string modifierName)
     {
-        if (GameManager.Instance.SkillPoints < cost)
-        {
-            return;
-        }
-
         GameManager.Instance.SkillPoints -= cost;
 
-        Modifiers.AddModifier(GameManager.Instance.player.GetComponent<PlayerController>().spellcaster, GameManager.Instance.spells[GameManager.Instance.currentSpellSelected], modifierName);
+        Modifier.AddModifier(GameManager.Instance.player.GetComponent<PlayerController>().spellcaster, GameManager.Instance.spells[GameManager.Instance.currentSpellSelected], modifierName);
     }
 
     public void ModiferClicked(int modifierIndex)
     {
-        modifiersPurchased[GameManager.Instance.currentSpellSelected][modifierIndex] = 1;
-
-        if (GameManager.Instance.SkillTreeMods != null)
+        
+        if (GameManager.Instance.SkillTreeMods == null)
         {
-            foreach (var kvp in GameManager.Instance.SkillTreeMods)
+            return;
+        }
+
+        foreach (var kvp in GameManager.Instance.SkillTreeMods)
+        {
+            SpellSlot skill_slot_info = kvp.Value;
+            if (skill_slot_info.spell_slot == GameManager.Instance.currentSpellSelected + 1)
             {
-                SpellSlot skill_slot_info = kvp.Value;
-                Debug.Log("slot: " + skill_slot_info.spell_slot + " sprite: " + skill_slot_info.sprite + " cost: " + skill_slot_info.spell_cost);
-                foreach (var modifier in skill_slot_info.available_modifiers)
+                if (GameManager.Instance.SkillPoints < skill_slot_info.available_modifiers[modifierIndex].cost)
                 {
-                    Debug.Log("modifier: " + modifier.name + " cost: " + modifier.cost);
+                    return;
                 }
+
+                PurchaseModifier(skill_slot_info.available_modifiers[modifierIndex].cost, skill_slot_info.available_modifiers[modifierIndex].name);
             }
         }
+
+        modifiersPurchased[GameManager.Instance.currentSpellSelected][modifierIndex] = 1;
 
         modifierButtons[modifierIndex].SetActive(false);
 
