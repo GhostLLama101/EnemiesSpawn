@@ -66,6 +66,12 @@ public class SpellInventoryManager : MonoBehaviour
                 sp_icon_man.PlaceSprite(spellData.icon, spellObjects[j].transform.Find("spellicon").GetComponent<Image>());
                 //TODO: I think update the other things like mana and damage too
 
+                /* SpellUI manaUpdate = playerSpells[i];
+                manaUpdate.SetSpell(manaUpdate);
+
+                SpellUI dmgUpdate = playerSpells[i];
+                dmgUpdate.SetSpell(dmgUpdate); */
+
                 Button button = spellObjects[j].GetComponent<Button>();
                 button.onClick.RemoveAllListeners();
                 button.onClick.AddListener(() => {

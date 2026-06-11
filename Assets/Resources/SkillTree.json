@@ -1,4 +1,4 @@
-{
+/* {
   "slot1": {
     "spell_slot": 1,
     "spell_cost": -1,
@@ -71,6 +71,85 @@
       },
       { "name": "whirlpool",
         "cost": 15
+      }
+    ]
+  }
+} */
+
+{
+  "slot1": {
+    "spell_slot": 1,
+    "spell_cost": -1,
+    "sprite": 0,
+    "available_modifiers": [
+      {
+        "name": "damage_amp",
+        "cost": 1
+      },
+      {
+        "name": "firerate_amp",
+        "cost": 1
+      },
+      {
+        "name": "doubled",
+        "cost": 1
+      }
+    ]
+  },
+  "slot2": {
+    "spell_slot": 2,
+    "spell_cost": 1,
+    "sprite": 0,
+    "available_modifiers": [
+      {
+        "name": "doubled",
+        "cost": 1
+      },
+      {
+        "name": "splitter",
+        "cost": 1
+      },
+      {
+        "name": "octuple",
+        "cost": 1
+      }
+    ]
+  },
+  "slot3": {
+    "spell_slot": 3,
+    "spell_cost": 1,
+    "sprite": 0,
+    "available_modifiers": [
+      {
+        "name": "chaos",
+        "cost": 1
+      },
+      {
+        "name": "homing",
+        "cost": 1
+      },
+      {
+        "name": "speed_amp",
+        "cost": 1
+      }
+    ]
+  },
+  "slot4": {
+    "spell_slot": 4,
+    "spell_cost": 1,
+    "sprite": 0,
+    "available_modifiers": [
+      {
+        "name": "firerate_amp",
+        "cost": 1
+      },
+      {
+        "name": "lance",
+        "cost": 1
+      },
+      {
+        "name": "whirlpool",
+        "cost": 1
       }
     ]
   }
