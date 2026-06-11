@@ -13,7 +13,7 @@
         "cost": 10
       },
       { 
-        "name": "doubler",
+        "name": "doubled",
         "cost": 15
       }
     ]
@@ -24,7 +24,7 @@
     "sprite": 0,
     "available_modifiers": [
       { 
-        "name": "doubler",
+        "name": "doubled",
         "cost": 10
       },
       { 

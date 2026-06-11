@@ -70,7 +70,15 @@ public class SpellTreeManager : MonoBehaviour
     {
         GameManager.Instance.SkillPoints -= cost;
 
-        Modifier.AddModifier(GameManager.Instance.player.GetComponent<PlayerController>().spellcaster, GameManager.Instance.spells[GameManager.Instance.currentSpellSelected], modifierName);
+        int index = GameManager.Instance.currentSpellSelected;
+        SpellCaster spellcaster = GameManager.Instance.player.GetComponent<PlayerController>().spellcaster;
+
+        GameManager.Instance.spells[index] = Modifier.AddModifier(
+            spellcaster,
+            GameManager.Instance.spells[index],
+            modifierName
+        );
+        
     }
 
     public void ModiferClicked(int modifierIndex)
@@ -90,7 +98,7 @@ public class SpellTreeManager : MonoBehaviour
                 {
                     return;
                 }
-
+                Debug.Log("cost: " + skill_slot_info.available_modifiers[modifierIndex].cost + "name: " + skill_slot_info.available_modifiers[modifierIndex].name);
                 PurchaseModifier(skill_slot_info.available_modifiers[modifierIndex].cost, skill_slot_info.available_modifiers[modifierIndex].name);
             }
         }
